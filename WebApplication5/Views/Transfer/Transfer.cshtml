@@ -1,0 +1,34 @@
+﻿@model NetCash.Models.Transfer
+
+@{
+    ViewBag.Title = "Transfer";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "Transfer failed. Check your transfer details");
+
+    <div>
+        <fieldset>
+            <legend>Transfer Funds</legend>
+
+            <div>
+                @Html.LabelFor(t => t.TargetAccountNumber)
+            </div>
+            <div>
+                @Html.TextBoxFor(t => t.TargetAccountNumber)
+                @Html.ValidationMessageFor(t => t.TargetAccountNumber)
+            </div>
+            <div>
+                @Html.LabelFor(t => t.TransferAmount)
+            </div>
+            <div>
+                @Html.TextBoxFor(t => t.TransferAmount)
+                @Html.ValidationMessageFor(t => t.TransferAmount)
+            </div>
+            <input type="submit" value="Confirm" />
+        </fieldset>
+    </div>
+}
+
+
