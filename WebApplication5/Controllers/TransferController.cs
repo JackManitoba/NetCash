@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -23,7 +24,8 @@ namespace NetCash.Controllers
         [HttpPost]
         public ActionResult Transfer(Models.Transfer transfer)
         {
-            Models.Account CurrentAccount = new Models.Account("12345678");
+            transfer.CurrentAccountNumber = Session["AccountNumber"].ToString();
+            Models.Account CurrentAccount = new Models.Account(transfer.CurrentAccountNumber);
             Models.Account TargetAccount = new Models.Account(transfer.TargetAccountNumber);
 
             if(CurrentAccount.AreFundsAvailable(transfer.TransferAmount))

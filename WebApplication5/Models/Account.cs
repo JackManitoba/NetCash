@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -53,6 +54,7 @@ namespace NetCash.Models
 
         public void UpdateAmount(double _amount)
         {
+            Debug.Write(_amount);
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"UPDATE [dbo].[Account] Set [Balance]=@b WHERE [AccountNumber] = @a ";
@@ -72,7 +74,6 @@ namespace NetCash.Models
                 cmd.Dispose();
                 connection.Dispose();
             }
-
         }
 
         public bool AreFundsAvailable(double Balance)

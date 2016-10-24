@@ -4,10 +4,45 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <button onclick="location.href='@Url.Action("Transfer", "Transfer")';return false;">Transfer</button>
+    <div class="container">
+        <header>
+            <h1>Net Cash</h1>
+        </header>
+        @if (Request.IsAuthenticated)
+        {
+            <nav>
+                <ul>
+                    <li>
+                        <button onclick="location.href='@Url.Action("Transfer", "Transfer")';return false;">Transfer</button>
+                    </li>
+                    <li>
+                        <button onclick="location.href='@Url.Action("Logout", "User")';return false;">Log Out</button>
+                    </li>
+                </ul>
+            </nav>
+        }
+        else
+        {
+            <nav>
+                <ul>
+                    <li>
+                        <button onclick="location.href='@Url.Action("Login", "User")';return false;">Log In</button>
+                    </li>
+                </ul>
+            </nav>
+        }
+        <article>
+            @RenderSection("article", false)
+        </article>
+
+        <footer>Copyright © Jack, Marc, Dermit, and R-Eoin 2K16</footer>
+    </div>
     @RenderBody()
-    @Scripts.Render("~/ bundles / jquery")
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

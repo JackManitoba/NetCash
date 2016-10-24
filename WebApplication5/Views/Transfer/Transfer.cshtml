@@ -2,7 +2,10 @@
 
 @{
     ViewBag.Title = "Transfer";
+    Layout = "/Views/Shared/_Layout.cshtml";
 }
+
+@section article {
 
 @using (Html.BeginForm())
 {
@@ -30,5 +33,9 @@
         </fieldset>
     </div>
 }
+    }
+
+
+
 
 

@@ -16,6 +16,10 @@ namespace NetCash.Models
         [Display(Name = "Transfer Amount")]
         public double TransferAmount { get; set; }
 
+        public string CurrentAccountNumber { get; set; }
+
+
+
 
 
     }
