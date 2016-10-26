@@ -1,0 +1,44 @@
+﻿@model NetCash.Models.Mortgage
+@section article {
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true, "Application failed. Check your loan application details");
+
+        <div>
+            <fieldset>
+                <legend>sdff</legend>
+
+                <div>
+                    @Html.LabelFor(m => m.AmountRequired)
+                </div>
+                <div>
+                    @Html.TextBoxFor(m => m.AmountRequired)
+                    @Html.ValidationMessageFor(m => m.AmountRequired)
+                </div>
+                <div>
+                    @Html.LabelFor(m => m.PeriodOfRepayment)
+                </div>
+                <div>
+                    @Html.TextBoxFor(m => m.PeriodOfRepayment)
+                    @Html.ValidationMessageFor(m => m.PeriodOfRepayment)
+                </div>
+                <div>
+                    @Html.LabelFor(m => m.PriceOfHouse)
+                </div>
+                <div>
+                    @Html.TextBoxFor(m => m.PriceOfHouse)
+                    @Html.ValidationMessageFor(m => m.PriceOfHouse)
+                </div>
+                <div>
+                    @Html.LabelFor(m => m.SizeOfHouse)
+                </div>
+                <div>
+                    @Html.TextBoxFor(m => m.SizeOfHouse)
+                    @Html.ValidationMessageFor(m => m.SizeOfHouse)
+                </div>
+                <input type="submit" value="Confirm" />
+            </fieldset>
+        </div>
+    }
+    }

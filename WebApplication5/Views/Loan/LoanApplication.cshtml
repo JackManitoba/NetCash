@@ -1,0 +1,34 @@
+﻿@model NetCash.Models.LoanSelector
+
+@{
+    ViewBag.Title = "Loan";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+@section article {
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true, "Application failed. Check your loan application details");
+
+        <div>
+            <fieldset>
+                <legend>Loan Application</legend>
+
+                <div>
+                    @Html.LabelFor(l => l.LoanChoice)
+                </div>
+                <div>
+                    @Html.DropDownListFor(l => l.LoanChoice, new SelectList(Model.LoanTypeOptions,
+                               "LoanTypeID", "Value",
+                               Model.LoanTypeOptions.First().LoanTypeID))
+                </div>
+                <input type="submit" value="Confirm" />              
+                </fieldset>
+            </div>
+    }
+    }
+
+
+
+
