@@ -192,6 +192,9 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ATMControllers\ATMFunctionsController.cs" />
+    <Compile Include="Controllers\ATMControllers\ATMHomeController.cs" />
+    <Compile Include="Controllers\ATMControllers\ATMUserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TransferController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -199,6 +202,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\ATMModels\ATMTransaction.cs" />
+    <Compile Include="Models\ATMModels\ATMUser.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Transfer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -233,7 +238,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -245,8 +252,19 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Transfer\Transfer.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\ATMUser\ATMLogin.cshtml" />
+    <Content Include="Views\ATMHome\ATMIndex.cshtml" />
+    <Content Include="Views\ATMHome\Index.cshtml" />
+    <Content Include="Views\ATMFunctions\Withdrawal.cshtml" />
+    <Content Include="Views\ATMFunctions\AccountInfo.cshtml" />
+    <Content Include="Views\ATMFunctions\Deposit.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="bin\" />
+    <Folder Include="Views\ATMTransaction\" />
+    <Folder Include="Views\ATMViews\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

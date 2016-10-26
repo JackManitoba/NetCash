@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "ATMLogin";
+}
+
+<h2>ATMLogin</h2>
+@model WebApplication5.Models.ATMModels.ATMUser
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+@section article {
+
+    @using (Html.BeginForm())
+    { 
+
+
+        @Html.ValidationSummary(true, "PIN Not Recognized");
+
+
+        <div>
+            <fieldset>
+                <legend>ATM Login</legend>
+                
+                <div class="editor-field">
+                    @Html.TextBoxFor(u => u.cardNumber)
+                    @Html.ValidationMessageFor(u => u.cardNumber)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(u => u.PIN)
+                </div>
+                <div class="editor-field">
+                    @Html.PasswordFor(u => u.PIN)
+                    @Html.ValidationMessageFor(u => u.PIN)
+                </div>
+                
+                <input type="submit" value="Start" />
+            </fieldset>
+        </div>
+    }
+
+    }
