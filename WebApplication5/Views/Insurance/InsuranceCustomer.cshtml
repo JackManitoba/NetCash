@@ -1,0 +1,42 @@
+﻿@model NetCash.Models.Insurance
+@{
+    ViewBag.Title = "InsuranceCustomer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.HttpMethod != "POST")
+{
+<h2>InsuranceCustomer</h2>
+@section article {
+
+    @using (Html.BeginForm())
+    {
+        <div>
+            <fieldset>
+                <legend>Insurance query</legend>
+
+                <div>
+                    @Html.LabelFor(l => l.age)
+                    @Html.TextBoxFor(c => c.age)
+                    @Html.ValidationMessageFor(c => c.age)
+                </div>
+
+                <div>
+                    @Html.LabelFor(l => l.risk)
+                </div>
+                <div>
+                    @Html.DropDownListFor(l => l.risk, new SelectList(Model.InsuranceRisk,
+                         "InsuranceRisk", "Value",
+                         Model.InsuranceRisk.First().InsuranceRisk))
+                </div>
+                <input type="submit" value="Confirm" />
+            </fieldset>
+        </div>
+    }
+    }
+
+}
+else
+{
+    @section article { thank you }
+}

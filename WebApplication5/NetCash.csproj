@@ -195,6 +195,7 @@
     <Compile Include="Controllers\ATMControllers\ATMFunctionsController.cs" />
     <Compile Include="Controllers\ATMControllers\ATMHomeController.cs" />
     <Compile Include="Controllers\ATMControllers\ATMUserController.cs" />
+    <Compile Include="Controllers\InsuranceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoanController.cs" />
     <Compile Include="Controllers\TransferController.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="Models\AccountStates\OverdrawnState.cs" />
     <Compile Include="Models\AccountStates\State.cs" />
     <Compile Include="Models\CarLoan.cs" />
+    <Compile Include="Models\Insurance.cs" />
     <Compile Include="Models\LoanFactory.cs" />
     <Compile Include="Models\Mortgage.cs" />
     <Compile Include="Models\Loan.cs" />
@@ -222,7 +224,7 @@
     <Content Include="App_Data\Database1_log.ldf">
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
-    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\StyleSheets\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\StyleSheets\StyleSheet1.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -266,6 +268,7 @@
     <Content Include="Views\Loan\LoanApplication.cshtml" />
     <Content Include="Views\Loan\MortgageForm.cshtml" />
     <Content Include="Views\Loan\CarLoanForm.cshtml" />
+    <Content Include="Views\Insurance\InsuranceCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -274,6 +277,7 @@
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
