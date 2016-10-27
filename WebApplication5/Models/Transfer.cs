@@ -18,9 +18,5 @@ namespace NetCash.Models
 
         public string CurrentAccountNumber { get; set; }
 
-
-
-
-
     }
 }

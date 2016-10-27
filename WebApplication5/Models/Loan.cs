@@ -19,5 +19,10 @@ namespace NetCash.Models
         [DataType(DataType.Time)]
         public string PeriodOfRepayment { get; set; }
 
+        public void SubmitApplication()
+        {
+            Console.WriteLine("class");
+        }
+
     }
 }

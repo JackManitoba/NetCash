@@ -202,7 +202,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\AccountStates\Account.cs" />
+    <Compile Include="Models\AccountStates\BalancedState.cs" />
+    <Compile Include="Models\AccountStates\OverdrawnState.cs" />
+    <Compile Include="Models\AccountStates\State.cs" />
     <Compile Include="Models\CarLoan.cs" />
     <Compile Include="Models\LoanFactory.cs" />
     <Compile Include="Models\Mortgage.cs" />
@@ -212,7 +215,6 @@
     <Compile Include="Models\ATMModels\ATMUser.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Transfer.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

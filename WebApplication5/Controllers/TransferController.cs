@@ -25,8 +25,8 @@ namespace NetCash.Controllers
         public ActionResult Transfer(Models.Transfer transfer)
         {
             transfer.CurrentAccountNumber = Session["AccountNumber"].ToString();
-            Models.Account CurrentAccount = new Models.Account(transfer.CurrentAccountNumber);
-            Models.Account TargetAccount = new Models.Account(transfer.TargetAccountNumber);
+            Models.AccountStates.Account CurrentAccount = new Models.AccountStates.Account(transfer.CurrentAccountNumber);
+            Models.AccountStates.Account TargetAccount = new Models.AccountStates.Account(transfer.TargetAccountNumber);
 
             if(CurrentAccount.AreFundsAvailable(transfer.TransferAmount))
             {
