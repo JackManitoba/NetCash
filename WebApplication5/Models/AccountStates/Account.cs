@@ -14,6 +14,8 @@ namespace NetCash.Models.AccountStates
     {
         public State state;
 
+        public string EncodingType;
+
         [Required]
         [Display(Name = "Account Number")]
         public string AccountNumber { get; set; }
@@ -27,12 +29,18 @@ namespace NetCash.Models.AccountStates
             this.AccountNumber = _accountnumber;
             this.Balance = GetBalance();
             this.state = GetState();
+            this.EncodingType = GetEncodingType();
+        }
+
+        private string GetEncodingType()
+        {
+            return "SHA1";
         }
 
         private State GetState()
         {
-            return new BalancedState(this);
-            //read from database
+            if (Balance >= 0.0) return new BalancedState(this);
+            else return new OverdrawnState(this);
         }
 
         private double GetBalance()
@@ -41,7 +49,6 @@ namespace NetCash.Models.AccountStates
 
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
-
                 string _sql = @"SELECT [Balance] From [dbo].[Account] WHERE [AccountNumber] = @a ";
 
                 var cmd = new SqlCommand(_sql, connection);
@@ -56,9 +63,7 @@ namespace NetCash.Models.AccountStates
                 cmd.Dispose();
                 connection.Dispose();
             }
-
             return balance;
-
         }
 
         public void UpdateAmount(double _amount)
@@ -68,10 +73,8 @@ namespace NetCash.Models.AccountStates
 
         public bool AreFundsAvailable(double Balance)
         {
-                if (GetBalance() >= Balance) return true;
-                else return false;
-
-            
+                if (GetBalance() + 100 >= Balance) return true;
+                else return false;         
         }
     }
 }

@@ -12,12 +12,13 @@ namespace NetCash.Models.AccountStates
     public class BalancedState : State
     {
         private double InterestRate;
+
         public BalancedState(State state): this(state.account)
         {
         }
 
         public BalancedState(Account account)
-        {
+        { 
             this.account = account;
             this.Balance = account.Balance;
             this.InterestRate = GetInterestRate();
@@ -46,11 +47,9 @@ namespace NetCash.Models.AccountStates
             }
         }
 
-        
-
         private double GetInterestRate()
         {
-            return 100.00;
+            return 2.00;
         }
 
         public override void PayInterest()
@@ -58,12 +57,7 @@ namespace NetCash.Models.AccountStates
             throw new NotImplementedException();
         }
 
-        public override void Transfer(double amount)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void StateChangeCheck()
+        public override void StateChangeCheck()
         {
             if(Balance < 0.0)
             {

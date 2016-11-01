@@ -8,13 +8,11 @@ namespace NetCash.Models.AccountStates
         public double Balance { get; set; }
 
         protected double interest;
-        protected double lowerLimit;
-        protected double upperLimit;
 
         protected DateTime LastInterestPaid;
-
-        public abstract void Transfer(double amount);
+        
         public abstract void PayInterest();
         public abstract void UpdateAmount(double amount);
+        public abstract void StateChangeCheck();
     }
 }

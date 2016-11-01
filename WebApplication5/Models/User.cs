@@ -11,6 +11,8 @@ namespace NetCash.Models
 {
     public class User
     {
+        Helpers.IEncryptionHelper EncryptionHelper;
+        public string EncryptionType;
 
         [Required]
         [Display(Name = "Email")]
@@ -40,7 +42,7 @@ namespace NetCash.Models
                     .Value = _email;
                 cmd.Parameters
                     .Add(new SqlParameter("@p", SqlDbType.NVarChar))
-                    .Value = _password;
+                    .Value = EncryptionHelper.Encode(_password);
                 connection.Open();
                 var reader = cmd.ExecuteReader();
                 if (reader.Read())

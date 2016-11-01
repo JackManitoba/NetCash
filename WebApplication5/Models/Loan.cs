@@ -23,6 +23,5 @@ namespace NetCash.Models
         {
             Console.WriteLine("class");
         }
-
     }
 }

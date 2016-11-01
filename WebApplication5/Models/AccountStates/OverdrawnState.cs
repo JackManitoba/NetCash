@@ -13,15 +13,21 @@ namespace NetCash.Models.AccountStates
     {
         private double InterestRate;
 
-        public OverdrawnState(State state)
+        public OverdrawnState(State state): this(state.account)
+        {
+        }
+
+        public OverdrawnState(Account account)
         {
             this.account = account;
-            this.Balance = state.Balance;
+            this.Balance = account.Balance;
             this.InterestRate = GetInterestRate();
         }
 
         public override void UpdateAmount(double _amount)
         {
+            Balance += _amount;
+
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"UPDATE [dbo].[Account] Set [Balance]=@b WHERE [AccountNumber] = @a ";
@@ -32,7 +38,7 @@ namespace NetCash.Models.AccountStates
                     .Value = account.AccountNumber;
                 cmd.Parameters
                     .Add(new SqlParameter("@b", SqlDbType.Money))
-                    .Value = Balance + _amount;
+                    .Value = Balance;
 
                 connection.Open();
 
@@ -41,11 +47,13 @@ namespace NetCash.Models.AccountStates
                 cmd.Dispose();
                 connection.Dispose();
             }
+
+            StateChangeCheck();
         }
 
         private double GetInterestRate()
         {
-            return 100.00;
+            return 2.00;
         }
 
         public override void PayInterest()
@@ -53,14 +61,7 @@ namespace NetCash.Models.AccountStates
             throw new NotImplementedException();
         }
 
-
-
-        public override void Transfer(double amount)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void StateChangeCheck()
+        public override void StateChangeCheck()
         {
             if (Balance > 0.0)
             {
