@@ -126,6 +126,7 @@ namespace ATMVERSION2.UserInterface.Panels
         public override void clear()
         {
             confirmLabel.Text = "";
+            this.navData.setNavigationPanelName("");
         }
         public override void enter()
         {
