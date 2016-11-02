@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace ATMVERSION2.UserInterface.Panels
 {
-
   public class PanelFactory
     {
         public ATMPanel getPanel(string identifier)
@@ -50,9 +49,7 @@ namespace ATMVERSION2.UserInterface.Panels
                         break;
                     }
             }
-
             return p;
         }
-
     }
 }

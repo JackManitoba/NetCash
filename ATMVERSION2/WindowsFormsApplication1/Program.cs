@@ -62,15 +62,12 @@ namespace WindowsFormsApplication1
             NavigationDataClass navClass = mainView.getNavigationClass();
             PanelFactory pf = new PanelFactory();
 
-
             if (mainView.getCurrentPanel().name.Equals("PinPanel"))
             {
                 PinPanel p = (PinPanel)mainView.getCurrentPanel();
                 bool validate = account.attempToVerify(p.getInput().Text);
                 if (validate)
                 {
-
-
                     controller.setPanel(pf.getPanel(navClass.getNavigationPanelName()));
                 }
                 else

@@ -7,20 +7,24 @@ namespace ATMVERSION2.HelperClasses
     {
         protected string navigationMap;
 
-        public NavigationDataClass() { navigationMap = "";
-
+        public NavigationDataClass()
+        {
+            navigationMap = "";
         }
 
-        public void addNavigaion(string panelName) { navigationMap = panelName; }
-
+        public void addNavigaion(string panelName)
+        {
+            navigationMap = panelName;
+        }
 
         public string getNavigationPanelName()
         {
+            return navigationMap;
+        }
 
-            return navigationMap; }
         public void setNavigationPanelName(string panelname)
-        {  navigationMap = panelname; }
-
-
+        {
+            navigationMap = panelname;
+        }
     }
 }

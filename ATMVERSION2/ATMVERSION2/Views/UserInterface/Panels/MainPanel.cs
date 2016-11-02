@@ -69,13 +69,9 @@ namespace ATMVERSION2.UserInterface.Panels
             exitLabel.Text = "EXIT : 6";
             exitLabel.SetBounds((this.Width - 47), ((this.Height / 2) + 80), 100, 40);
             this.Controls.Add(exitLabel);
-
-
         }
-
-        
+          
     
-
         public override void update(Subject e)
         {
             ATMButton b = (ATMButton)e;
@@ -115,7 +111,6 @@ namespace ATMVERSION2.UserInterface.Panels
                 //exitLabel
                 this.navData.setNavigationPanelName("LOGOUT");
             }
-
         }
 
         public override void cancel()
@@ -140,8 +135,5 @@ namespace ATMVERSION2.UserInterface.Panels
                 confirmLabel.Text = "PLEASE ENTER A SELECTION";
             }
         }
-
-
-
     }
 }

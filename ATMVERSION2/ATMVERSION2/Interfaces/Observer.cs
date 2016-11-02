@@ -8,12 +8,9 @@ namespace ATMVERSION2.Interfaces
 {
     public interface Observer
     {
-
         List<Subject> subjectList { get; }
 
         void update();
         void update(Subject e);
-
-
     }
 }

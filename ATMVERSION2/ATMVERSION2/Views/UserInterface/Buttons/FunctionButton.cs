@@ -11,8 +11,7 @@ namespace ATMVERSION2.UserInterface.Buttons
     {
 
         public FunctionButton() { }
-
-
+        
 
         public void setColour(string colour)
         {

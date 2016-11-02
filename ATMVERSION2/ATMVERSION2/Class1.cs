@@ -25,10 +25,6 @@ namespace ATMVERSION2
             PinVerificationController controller = new PinVerificationController(account, mainView);
             controller.setPanel(currentPanel);
             mainView.Activate();
-
-
-
         }
-        
     }
 }

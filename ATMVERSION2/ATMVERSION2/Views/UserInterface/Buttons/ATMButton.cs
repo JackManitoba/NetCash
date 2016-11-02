@@ -10,7 +10,6 @@ namespace ATMVERSION2.UserInterface.Buttons
 {
     public class ATMButton : Button, Subject, Invoker
     {
-
         //ATMBUTTON NOW ACTS AS A SUBJECT -- WILL BE MADE TO INHERIT KEYPADSUBJECT INTERFACE
         private List<Observer> observerList;
         public ATMButton() { observerList = new List<Observer>(); }
@@ -22,8 +21,6 @@ namespace ATMVERSION2.UserInterface.Buttons
             {
                 return this.observerList;
             }
-
-
         }
 
 
@@ -35,7 +32,6 @@ namespace ATMVERSION2.UserInterface.Buttons
             {
                 i.update(this);
             }
-
         }
 
         public void registerObserver(Observer e)

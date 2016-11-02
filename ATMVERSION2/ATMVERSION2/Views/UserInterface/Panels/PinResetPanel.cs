@@ -47,7 +47,6 @@ namespace ATMVERSION2.UserInterface.Panels
             pinEntryBox.Text += b.Text;
             pinEntryBox.Update();
         }
-
         public override void cancel()
         {
             this.navData.setNavigationPanelName("LOGOUT");
@@ -70,7 +69,5 @@ namespace ATMVERSION2.UserInterface.Panels
         {
             return pinEntryBox;
         }
-
-
     }
 }
