@@ -19,6 +19,7 @@ namespace ATMVERSION2.UserInterface.Panels
         protected static Label pinResetLabel;
         protected static Label printReceiptLabel;
         protected static Label exitLabel;
+        protected static Label confirmLabel;
         public MainPanel()
         {
             this.name = "MainPanel";
@@ -32,6 +33,12 @@ namespace ATMVERSION2.UserInterface.Panels
             netCashLabel.Text = "NET-CASH";
             netCashLabel.SetBounds(((this.Width / 2) - 30), ((this.Height / 2) - 30), 100, 40);
             this.Controls.Add(netCashLabel);
+
+            confirmLabel = new Label();
+            confirmLabel.Text = "";
+            confirmLabel.ForeColor = System.Drawing.Color.Blue;
+            confirmLabel.SetBounds(((this.Width / 2) - 70), ((this.Height / 2)-70), 150, 40);
+            this.Controls.Add(confirmLabel);
 
             withdrawalLabel = new Label();
             withdrawalLabel.Text = "1 : WITHDRAWAL";
@@ -74,50 +81,64 @@ namespace ATMVERSION2.UserInterface.Panels
             ATMButton b = (ATMButton)e;
             if (b.Text == "1")
             {
+                confirmLabel.Text = "WITHDRAWAL SELECTED, CONFIRM SELECTION? : ENTER";
                 //Change to withdrawalLabel Panel
-                this.navData.setNavigationPanelName(0, "WITHDRAWAL");
+                this.navData.setNavigationPanelName("WITHDRAWAL");
             }
             else if (b.Text == "2")
             {
+                confirmLabel.Text = "BALANCE SELECTED, CONFIRM SELECTION? : ENTER";
                 //Change to balanceLabel Panel
-                this.navData.setNavigationPanelName(0, "BALANCE");
+                this.navData.setNavigationPanelName("BALANCE");
             }
             else if (b.Text == "3")
             {
+                confirmLabel.Text = "DEPOSIT SELECTED, CONFIRM SELECTION? : ENTER";
                 //Change to depositLabel Panel
-                this.navData.setNavigationPanelName(0, "DEPOSIT");
+                this.navData.setNavigationPanelName("DEPOSIT");
             }
             else if (b.Text == "4")
             {
+                confirmLabel.Text = "PIN RESET SELECTED, CONFIRM SELECTION? : ENTER";
                 //Change to Pin Reset Panel
-                this.navData.setNavigationPanelName(0, "PINRESET");
+                this.navData.setNavigationPanelName("PINRESET");
             }
             else if (b.Text == "5")
             {
+                confirmLabel.Text = "PRINT SELECTED, CONFIRM SELECTION? : ENTER";
                 //print receipt
-                this.navData.setNavigationPanelName(0, "PRINT");
+                this.navData.setNavigationPanelName("PRINT");
             }
             else if (b.Text == "6")
             {
+                confirmLabel.Text = "EXIT SELECTED, CONFIRM SELECTION? : ENTER";
                 //exitLabel
-                this.navData.setNavigationPanelName(0, "LOGOUT");
+                this.navData.setNavigationPanelName("LOGOUT");
             }
 
         }
 
         public override void cancel()
         {
-            this.navData.setNavigationPanelName(0, "LOGOUT");
+            this.navData.setNavigationPanelName("LOGOUT");
             notifyObservers();
         }
         public override void clear()
         {
-
+            confirmLabel.Text = "";
+            this.navData.setNavigationPanelName("");
         }
         public override void enter()
         {
-            Debug.WriteLine("Selection : "+ navData.getNavigationPanelName(0) );
-            notifyObservers();
+            if (this.navData.getNavigationPanelName() != "")
+            {
+                Debug.WriteLine("Selection : " + navData.getNavigationPanelName());
+                notifyObservers();
+            }
+            else
+            {
+                confirmLabel.Text = "PLEASE ENTER A SELECTION";
+            }
         }
 
 

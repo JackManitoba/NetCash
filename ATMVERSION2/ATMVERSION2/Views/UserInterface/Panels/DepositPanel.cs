@@ -31,6 +31,7 @@ namespace ATMVERSION2.UserInterface.Panels
 
             amountEntryBox = new System.Windows.Forms.TextBox();
             amountEntryBox.Name = "ENTER AMOUNT";
+            amountEntryBox.ReadOnly = true;
             amountEntryBox.Text = "";
             amountEntryBox.SetBounds(((this.Width / 2) - 50), (this.Height / 2 + 30), 100, 40);
             this.Controls.Add(amountEntryBox);
@@ -50,7 +51,7 @@ namespace ATMVERSION2.UserInterface.Panels
 
         public override void cancel()
         {
-            this.navData.setNavigationPanelName(0, "LOGOUT");
+            this.navData.setNavigationPanelName("LOGOUT");
             notifyObservers();
         }
         public override void clear()
@@ -60,8 +61,8 @@ namespace ATMVERSION2.UserInterface.Panels
         }
         public override void enter()
         {
-            this.navData.setNavigationPanelName(0, "MAIN");
-            Debug.WriteLine("Selection : " + navData.getNavigationPanelName(0));
+            this.navData.setNavigationPanelName("MAIN");
+            
             notifyObservers();
         }
         public override TextBox getInput()

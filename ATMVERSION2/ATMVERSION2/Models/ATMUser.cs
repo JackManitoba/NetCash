@@ -26,7 +26,9 @@ namespace ATMVERSION2.Models
             this.accountNumber="";
 
             setupPin();
+            setupAccountNumber();
             retrieveBalance();
+
             
         }
 
@@ -48,7 +50,7 @@ namespace ATMVERSION2.Models
                         this.pin = reader.GetString(reader.GetOrdinal("PIN"));
                         this.pin = this.pin.Replace(" ", "");
                         Debug.WriteLine("---------------------------PIN RETRIEVED----------------------------"+this.pin);
-                        setupAccountNumber();
+                       
                     }
                 }
 
@@ -78,7 +80,7 @@ namespace ATMVERSION2.Models
                         this.accountNumber = reader.GetString(reader.GetOrdinal("AccountNumber"));
                         this.accountNumber = this.accountNumber.Replace(" ", "");
                         Debug.WriteLine("---------------------------AccountNumber RETRIEVED----------------------------" + this.accountNumber);
-                        retrieveBalance();
+                        
                     }
                 }
 
@@ -131,25 +133,31 @@ namespace ATMVERSION2.Models
 
         }
 
-
+   
         public bool attempToVerify(String pin)
         {
+            setupPin();
             //compare cardnumber and passed pin to database version
-            if (this.pin.Equals(pin))
+            if (pin.Length == 4)
             {
-               Debug.WriteLine("ATM Account is authorized to proceed");
-                return true;
+                if (this.pin.Equals(pin))
+                {
+                    Debug.WriteLine("ATM Account is authorized to proceed");
+                    //authorized not set true or false
+                    return true;
+                }
+                else
+                {
+                    Debug.WriteLine("Incorrect pin entered, decrement attempts left");
+                    return false;
+                }
             }
-            else
-            {
-                Debug.WriteLine("Incorrect pin entered, decrement attempts left");
-                return false;
-            }
-
+            else return false;
         }
 
         public void updateBalance()
         {
+            retrieveBalance();
             SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
             try
             {

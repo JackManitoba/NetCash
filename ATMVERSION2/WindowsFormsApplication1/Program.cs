@@ -62,15 +62,16 @@ namespace WindowsFormsApplication1
             NavigationDataClass navClass = mainView.getNavigationClass();
             PanelFactory pf = new PanelFactory();
 
-            if (verifiedSession == 0)
+
+            if (mainView.getCurrentPanel().name.Equals("PinPanel"))
             {
                 PinPanel p = (PinPanel)mainView.getCurrentPanel();
                 bool validate = account.attempToVerify(p.getInput().Text);
                 if (validate)
                 {
-                    verifiedSession = 1;
 
-                    controller.setPanel(pf.getPanel(navClass.getNavigationPanelName(0)));
+
+                    controller.setPanel(pf.getPanel(navClass.getNavigationPanelName()));
                 }
                 else
                 {
@@ -78,12 +79,12 @@ namespace WindowsFormsApplication1
                     controller.setPanel(pf.getPanel("PIN"));
                 }
             }
-
             else
             {
 
+
                 mainView = (ATMMainView)e;
-                if (navClass.getNavigationPanelName(0).Equals("LogoutPanel"))
+                if (navClass.getNavigationPanelName().Equals("LogoutPanel"))
                 { verifiedSession = 0; }
 
 
@@ -91,7 +92,7 @@ namespace WindowsFormsApplication1
                 if (mainView.getCurrentPanel().name.Equals("PinResetPanel"))
                 {
                     PinResetPanel p = (PinResetPanel)mainView.getCurrentPanel();
-                   string newPin =p.getInput().Text;
+                    string newPin = p.getInput().Text;
                     account.resetPin(newPin);
                     //controller.resetAccountPin(newPin);
                 }
@@ -100,20 +101,23 @@ namespace WindowsFormsApplication1
                 if (mainView.getCurrentPanel().name.Equals("WithdrawalPanel"))
                 {
                     WithdrawalPanel p = (WithdrawalPanel)mainView.getCurrentPanel();
-                   double amount = double.Parse(p.getInput().Text);
+                    double amount = double.Parse(p.getInput().Text);
                     Withdrawal withdrawal = new Withdrawal(account, amount);
                     controller.performWithdrawal(withdrawal);
                 }
 
                 if (mainView.getCurrentPanel().name.Equals("DepositPanel"))
                 {
-                   DepositPanel p = (DepositPanel)mainView.getCurrentPanel();
+                    DepositPanel p = (DepositPanel)mainView.getCurrentPanel();
                     double amount = double.Parse(p.getInput().Text);
-                   Deposit deposit = new Deposit(account, amount);
+                    Deposit deposit = new Deposit(account, amount);
                     controller.performDeposit(deposit);
                 }
 
-                controller.setPanel(pf.getPanel(navClass.getNavigationPanelName(0)));
+
+                controller.setPanel(pf.getPanel(navClass.getNavigationPanelName()));
+
+
                 if (mainView.getCurrentPanel().name.Equals("BalancePanel"))
                 {
                     BalancePanel p = (BalancePanel)mainView.getCurrentPanel();
@@ -121,6 +125,7 @@ namespace WindowsFormsApplication1
                 }
             }
         }
+        
         public static void insertCard()
         {
             account = new ATMUser("1111111111");
