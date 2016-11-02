@@ -46,19 +46,19 @@ namespace ATMVERSION2.UserInterface.Panels
 
         public override void cancel()
         {
-            this.navData.setNavigationPanelName(0, "PIN");
+            this.navData.setNavigationPanelName("PIN");
             notifyObservers();
 
         }
         public override void clear()
         {
-            this.navData.setNavigationPanelName(0, "PIN");
+            this.navData.setNavigationPanelName("PIN");
             notifyObservers();
 
         }
         public override void enter()
         {
-            this.navData.setNavigationPanelName(0, "PIN");
+            this.navData.setNavigationPanelName("PIN");
             notifyObservers();
         }
 

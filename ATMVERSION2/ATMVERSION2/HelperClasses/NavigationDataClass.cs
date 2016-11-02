@@ -5,25 +5,21 @@ namespace ATMVERSION2.HelperClasses
 {
     public class NavigationDataClass
     {
-        protected List<string> navigationMap;
+        protected string navigationMap;
 
-        public NavigationDataClass() { navigationMap = new List<string>(10);
+        public NavigationDataClass() { navigationMap = "";
 
-            for (int i = 0; i < navigationMap.Count; i++)
-            {
-                navigationMap[i] = "";
-            }
         }
 
-        public void addNavigaion(string panelName) { navigationMap.Add(panelName); }
+        public void addNavigaion(string panelName) { navigationMap = panelName; }
 
 
-        public string getNavigationPanelName(int i)
+        public string getNavigationPanelName()
         {
-            Debug.WriteLine(navigationMap[0]);
-            return navigationMap[i]; }
-        public void setNavigationPanelName(int i,string panelname)
-        {  navigationMap.Insert(i,panelname); }
+
+            return navigationMap; }
+        public void setNavigationPanelName(string panelname)
+        {  navigationMap = panelname; }
 
 
     }

@@ -30,6 +30,7 @@ namespace ATMVERSION2.UserInterface.Panels
 
             pinEntryBox = new System.Windows.Forms.TextBox();
             pinEntryBox.Name = "ENTER PIN";
+            pinEntryBox.ReadOnly = true;
             pinEntryBox.Text = "";
             pinEntryBox.SetBounds(((this.Width / 2) - 50), ((this.Height / 2) + 40), 100, 40);
             this.Controls.Add(pinEntryBox);
@@ -49,7 +50,7 @@ namespace ATMVERSION2.UserInterface.Panels
 
         public override void cancel()
         {
-            this.navData.setNavigationPanelName(0, "LOGOUT");
+            this.navData.setNavigationPanelName("LOGOUT");
             notifyObservers();
         }
         public override void clear()
@@ -61,7 +62,7 @@ namespace ATMVERSION2.UserInterface.Panels
         {
             if (pinEntryBox.Text.Length == 4)
             {
-                this.navData.setNavigationPanelName(0, "MAIN");
+                this.navData.setNavigationPanelName("MAIN");
                 notifyObservers();
             }
         }
