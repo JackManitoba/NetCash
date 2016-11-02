@@ -1,0 +1,49 @@
+﻿@model NetCash.Models.CarLoan
+@{
+    ViewBag.Title = "CarLoan";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+@section article {
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true, "Application failed. Check your loan application details");
+
+        <div>
+            <fieldset>
+                <legend>Car Loan Application</legend>
+
+                <div>
+                    @Html.LabelFor(c => c.AmountRequired)
+                </div>
+                <div>
+                    @Html.TextBoxFor(c => c.AmountRequired)
+                    @Html.ValidationMessageFor(c => c.AmountRequired)
+                </div>
+                <div>
+                    @Html.LabelFor(c => c.PeriodOfRepayment)
+                </div>
+                <div>
+                    @Html.TextBoxFor(c => c.PeriodOfRepayment)
+                    @Html.ValidationMessageFor(c => c.PeriodOfRepayment)
+                </div>
+                <div>
+                    @Html.LabelFor(c => c.PriceOfCar)
+                </div>
+                <div>
+                    @Html.TextBoxFor(c => c.PriceOfCar)
+                    @Html.ValidationMessageFor(c => c.PriceOfCar)
+                </div>
+                <div>
+                    @Html.LabelFor(c => c.TypeOfCar)
+                </div>
+                <div>
+                    @Html.TextBoxFor(c => c.TypeOfCar)
+                    @Html.ValidationMessageFor(c => c.TypeOfCar)
+                </div>
+                <input type="submit" value="Confirm" />
+            </fieldset>
+        </div>
+    }
+    }

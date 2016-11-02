@@ -207,6 +207,10 @@
     <Compile Include="Models\AccountStates\BalancedState.cs" />
     <Compile Include="Models\AccountStates\OverdrawnState.cs" />
     <Compile Include="Models\AccountStates\State.cs" />
+    <Compile Include="Models\Insurance\IInsuranceStrategy.cs" />
+    <Compile Include="Models\Insurance\Middle_Calculator.cs" />
+    <Compile Include="Models\Insurance\Old_Calculator.cs" />
+    <Compile Include="Models\Insurance\Young_Calculator.cs" />
     <Compile Include="Models\LoanStrategy\CarLoan.cs" />
     <Compile Include="Models\Insurance.cs" />
     <Compile Include="Models\LoanStrategy\ComplexLoanStrategy.cs" />
@@ -268,10 +272,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Transfer\Transfer.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
-    <Content Include="Views\Loan\LoanApplication.cshtml" />
-    <Content Include="Views\Loan\MortgageForm.cshtml" />
-    <Content Include="Views\Loan\CarLoanForm.cshtml" />
+    <Content Include="Views\Insurance\Loan\LoanApplication.cshtml" />
+    <Content Include="Views\Insurance\Loan\MortgageForm.cshtml" />
+    <Content Include="Views\Insurance\Loan\CarLoanForm.cshtml" />
     <Content Include="Views\Insurance\InsuranceCustomer.cshtml" />
+    <Content Include="Views\Insurance\DisplayPremium.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -280,12 +285,7 @@
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\Helpers.csproj">
-      <Project>{478c3a72-b9d6-46f1-a0c5-de7e3a06f332}</Project>
-      <Name>Helpers</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
