@@ -13,7 +13,6 @@ namespace ATMVERSION2
 {
     public class Main
     {
-
         public static void main()
         {  //MainView
             ATMMainView mainView = new ATMMainView();
