@@ -27,6 +27,7 @@ namespace NetCash.Controllers
         public ActionResult LoanApplication(Models.LoanSelector LoanSelector)
         {
             Choice = LoanSelector.LoanChoice;
+
             if (Choice == "0")
                 return RedirectToAction("CarLoanForm");
             else if (Choice == "1")
