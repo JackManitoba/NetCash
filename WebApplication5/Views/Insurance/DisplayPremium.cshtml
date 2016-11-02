@@ -1,0 +1,26 @@
+﻿@model NetCash.Models.Insurance
+
+@{
+    ViewBag.Title = "DisplayPremium";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section article {
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true, "Application failed. Check your loan application details");
+
+        <div>
+            <fieldset>
+                
+                <div>
+                    Your quote is : @Model.quote
+                </div>
+
+
+            </fieldset>
+        </div>
+    }
+}
+

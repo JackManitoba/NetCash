@@ -1,42 +1,50 @@
 ﻿@model NetCash.Models.Insurance
+
 @{
     ViewBag.Title = "InsuranceCustomer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (Request.HttpMethod != "POST")
-{
-<h2>InsuranceCustomer</h2>
 @section article {
 
     @using (Html.BeginForm())
     {
+        @Html.ValidationSummary(true, "Application failed. Check your loan application details");
+
         <div>
             <fieldset>
-                <legend>Insurance query</legend>
+                <legend>insurance Application</legend>
 
                 <div>
-                    @Html.LabelFor(l => l.age)
-                    @Html.TextBoxFor(c => c.age)
-                    @Html.ValidationMessageFor(c => c.age)
+                    @Html.LabelFor(l => l.AgeChoice)
+                </div>
+                <div>
+                    @Html.DropDownListFor(l => l.AgeChoice, new SelectList(Model.ageBracketOptions,
+                               "ageBracket", "Value",
+                               Model.ageBracketOptions.First().ageBracket))
                 </div>
 
                 <div>
-                    @Html.LabelFor(l => l.risk)
+                    @Html.LabelFor(l => l.InsuranceTypeChoice)
                 </div>
                 <div>
-                    @Html.DropDownListFor(l => l.risk, new SelectList(Model.InsuranceRisk,
-                         "InsuranceRisk", "Value",
-                         Model.InsuranceRisk.First().InsuranceRisk))
+                    @Html.DropDownListFor(l => l.InsuranceTypeChoice, new SelectList(Model.InsuranceTypeOptions,
+                               "InsuranceType", "Value",
+                               Model.InsuranceTypeOptions.First().InsuranceType))
                 </div>
+
+                <div>
+                    @Html.LabelFor(l => l.LocationChoice)
+                </div>
+                <div>
+                    @Html.DropDownListFor(l => l.LocationChoice, new SelectList(Model.LocationOptions,
+                               "Location", "Value",
+                               Model.LocationOptions.First().Location))
+                </div>
+
+
                 <input type="submit" value="Confirm" />
             </fieldset>
         </div>
     }
-    }
-
-}
-else
-{
-    @section article { thank you }
 }
