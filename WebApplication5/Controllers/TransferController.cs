@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Helpers.AccountManager;
 
 namespace NetCash.Controllers
 {
@@ -25,8 +26,8 @@ namespace NetCash.Controllers
         public ActionResult Transfer(Models.Transfer transfer)
         {
             transfer.CurrentAccountNumber = Session["AccountNumber"].ToString();
-            Models.AccountStates.Account CurrentAccount = new Models.AccountStates.Account(transfer.CurrentAccountNumber);
-            Models.AccountStates.Account TargetAccount = new Models.AccountStates.Account(transfer.TargetAccountNumber);
+            Account CurrentAccount = new Account(transfer.CurrentAccountNumber);
+            Account TargetAccount = new Account(transfer.TargetAccountNumber);
 
             if(CurrentAccount.AreFundsAvailable(transfer.TransferAmount))
             {

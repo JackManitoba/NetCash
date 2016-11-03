@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
-namespace NetCash.Models.AccountStates
+namespace Helpers.AccountManager
 {
     public class Account
     {

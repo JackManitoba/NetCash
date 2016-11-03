@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetCash.Models.AccountStates
+namespace Helpers.AccountManager
 {
     public abstract class State
     {
