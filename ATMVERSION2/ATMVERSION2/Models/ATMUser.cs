@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WindowsFormsApplication1.Interceptor_Package;
+using WindowsFormsApplication1.Interceptor_Package.Dispatchers;
 
 namespace ATMVERSION2.Models
 {
@@ -27,12 +29,15 @@ namespace ATMVERSION2.Models
 
             setupPin();
             setupAccountNumber();
-            retrieveBalance();            
+            retrieveBalance();
+
+            
         }
 
         public void setupPin()
         {
-            SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\rowan_000\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\Database1.mdf; Integrated Security = True; Connect Timeout = 30");
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest());
+            SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
             try
             {
                 myConnection.Open();
@@ -46,9 +51,11 @@ namespace ATMVERSION2.Models
                     {
                         this.pin = reader.GetString(reader.GetOrdinal("PIN"));
                         this.pin = this.pin.Replace(" ", "");
-                        Debug.WriteLine("---------------------------PIN RETRIEVED----------------------------"+this.pin);                       
+                        Debug.WriteLine("---------------------------PIN RETRIEVED----------------------------"+this.pin);
+                       
                     }
                 }
+
             }
             catch (SqlException ex)
             {
@@ -59,7 +66,8 @@ namespace ATMVERSION2.Models
 
         public void setupAccountNumber()
         {
-            SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\rowan_000\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\Database1.mdf; Integrated Security = True; Connect Timeout = 30");
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest());
+            SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
             try
             {
                 myConnection.Open();
@@ -77,6 +85,7 @@ namespace ATMVERSION2.Models
                         
                     }
                 }
+
             }
             catch (SqlException ex)
             {
@@ -97,7 +106,8 @@ namespace ATMVERSION2.Models
 
         public void retrieveBalance()
         {
-            SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\rowan_000\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\Database1.mdf; Integrated Security = True; Connect Timeout = 30");
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest());
+            SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
             try
             {
                 myConnection.Open();
@@ -116,6 +126,7 @@ namespace ATMVERSION2.Models
                     }
                     else { Debug.WriteLine("You failed!"); }
                 }
+
             }
             catch (SqlException ex)
             {
@@ -147,9 +158,9 @@ namespace ATMVERSION2.Models
         }
 
         public void updateBalance()
-        {
+        { ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest());
             retrieveBalance();
-            SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\rowan_000\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\Database1.mdf; Integrated Security = True; Connect Timeout = 30");
+            SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
             try
             {
                 SqlCommand cmd = new SqlCommand();
@@ -164,15 +175,18 @@ namespace ATMVERSION2.Models
                     cmd.ExecuteNonQuery();
                     Debug.WriteLine("Balance Update Successfull");
                 }
+
             }
             catch (SqlException ex)
             {
                 Debug.WriteLine("You failed!" + ex.Message);
             }
+
         }
         public void updatePin()
         {
-            SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\rowan_000\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\Database1.mdf; Integrated Security = True; Connect Timeout = 30");
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest());
+            SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
             try
             {
                 SqlCommand cmd = new SqlCommand();
@@ -188,11 +202,13 @@ namespace ATMVERSION2.Models
                     cmd.ExecuteNonQuery();
                     Debug.WriteLine("PIN Updated Successfull");
                 }
+
             }
             catch (SqlException ex)
             {
                 Debug.WriteLine("You failed!" + ex.Message);
             }
+
         }
 
         public void resetPin(string s)

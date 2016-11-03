@@ -49,6 +49,16 @@
     <Compile Include="ConcreteCommands\EnterCommand.cs" />
     <Compile Include="Controllers\PinVerificationController.cs" />
     <Compile Include="HelperClasses\RegistrationHelper.cs" />
+    <Compile Include="Interceptor Package\ConcreteFramework.cs" />
+    <Compile Include="Interceptor Package\ContextObjects\ConcreteContextObject.cs" />
+    <Compile Include="Interceptor Package\ContextObjects\ContextObject.cs" />
+    <Compile Include="Interceptor Package\ContextObjects\DatabaseReadRequest.cs" />
+    <Compile Include="Interceptor Package\ContextObjects\DatabaseWriteRequest.cs" />
+    <Compile Include="Interceptor Package\Dispatchers\ClientRequestDispatcher.cs" />
+    <Compile Include="Interceptor Package\Dispatchers\ConcreteDispatcher.cs" />
+    <Compile Include="Interceptor Package\Dispatchers\Dispatcher.cs" />
+    <Compile Include="Interceptor Package\Interceptors\ClientRequestInterceptor.cs" />
+    <Compile Include="Interceptor Package\Interceptors\Interceptor.cs" />
     <Compile Include="Interfaces\Reciever.cs" />
     <Compile Include="Interfaces\Command.cs" />
     <Compile Include="Interfaces\Controller.cs" />
@@ -62,6 +72,7 @@
     <Compile Include="Models\Withdrawal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HelperClasses\NavigationDataClass.cs" />
+    <Compile Include="Utils\Logger.cs" />
     <Compile Include="Views\UserInterface\Buttons\ATMButton.cs">
       <SubType>Component</SubType>
     </Compile>

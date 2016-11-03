@@ -6,9 +6,12 @@ using ATMVERSION2.UserInterface.Panels;
 using ATMVERSION2.Views;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApplication1.Interceptor_Package;
+using WindowsFormsApplication1.Interceptor_Package.Dispatchers;
 
 namespace WindowsFormsApplication1
 {
@@ -34,6 +37,13 @@ namespace WindowsFormsApplication1
         [STAThread]
         public static void Main()
         {
+             ClientRequestInterceptor myInterceptor = new ClientRequestInterceptor();
+            ClientRequestDispatcher.theInstance().registerClientInterceptor(myInterceptor);
+            Debug.WriteLine("Dispatcher and interceptor created and connected");
+
+
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //MainView
