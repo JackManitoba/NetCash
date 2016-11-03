@@ -61,9 +61,11 @@ namespace ATMVERSION2.UserInterface.Panels
         }
         public override void enter()
         {
-            this.navData.setNavigationPanelName("MAIN");
-            
-            notifyObservers();
+            if (amountEntryBox.Text != "")
+            {
+                this.navData.setNavigationPanelName("MAIN");
+                notifyObservers();
+            }
         }
         public override TextBox getInput()
         {

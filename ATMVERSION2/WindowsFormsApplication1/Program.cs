@@ -108,17 +108,24 @@ namespace WindowsFormsApplication1
                 if (mainView.getCurrentPanel().name.Equals("WithdrawalPanel"))
                 {
                     WithdrawalPanel p = (WithdrawalPanel)mainView.getCurrentPanel();
-                    double amount = double.Parse(p.getInput().Text);
-                    Withdrawal withdrawal = new Withdrawal(account, amount);
-                    controller.performWithdrawal(withdrawal);
+                    if (p.getInput().Text != "")
+                    {
+                        double amount = double.Parse(p.getInput().Text);
+                        Withdrawal withdrawal = new Withdrawal(account, amount);
+                        controller.performWithdrawal(withdrawal);
+                    }
                 }
 
                 if (mainView.getCurrentPanel().name.Equals("DepositPanel"))
                 {
-                    DepositPanel p = (DepositPanel)mainView.getCurrentPanel();
-                    double amount = double.Parse(p.getInput().Text);
-                    Deposit deposit = new Deposit(account, amount);
-                    controller.performDeposit(deposit);
+                    
+                     DepositPanel p = (DepositPanel)mainView.getCurrentPanel();
+                     if (p.getInput().Text != "")
+                     {
+                        double amount = double.Parse(p.getInput().Text);
+                        Deposit deposit = new Deposit(account, amount);
+                        controller.performDeposit(deposit);
+                    }
                 }
 
 
