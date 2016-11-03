@@ -18,7 +18,6 @@ namespace ATMVERSION2.ConcreteCommands
 
         public void execute()
         {
-
             this.reciever.enter();
         }
     }

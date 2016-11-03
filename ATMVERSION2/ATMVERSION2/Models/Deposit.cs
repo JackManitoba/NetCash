@@ -19,8 +19,7 @@ namespace ATMVERSION2.Models
         }
 
         internal void depositAmountToAccount()
-        {
-           
+        {           
                 account.setBalance(amount);
         }
     }

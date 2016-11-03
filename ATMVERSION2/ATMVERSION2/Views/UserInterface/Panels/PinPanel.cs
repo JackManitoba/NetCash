@@ -35,14 +35,9 @@ namespace ATMVERSION2.UserInterface.Panels
             netCashLabel.SetBounds(((this.Width / 2) - 30), ((this.Height / 2) - 30), 100, 40);
             this.Controls.Add(netCashLabel);
 
-
             navData.addNavigaion("MAIN");
-        }
-
-      
-
-
-
+        }  
+                
 
         //PART OF OBSERVER DESIGN PATTERN -- SUBJECT PASSES ITSELF AS PARAMETER TO GET TEXT FROM AND UPDATES
 
@@ -52,7 +47,6 @@ namespace ATMVERSION2.UserInterface.Panels
             pinEntryBox.Text += b.Text;
             pinEntryBox.Update();
         }
-
         public override void cancel()
         {
             this.navData.setNavigationPanelName("LOGOUT");
@@ -65,19 +59,13 @@ namespace ATMVERSION2.UserInterface.Panels
         }
         public override void enter()
         {
-
-
                 //pinEntryBox.Clear();
                 this.navData.setNavigationPanelName("MAIN");
-                notifyObservers();
-            
-            
+                notifyObservers();           
         }
-
         public override TextBox getInput()
         {
             return pinEntryBox;
         }
-
     }
 }

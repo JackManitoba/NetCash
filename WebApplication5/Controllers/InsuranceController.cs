@@ -9,6 +9,7 @@ namespace NetCash.Controllers
 {
     public class InsuranceController : Controller
     {
+
         string apply = "thank you";
 
         // GET: Insurance
@@ -24,9 +25,14 @@ namespace NetCash.Controllers
         [HttpPost]
         public ActionResult InsuranceCustomer(Models.Insurance Insurance)
         {
-            return View();
+            Insurance.SetStrategy();
+            Insurance.CalculatePremium();
+            return RedirectToAction("DisplayPremium", Insurance);
+        }
 
-
+        public ActionResult DisplayPremium(Models.Insurance Insurance)
+        {
+            return View(Insurance);
         }
     }
 }

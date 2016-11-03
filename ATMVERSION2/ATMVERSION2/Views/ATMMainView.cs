@@ -36,9 +36,6 @@ namespace ATMVERSION2.Views
             this.bf = new ButtonFactory();
             this.helperClass = new RegistrationHelper();
 
-
-
-
             this.CancelButton = bf.getButton("Cancel");
             this.ClearButton = bf.getButton("Clear");
             this.EnterButton = bf.getButton("Enter");
@@ -49,9 +46,7 @@ namespace ATMVERSION2.Views
 
             this.keypadButtons = new List<ATMButton>();
 
-
             this.SuspendLayout();
-
 
             //CANCEL BUTTON
             this.CancelButton.Click += new System.EventHandler(this.Cancel_Button_Click);
@@ -61,7 +56,6 @@ namespace ATMVERSION2.Views
 
             // ENTER         
             this.EnterButton.Click += new System.EventHandler(this.Enter_Button_Click);
-
 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -82,10 +76,7 @@ namespace ATMVERSION2.Views
                 
                 this.keypadButtons[i].Click += new System.EventHandler(this.button_Click);
                 this.Controls.Add(keypadButtons[i]);
-                
-
             }
-
         }
 
         //USED TO NOTIFY AN OBSERVER ONCE A SUBJECT HAS BEEN ACTED UPON
@@ -93,25 +84,21 @@ namespace ATMVERSION2.Views
         {
             ATMButton b = (ATMButton)sender;
             b.notifyObservers();
-
         }
         private void Enter_Button_Click(object sender, EventArgs e)
         {
             ATMButton b = (ATMButton)sender;
             b.executeCommand(enterCommand);
-
         }
         private void Clear_Button_Click(object sender, EventArgs e)
         {
             ATMButton b = (ATMButton)sender;
             b.executeCommand(clearCommand);
-
         }
         private void Cancel_Button_Click(object sender, EventArgs e)
         {
             ATMButton b = (ATMButton)sender;
             b.executeCommand(cancelCommand);
-
         }
         public void setCurrentPanel(ATMPanel p)
         {
@@ -121,8 +108,7 @@ namespace ATMVERSION2.Views
             this.currentPanel = p;
             this.Controls.Add(currentPanel);
             registerButtonsWithPanel();
-            this.currentPanel.registerObserver(this);
-            
+            this.currentPanel.registerObserver(this);            
         }
         public void  registerButtonsWithPanel()
         {
@@ -131,11 +117,8 @@ namespace ATMVERSION2.Views
             enterCommand = new EnterCommand(this.currentPanel);
             for (int i = 0; i < 10; i++)
             {
-               helperClass.registerObserverToSubject(this.currentPanel, this.keypadButtons[i]);
-
-                
+               helperClass.registerObserverToSubject(this.currentPanel, this.keypadButtons[i]);                
             }
-
         }
 
         public void unRegisterButtonsWithPanel()
@@ -143,16 +126,10 @@ namespace ATMVERSION2.Views
             for (int i = 0; i < 10; i++)
             {
                 helperClass.unregisterObserverToSubject(this.currentPanel, this.keypadButtons[i]);
-
-
             }
-
         }
 
         public ATMPanel getCurrentPanel() { return this.currentPanel; }
-
-
-
 
         public NavigationDataClass getNavigationClass() { return this.currentPanel.navData; }
 

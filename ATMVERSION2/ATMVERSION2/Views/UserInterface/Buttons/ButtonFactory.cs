@@ -60,10 +60,7 @@ namespace ATMVERSION2.UserInterface.Buttons
                         b = new NumberButton(identifier); break;
                     }
             }
-
             return b;
         }
-
-
     }
 }

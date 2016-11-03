@@ -10,13 +10,9 @@ namespace ATMVERSION2.Interfaces
     {
         List<Observer> observerList { get; }
 
-
         void notifyObservers();
-
 
         void registerObserver(Observer e);
         void unregisterObserver(Observer e);
-
-
     }
 }

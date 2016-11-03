@@ -34,8 +34,6 @@ namespace ATMVERSION2.UserInterface.Panels
             {
                 return this.subjectList;
             }
-
-
         }
 
         public void notifyObservers()

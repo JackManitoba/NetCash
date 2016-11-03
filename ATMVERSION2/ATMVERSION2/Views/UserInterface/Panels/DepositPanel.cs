@@ -70,6 +70,5 @@ namespace ATMVERSION2.UserInterface.Panels
             return amountEntryBox;
         }
     }
-
 }
 

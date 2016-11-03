@@ -5,6 +5,5 @@
         void enter();
         void cancel();
         void clear();
-
     }
 }

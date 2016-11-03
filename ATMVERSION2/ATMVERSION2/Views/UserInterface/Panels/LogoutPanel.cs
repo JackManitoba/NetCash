@@ -9,7 +9,6 @@ using System.Windows.Forms;
 
 namespace ATMVERSION2.UserInterface.Panels
 {
-
     class LogoutPanel : ATMPanel
     {
         protected static Label netCashLabel;
@@ -33,8 +32,6 @@ namespace ATMVERSION2.UserInterface.Panels
             Message.Text = "PLEASE TAKE YOUR CARD, PRESS ENTER TO CONTINUE";
             Message.SetBounds(((this.Width / 2) - 50), (this.Height / 2 + 10), 150, 40);
             this.Controls.Add(Message);
-
-
         }
 
 
@@ -61,6 +58,5 @@ namespace ATMVERSION2.UserInterface.Panels
             this.navData.setNavigationPanelName("PIN");
             notifyObservers();
         }
-
     }
 }

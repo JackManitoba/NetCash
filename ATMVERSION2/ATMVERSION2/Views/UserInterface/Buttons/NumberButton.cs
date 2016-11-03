@@ -25,7 +25,6 @@ namespace ATMVERSION2.UserInterface.Buttons
                 this.TabIndex = (Int32.Parse(number) - 1);
                 this.Location = new System.Drawing.Point(ButtonPositions[(Int32.Parse(number) - 1), 0], ButtonPositions[(Int32.Parse(number) - 1), 1]);
             }
-
         }
     }
 }
