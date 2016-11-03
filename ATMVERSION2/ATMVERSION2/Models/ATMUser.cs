@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WindowsFormsApplication1.Interceptor_Package;
+using WindowsFormsApplication1.Interceptor_Package.Dispatchers;
 
 namespace ATMVERSION2.Models
 {
@@ -34,7 +36,7 @@ namespace ATMVERSION2.Models
 
         public void setupPin()
         {
-
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest());
             SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
             try
             {
@@ -64,7 +66,7 @@ namespace ATMVERSION2.Models
 
         public void setupAccountNumber()
         {
-
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest());
             SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
             try
             {
@@ -104,7 +106,7 @@ namespace ATMVERSION2.Models
 
         public void retrieveBalance()
         {
-
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest());
             SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
             try
             {
@@ -156,7 +158,7 @@ namespace ATMVERSION2.Models
         }
 
         public void updateBalance()
-        {
+        { ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest());
             retrieveBalance();
             SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
             try
@@ -183,6 +185,7 @@ namespace ATMVERSION2.Models
         }
         public void updatePin()
         {
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest());
             SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
             try
             {
