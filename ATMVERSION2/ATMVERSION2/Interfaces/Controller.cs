@@ -11,8 +11,7 @@ namespace ATMVERSION2.Interfaces
     public interface Controller
     {
         void setPanel(ATMPanel panel);
-        void performWithdrawal(Withdrawal withdrawal);
-        void performDeposit(Deposit deposit);
+       
         void resetAccountPin(string newPin);
     }
 }

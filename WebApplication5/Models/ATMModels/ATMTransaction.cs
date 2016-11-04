@@ -19,5 +19,12 @@ namespace WebApplication5.Models.ATMModels
 
         [Required]
         public int amount { get; set; }
+
+        public ATMTransaction(string accNo, string t, double a)
+        {
+           accountNumber = accNo;
+            type = t;
+           amount = Convert.ToInt32(a);
+        }
     }
 }

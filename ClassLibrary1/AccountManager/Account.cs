@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using System.Linq;
-using System.Web;
+
 
 namespace Helpers.AccountManager
 {
@@ -21,6 +19,14 @@ namespace Helpers.AccountManager
         public string AccountNumber { get; set; }
 
         [Required]
+        [Display(Name = "PIN")]
+        public string pin { get; set; }
+
+        [Required]
+        [Display(Name = "Card Number")]
+        public string cardNumber { get; set; }
+
+        [Required]
         [Display(Name = "Balance")]
         public double Balance { get; set; }
 
@@ -30,6 +36,62 @@ namespace Helpers.AccountManager
             this.Balance = GetBalance();
             this.state = GetState();
             this.EncodingType = GetEncodingType();
+            this.pin = GetPin();
+            Debug.WriteLine("Account constructor finished");
+            Debug.WriteLine("Account number: "+ AccountNumber);
+            Debug.WriteLine("Account balance: " + Balance);
+            Debug.WriteLine("Account state: "+ state.ToString());
+            Debug.WriteLine("Account pin: "+ pin);
+        }
+
+
+
+        public static string getAccountByCardNumber(string _cardNumber)
+        {
+            Debug.WriteLine("getAccountByCardNumber called, card number was: " + _cardNumber);
+            string accountNo;
+
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"SELECT [AccountNumber] From [dbo].[ATMUsers] WHERE [CardNumber] = @a ";
+
+                var cmd = new SqlCommand(_sql, connection);
+                cmd.Parameters
+                    .Add(new SqlParameter("@a", SqlDbType.NVarChar))
+                    .Value = _cardNumber;
+
+                connection.Open();
+
+                accountNo = Convert.ToString(cmd.ExecuteScalar());
+
+                cmd.Dispose();
+                connection.Dispose();
+            }
+            Debug.WriteLine("Account number returned was: " + accountNo);
+            return accountNo;
+        }
+
+        public void updatePin(string newPin)
+        {
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"UPDATE [dbo].[AtmUser] Set [PIN]=@b WHERE [AccountNumber] = @a ";
+
+                var cmd = new SqlCommand(_sql, connection);
+                cmd.Parameters
+                    .Add(new SqlParameter("@a", SqlDbType.NVarChar))
+                    .Value = this.AccountNumber;
+                cmd.Parameters
+                    .Add(new SqlParameter("@b", SqlDbType.Money))
+                    .Value = newPin;
+                this.pin = newPin;
+                connection.Open();
+
+                cmd.ExecuteScalar();
+
+                cmd.Dispose();
+                connection.Dispose();
+            }
         }
 
         private string GetEncodingType()
@@ -65,6 +127,46 @@ namespace Helpers.AccountManager
             }
             return balance;
         }
+
+
+        public bool IsValid(string s)
+        {
+            string currentPin = GetPin();
+            if (s == currentPin)
+                return true;
+            else
+                return false;
+        }
+
+
+        private string GetPin()
+        {
+           string pin;
+
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"SELECT [PIN] From [dbo].[ATMUsers] WHERE [AccountNumber] = @a ";
+
+                var cmd = new SqlCommand(_sql, connection);
+                cmd.Parameters
+                    .Add(new SqlParameter("@a", SqlDbType.NVarChar))
+                    .Value = AccountNumber;
+
+                connection.Open();
+
+                pin = Convert.ToString(cmd.ExecuteScalar());
+
+                cmd.Dispose();
+                connection.Dispose();
+            }
+            return pin;
+        }
+
+
+
+
+
+
 
         public void UpdateAmount(double _amount)
         {

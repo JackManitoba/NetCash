@@ -43,11 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="ConcreteCommands\CancelCommand.cs" />
     <Compile Include="ConcreteCommands\ClearCommand.cs" />
     <Compile Include="ConcreteCommands\EnterCommand.cs" />
-    <Compile Include="Controllers\PinVerificationController.cs" />
+    <Compile Include="Controllers\ATMController.cs" />
     <Compile Include="HelperClasses\RegistrationHelper.cs" />
     <Compile Include="Interceptor Package\ConcreteFramework.cs" />
     <Compile Include="Interceptor Package\ContextObjects\ConcreteContextObject.cs" />
@@ -68,8 +67,6 @@
     <Compile Include="Interfaces\Subject.cs" />
     <Compile Include="Interfaces\View.cs" />
     <Compile Include="Models\ATMUser.cs" />
-    <Compile Include="Models\Deposit.cs" />
-    <Compile Include="Models\Withdrawal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HelperClasses\NavigationDataClass.cs" />
     <Compile Include="Utils\Logger.cs" />
@@ -112,7 +109,16 @@
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\ClassLibrary1\Helpers.csproj">
+      <Project>{478C3A72-B9D6-46F1-A0C5-DE7E3A06F332}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebApplication5\NetCash.csproj">
+      <Project>{59B7E155-88E1-4370-A651-E6616D7FCC29}</Project>
+      <Name>NetCash</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

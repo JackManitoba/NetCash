@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientCode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -72,6 +71,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ClassLibrary1\Helpers.csproj">
+      <Project>{478C3A72-B9D6-46F1-A0C5-DE7E3A06F332}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebApplication5\NetCash.csproj">
+      <Project>{59B7E155-88E1-4370-A651-E6616D7FCC29}</Project>
+      <Name>NetCash</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ATMVERSION2\ATMVERSION2.csproj">
       <Project>{3614D893-2999-44C2-881A-A37ABA2C753C}</Project>
       <Name>ATMVERSION2</Name>

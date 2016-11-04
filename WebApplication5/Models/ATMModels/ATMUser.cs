@@ -25,6 +25,18 @@ namespace WebApplication5.Models.ATMModels
         [Display(Name = "Balance")]
         public double balance { get; set; }
 
+        [Required]
+        [Display(Name = "Card Number")]
+        public string cardNumber { get; set; }
+
+
+        public ATMUser(string cardnumber)
+        {
+            cardNumber = cardnumber;
+            
+
+        }
+
         internal void setBalance()
         {
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
@@ -59,10 +71,36 @@ namespace WebApplication5.Models.ATMModels
             }
         }
 
-        [Required]
-        [Display(Name = "Card Number")]
-        public string cardNumber { get; set; }
 
+        public void retrieveBalance()
+        {
+
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"SELECT [AccountNumber] FROM [dbo].[ATMUsers] " +
+                       @"WHERE [CardNumber] = @u;";
+
+
+                var cmd = new SqlCommand(_sql, connection);
+                cmd.Parameters
+                    .Add(new SqlParameter("@u", SqlDbType.NVarChar))
+                    .Value = cardNumber;
+
+                connection.Open();
+                //connection.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    reader.Dispose();
+                    cmd.Dispose();
+                }
+                else
+                {
+                    reader.Dispose();
+                    cmd.Dispose();
+                }
+            }
+        }
 
         public bool IsValid(string _cardNumber, string _pin)
         {

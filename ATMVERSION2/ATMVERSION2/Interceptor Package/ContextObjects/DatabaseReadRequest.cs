@@ -8,9 +8,20 @@ namespace WindowsFormsApplication1.Interceptor_Package
 {
    public class DataBaseReadRequest : ContextObject
     {
+        string source, description;
+        DataBaseReadRequest(string source, string description)
+        {
+            this.source = source;this.description = description;
+        }
         public string getObj()
         {
-            return "Framework Attempt to READ database, this context object has been created as a result"; 
+            return "DataBaseReadRequest Object"; 
         }
+        public string getSource()
+        { return this.source; }
+        public string getShortDescription()
+        { return this.description; }
+        public string getVerboseDescription()
+        { return getObj()+" "+ source + " " + description+ DateTime.Now; }
     }
 }
