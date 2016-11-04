@@ -1,8 +1,10 @@
 ﻿using ATMVERSION2.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +23,17 @@ namespace ATMVERSION2.Models
 
         public ATMUser(string cardnumber)
         {
+            //this is probably not a good way to do this, but it seems to work
+
+            var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            var path = baseDir.Replace("\\ATMVERSION2\\WindowsFormsApplication1\\bin\\Debug", "");
+            path += "\\WebApplication5\\App_Data";
+            var fullPath = Path.GetFullPath(path);
+            Debug.WriteLine("Connection String for ATM = " + fullPath);
+            AppDomain.CurrentDomain.SetData("DataDirectory", fullPath);
+
+            //////
+
             authenticated = false;
             this.cardnumber = cardnumber;
             this.pin = "";
@@ -35,7 +48,9 @@ namespace ATMVERSION2.Models
         public void setupPin()
         {
             ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest());
-            SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
+            //original version, leaving this in just incase 
+            //SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
+            SqlConnection myConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
             try
             {
                 myConnection.Open();
@@ -62,8 +77,9 @@ namespace ATMVERSION2.Models
 
         public void setupAccountNumber()
         {
-
-            SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
+            //original version, leaving this in just incase
+            //SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
+            SqlConnection myConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
             try
             {
                 myConnection.Open();
@@ -101,8 +117,9 @@ namespace ATMVERSION2.Models
 
         public void retrieveBalance()
         {
-
-            SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
+            //original version, leaving this in just incase 
+            //SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
+            SqlConnection myConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
             try
             {
                 myConnection.Open();
@@ -154,7 +171,9 @@ namespace ATMVERSION2.Models
         public void updateBalance()
         { ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest());
             retrieveBalance();
-            SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\rowan_000\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\Database1.mdf; Integrated Security = True; Connect Timeout = 30");
+            //original version, leaving this in just incase 
+            //SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\rowan_000\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\Database1.mdf; Integrated Security = True; Connect Timeout = 30");
+            SqlConnection myConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
             try
             {
                 SqlCommand cmd = new SqlCommand();
@@ -177,7 +196,9 @@ namespace ATMVERSION2.Models
         }
         public void updatePin()
         {
-            SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
+            //original version, leaving this in just incase
+            //SqlConnection myConnection = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Salam\\Source\\Repos\\NetCash\\WebApplication5\\App_Data\\MarkIsGay.mdf; Integrated Security = True; Connect Timeout = 30");
+            SqlConnection myConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
             try
             {
                 SqlCommand cmd = new SqlCommand();
