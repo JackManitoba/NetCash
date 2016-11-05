@@ -15,19 +15,18 @@ namespace ATMVERSION2.Utils
         
         public Logger()
         {
-            //file2 = File.AppendText("Log.txt");
+            file2 = File.AppendText("Log.txt");
 
         }
 
         internal void log(ContextObject context)
         {
-
-            File.AppendAllText("/Log_Test.txt", context.getVerboseDescription() + Environment.NewLine);
             
-
-        }
-
+            Debug.WriteLine("written to log file"+context.getObj());
+            file2.WriteLine(DateTime.Now.ToString("HH:mm:ss tt")+context.getObj());
+            
         }
 
        
     }
+}

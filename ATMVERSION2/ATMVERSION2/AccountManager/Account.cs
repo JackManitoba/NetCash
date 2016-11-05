@@ -4,8 +4,6 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using WindowsFormsApplication1.Interceptor_Package.Dispatchers;
-using WindowsFormsApplication1.Interceptor_Package;
 
 
 namespace ATMVERSION2.AccountManager
@@ -50,7 +48,6 @@ namespace ATMVERSION2.AccountManager
 
         public static string getAccountByCardNumber(string _cardNumber)
         {
-            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("Account Class","Attempt to retrieve Account number from Account database"));
             Debug.WriteLine("getAccountByCardNumber called, card number was: " + _cardNumber);
             string accountNo;
 
@@ -76,7 +73,6 @@ namespace ATMVERSION2.AccountManager
 
         public void updatePin(string newPin)
         {
-            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest("Account Class", "Attempt to update user pin from ATMUsers database"));
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"UPDATE [dbo].[AtmUser] Set [PIN]=@b WHERE [AccountNumber] = @a ";
@@ -112,7 +108,7 @@ namespace ATMVERSION2.AccountManager
         private double GetBalance()
         {
             double balance;
-            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("Account Class", "Attempt to retrieve balance from Account database"));
+
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"SELECT [Balance] From [dbo].[Account] WHERE [AccountNumber] = @a ";
@@ -145,8 +141,7 @@ namespace ATMVERSION2.AccountManager
 
         private string GetPin()
         {
-            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("Account Class", "Attempt to retrieve pin from ATMUser database"));
-            string pin;
+           string pin;
 
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {

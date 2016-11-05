@@ -1,9 +1,6 @@
 ﻿using ATMVERSION2.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ATMVERSION2.UserInterface.Panels;
 using ATMVERSION2.Views;
 using WebApplication5.Models.ATMModels;

@@ -203,10 +203,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountStates\Account.cs" />
-    <Compile Include="Models\AccountStates\BalancedState.cs" />
-    <Compile Include="Models\AccountStates\OverdrawnState.cs" />
-    <Compile Include="Models\AccountStates\State.cs" />
     <Compile Include="Models\Insurance\Car_Insurance.cs" />
     <Compile Include="Models\Insurance\Home_insurance.cs" />
     <Compile Include="Models\Insurance\IInsuranceStrategy.cs" />
@@ -286,7 +282,12 @@
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary1\Helpers.csproj">
+      <Project>{478C3A72-B9D6-46F1-A0C5-DE7E3A06F332}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

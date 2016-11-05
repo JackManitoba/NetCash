@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApplication1.Interceptor_Package
 {
-    public class ConcreteContextObject
+    public class ConcreteContextObject : ContextObject
     {
         public string getObj()
         {

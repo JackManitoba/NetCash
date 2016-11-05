@@ -12,18 +12,18 @@ namespace WindowsFormsApplication1.Interceptor_Package
 {
     public class ClientRequestInterceptor : Interceptor
     {
-        Logger logger = new Logger();
+       // Logger logger = new Logger();
         internal void onDatabaseReadRequest(DataBaseReadRequest context)
         {
-            logger.log(context);
-            Debug.WriteLine(context.getShortDescription());
+          //  logger.log(context);
+            Debug.WriteLine(context.getObj());
 
         }
 
         internal void onDatabaseWriteRequest(DatabaseWriteRequest context)
         {
-            logger.log(context);
-            Debug.WriteLine(context.getShortDescription());
+            //logger.log(context);
+            Debug.WriteLine(context.getObj());
         }
     }
 }
