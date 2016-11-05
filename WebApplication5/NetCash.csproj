@@ -203,10 +203,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Insurance\Car_Insurance.cs" />
+    <Compile Include="Models\Insurance\Home_insurance.cs" />
     <Compile Include="Models\Insurance\IInsuranceStrategy.cs" />
-    <Compile Include="Models\Insurance\Middle_Calculator.cs" />
-    <Compile Include="Models\Insurance\Old_Calculator.cs" />
-    <Compile Include="Models\Insurance\Young_Calculator.cs" />
+    <Compile Include="Models\Insurance\Persnal_Insurance.cs" />
+    <Compile Include="Models\Insurance\Travel_Insurance.cs" />
     <Compile Include="Models\LoanStrategy\CarLoan.cs" />
     <Compile Include="Models\Insurance.cs" />
     <Compile Include="Models\LoanStrategy\ComplexLoanStrategy.cs" />
@@ -282,7 +283,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClassLibrary1\Helpers.csproj">
-      <Project>{478c3a72-b9d6-46f1-a0c5-de7e3a06f332}</Project>
+      <Project>{478C3A72-B9D6-46F1-A0C5-DE7E3A06F332}</Project>
       <Name>Helpers</Name>
     </ProjectReference>
   </ItemGroup>

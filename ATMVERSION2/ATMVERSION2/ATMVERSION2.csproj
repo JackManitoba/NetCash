@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -43,6 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountManager\Account.cs" />
+    <Compile Include="AccountManager\BalancedState.cs" />
+    <Compile Include="AccountManager\OverdrawnState.cs" />
+    <Compile Include="AccountManager\State.cs" />
     <Compile Include="ConcreteCommands\CancelCommand.cs" />
     <Compile Include="ConcreteCommands\ClearCommand.cs" />
     <Compile Include="ConcreteCommands\EnterCommand.cs" />
@@ -66,7 +71,6 @@
     <Compile Include="Interfaces\Observer.cs" />
     <Compile Include="Interfaces\Subject.cs" />
     <Compile Include="Interfaces\View.cs" />
-    <Compile Include="Models\ATMUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HelperClasses\NavigationDataClass.cs" />
     <Compile Include="Utils\Logger.cs" />
@@ -118,6 +122,9 @@
       <Project>{59B7E155-88E1-4370-A651-E6616D7FCC29}</Project>
       <Name>NetCash</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
