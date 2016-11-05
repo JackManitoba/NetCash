@@ -223,13 +223,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\BankDatabase.mdf" />
-    <Content Include="App_Data\BankDatabase_log.ldf">
-      <DependentUpon>BankDatabase.mdf</DependentUpon>
-    </Content>
-    <Content Include="App_Data\Database1.mdf" />
-    <Content Include="App_Data\Database1_log.ldf">
-      <DependentUpon>Database1.mdf</DependentUpon>
+    <Content Include="App_Data\BankData.mdf" />
+    <Content Include="App_Data\BankData_log.ldf">
+      <DependentUpon>BankData.mdf</DependentUpon>
     </Content>
     <Content Include="Content\StyleSheets\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -273,10 +269,9 @@
     <Content Include="Views\Transfer\Transfer.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Loan\LoanApplication.cshtml" />
-    <Content Include="Views\Loan\MortgageForm.cshtml" />
-    <Content Include="Views\Loan\CarLoanForm.cshtml" />
     <Content Include="Views\Insurance\InsuranceCustomer.cshtml" />
     <Content Include="Views\Insurance\DisplayPremium.cshtml" />
+    <Content Include="Views\Loan\LoanResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -9,8 +9,6 @@ namespace NetCash.Controllers
 {
     public class LoanController : Controller
     {
-        Models.Loan Loan;
-        string Choice;
         // GET: Loan
         public ActionResult Index()
         {
@@ -20,29 +18,20 @@ namespace NetCash.Controllers
         [HttpGet]
         public ActionResult LoanApplication()
         {
-            return View(new Models.LoanSelector());
+            return View(new Models.Loan());
         }
 
         [HttpPost]
-        public ActionResult LoanApplication(Models.LoanSelector LoanSelector)
+        public ActionResult LoanApplication(Models.Loan LoanApplication)
         {
-            Choice = LoanSelector.LoanChoice;
+            LoanApplication.SubmitApplication(Session["AccountNumber"]);
+            return RedirectToAction("LoanResult", LoanApplication);
+        }
 
-            if (Choice == "0")
-                return RedirectToAction("CarLoanForm");
-            else if (Choice == "1")
-                return RedirectToAction("MortgageForm");
-            else return RedirectToAction("MortgageForm");
+        public ActionResult LoanResult(Models.Loan LoanResult)
+        {
+            return View(LoanResult);
         }
        
-        public ActionResult CarLoanForm()
-        {
-            return View();
-        }
-
-        public ActionResult MortgageForm()
-        {
-            return View();
-        }
     }
 }
