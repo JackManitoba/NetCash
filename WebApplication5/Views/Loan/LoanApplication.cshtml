@@ -1,4 +1,4 @@
-﻿@model NetCash.Models.LoanSelector
+﻿@model NetCash.Models.Loan
 
 @{
     ViewBag.Title = "Loan";
@@ -22,6 +22,20 @@
                     @Html.DropDownListFor(l => l.LoanChoice, new SelectList(Model.LoanTypeOptions,
                                "LoanTypeID", "Value",
                                Model.LoanTypeOptions.First().LoanTypeID))
+                </div>
+                <div>
+                    @Html.LabelFor(c => c.AmountRequired)
+                </div>
+                <div>
+                    @Html.TextBoxFor(c => c.AmountRequired)
+                    @Html.ValidationMessageFor(c => c.AmountRequired)
+                </div>
+                <div>
+                    @Html.LabelFor(c => c.PeriodOfRepayment)
+                </div>
+                <div>
+                    @Html.TextBoxFor(c => c.PeriodOfRepayment)
+                    @Html.ValidationMessageFor(c => c.PeriodOfRepayment)
                 </div>
                 <input type="submit" value="Confirm" />              
                 </fieldset>
