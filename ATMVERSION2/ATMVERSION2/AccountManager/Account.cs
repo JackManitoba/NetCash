@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
-
+using System.IO;
 
 namespace ATMVERSION2.AccountManager
 {
@@ -48,6 +48,18 @@ namespace ATMVERSION2.AccountManager
 
         public static string getAccountByCardNumber(string _cardNumber)
         {
+            //this is probably not a good way to do this, but it seems to work
+
+            var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            var path = baseDir.Replace("\\ATMVERSION2\\WindowsFormsApplication1\\bin\\Debug", "");
+            path += "\\WebApplication5\\App_Data";
+            var fullPath = Path.GetFullPath(path);
+            Debug.WriteLine("Connection String for ATM = " + fullPath);
+            AppDomain.CurrentDomain.SetData("DataDirectory", fullPath);
+
+            //////
+
+
             Debug.WriteLine("getAccountByCardNumber called, card number was: " + _cardNumber);
             string accountNo;
 
