@@ -224,9 +224,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Database1.mdf" />
-    <Content Include="App_Data\Database1_log.ldf">
-      <DependentUpon>Database1.mdf</DependentUpon>
+    <Content Include="App_Data\BankData.mdf" />
+    <Content Include="App_Data\BankData_log.ldf">
+      <DependentUpon>BankData.mdf</DependentUpon>
     </Content>
     <Content Include="Content\StyleSheets\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />

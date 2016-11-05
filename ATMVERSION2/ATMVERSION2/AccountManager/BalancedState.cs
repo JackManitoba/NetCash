@@ -35,7 +35,7 @@ namespace ATMVERSION2.AccountManager
                     .Value = account.AccountNumber;
                 cmd.Parameters
                     .Add(new SqlParameter("@b", SqlDbType.Money))
-                    .Value = Balance + _amount;
+                    .Value = this.account.Balance + _amount;
 
                 connection.Open();
 
@@ -43,6 +43,7 @@ namespace ATMVERSION2.AccountManager
 
                 cmd.Dispose();
                 connection.Dispose();
+               
             }
         }
 

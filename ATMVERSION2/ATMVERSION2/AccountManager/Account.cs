@@ -184,7 +184,11 @@ namespace ATMVERSION2.AccountManager
 
         public void UpdateAmount(double _amount)
         {
+            Debug.WriteLine("Transaction has begun, balance is now" + this.Balance);
+            Debug.WriteLine("Transaction amount is" + _amount);
             state.UpdateAmount(_amount);
+           this.Balance =  GetBalance();
+            Debug.WriteLine("Transaction has been completed, balance is now" + this.Balance);
         }
 
         public bool AreFundsAvailable(double Balance)
