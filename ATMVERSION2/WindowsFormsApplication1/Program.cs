@@ -62,8 +62,12 @@ namespace WindowsFormsApplication1
             controller.startATM();
             // mainView.Activate();
             mainView.registerObserver(new Program());
-            Application.Run(mainView);
 
+            try
+            {
+                Application.Run(mainView);
+            }
+            catch (Exception e) { Debug.WriteLine("Application Exited"); }
         }
 
         public void update()
@@ -72,6 +76,7 @@ namespace WindowsFormsApplication1
 
         public void update(Subject e)
         {
+            controller.handleChange(e);
         }
         
         

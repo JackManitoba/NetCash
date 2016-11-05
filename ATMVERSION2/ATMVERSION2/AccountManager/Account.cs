@@ -5,6 +5,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
+using WindowsFormsApplication1.Interceptor_Package.Dispatchers;
+using WindowsFormsApplication1.Interceptor_Package;
 
 namespace ATMVERSION2.AccountManager
 {
@@ -62,7 +64,7 @@ namespace ATMVERSION2.AccountManager
 
             Debug.WriteLine("getAccountByCardNumber called, card number was: " + _cardNumber);
             string accountNo;
-
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("Account class, getAccountByCardNumber method","Attempt to read ATMUsers database"));
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"SELECT [AccountNumber] From [dbo].[ATMUsers] WHERE [CardNumber] = @a ";

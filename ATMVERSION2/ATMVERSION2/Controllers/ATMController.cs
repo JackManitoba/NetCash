@@ -130,6 +130,7 @@ namespace ATMVERSION2.Controllers
 
         public void startATM()
         {
+
             setPanel(new PinPanel());
             Application.Run(mainView);
             }
