@@ -9,5 +9,7 @@ namespace WindowsFormsApplication1.Interceptor_Package
    public interface ContextObject
     {
         string getObj();
+        string getShortDescription();
+        string getVerboseDescription();
     }
 }

@@ -14,7 +14,7 @@ using WindowsFormsApplication1.Interceptor_Package.Dispatchers;
 namespace ATMVERSION2.Models
 {
     public class ATMUser : Model
-    {
+    {/*
         protected string cardnumber;
         protected string pin;
         protected string accountNumber;
@@ -230,6 +230,6 @@ namespace ATMVERSION2.Models
                 updatePin();
 
             }
-        }
+        }*/
     }
 }

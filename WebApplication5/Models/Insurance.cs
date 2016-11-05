@@ -31,16 +31,19 @@ namespace NetCash.Models
 
         internal void SetStrategy()
         {
-            switch(AgeChoice)
+            switch(InsuranceTypeChoice)
             {
                 case 1:
-                    strategy = new Young_Calculator();
+                    strategy = new Travel_Insurance();
                     break;
                 case 2:
-                    strategy = new Middle_Calculator();
+                    strategy = new Car_Insurance();
                     break;
                 case 3:
-                    strategy = new Old_Calculator();
+                    strategy = new Persnal_Insurance();
+                    break;
+                case 4:
+                    strategy = new Home_insurance();
                     break;
             }
         }

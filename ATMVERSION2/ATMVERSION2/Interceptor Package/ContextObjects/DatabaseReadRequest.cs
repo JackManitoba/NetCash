@@ -9,7 +9,7 @@ namespace WindowsFormsApplication1.Interceptor_Package
    public class DataBaseReadRequest : ContextObject
     {
         string source, description;
-        DataBaseReadRequest(string source, string description)
+       public DataBaseReadRequest(string source, string description)
         {
             this.source = source;this.description = description;
         }

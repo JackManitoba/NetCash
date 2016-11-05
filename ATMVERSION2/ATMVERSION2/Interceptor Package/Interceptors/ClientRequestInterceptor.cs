@@ -16,14 +16,14 @@ namespace WindowsFormsApplication1.Interceptor_Package
         internal void onDatabaseReadRequest(DataBaseReadRequest context)
         {
             logger.log(context);
-            Debug.WriteLine(context.getObj());
+            Debug.WriteLine(context.getShortDescription());
 
         }
 
         internal void onDatabaseWriteRequest(DatabaseWriteRequest context)
         {
             logger.log(context);
-            Debug.WriteLine(context.getObj());
+            Debug.WriteLine(context.getShortDescription());
         }
     }
 }
