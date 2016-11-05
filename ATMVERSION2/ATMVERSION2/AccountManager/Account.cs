@@ -89,14 +89,14 @@ namespace ATMVERSION2.AccountManager
         {
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
-                string _sql = @"UPDATE [dbo].[AtmUser] Set [PIN]=@b WHERE [AccountNumber] = @a ";
+                string _sql = @"UPDATE [dbo].[AtmUsers] Set [PIN]=@b WHERE [AccountNumber] = @a ";
 
                 var cmd = new SqlCommand(_sql, connection);
                 cmd.Parameters
                     .Add(new SqlParameter("@a", SqlDbType.NVarChar))
                     .Value = this.AccountNumber;
                 cmd.Parameters
-                    .Add(new SqlParameter("@b", SqlDbType.Money))
+                    .Add(new SqlParameter("@b", SqlDbType.NVarChar))
                     .Value = newPin;
                 this.pin = newPin;
                 connection.Open();
