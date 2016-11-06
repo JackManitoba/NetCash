@@ -42,10 +42,5 @@ namespace NetCash.Controllers
             Debug.WriteLine(Result);
             return View("TransferResult", (object)Result);
         }
-
-        public ActionResult TransferResult(string Result)
-        {
-            return View(Result);
-        }
     }
 }

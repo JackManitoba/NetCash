@@ -27,17 +27,18 @@ namespace WebApplication5.Controllers
         {
             if (ModelState.IsValid)
             {
-            if (user.IsValid(user.Email, user.Password))
-            {
-                FormsAuthentication.SetAuthCookie(user.Email, user.RememberMe);
-                Session["AccountNumber"] = user.AccountNumber;
-                return RedirectToAction("Index", "Home");
+                if (user.IsValid(user.Email, user.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(user.Email, user.RememberMe);
+                    Session["SessionUserName"] = user.UserName;
+                    Session["AccountNumber"] = user.AccountNumber;
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Login data is incorrect!");
+                }
             }
-            else
-            {
-                ModelState.AddModelError("", "Login data is incorrect!");
-            }
-              }
             return View(user);
         }
         public ActionResult Logout()

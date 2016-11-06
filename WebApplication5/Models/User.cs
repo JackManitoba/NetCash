@@ -25,14 +25,16 @@ namespace NetCash.Models
         [Display(Name = "Remember on this computer")]
         public bool RememberMe { get; set; }
         
-        public string AccountNumber { get; set; }
+        public string AccountNumber { get; private set; }
+
+        public string UserName { get; private set; }
 
         public bool IsValid(string _email, string _password)
         {
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"SELECT [AccountNumber] FROM [dbo].[Users] " +
-                       @"WHERE [Email] = @u AND [Password] = @p ";
+                                  @"WHERE [Email] = @u AND [Password] = @p ";
 
                 var cmd = new SqlCommand(_sql, connection);
                 cmd.Parameters
@@ -42,10 +44,12 @@ namespace NetCash.Models
                     .Add(new SqlParameter("@p", SqlDbType.NVarChar))
                     .Value = _password;
                 connection.Open();
+
                 var reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
                     AccountNumber = reader.GetString(reader.GetOrdinal("AccountNumber"));
+                    UserName = reader.GetString(reader.GetOrdinal("UserName"));
                     reader.Dispose();
                     cmd.Dispose();
                     return true;
