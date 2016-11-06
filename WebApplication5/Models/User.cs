@@ -24,8 +24,7 @@ namespace NetCash.Models
 
         [Display(Name = "Remember on this computer")]
         public bool RememberMe { get; set; }
-
-        [Required]
+        
         public string AccountNumber { get; set; }
 
         public bool IsValid(string _email, string _password)

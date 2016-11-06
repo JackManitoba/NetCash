@@ -208,17 +208,10 @@
     <Compile Include="Models\Insurance\IInsuranceStrategy.cs" />
     <Compile Include="Models\Insurance\Persnal_Insurance.cs" />
     <Compile Include="Models\Insurance\Travel_Insurance.cs" />
-    <Compile Include="Models\LoanStrategy\CarLoan.cs" />
     <Compile Include="Models\Insurance.cs" />
-    <Compile Include="Models\LoanStrategy\ComplexLoanStrategy.cs" />
-    <Compile Include="Models\LoanStrategy\ILoanStrategy.cs" />
-    <Compile Include="Models\LoanStrategy\LoanFactory.cs" />
-    <Compile Include="Models\LoanStrategy\Mortgage.cs" />
     <Compile Include="Models\LoanStrategy\Loan.cs" />
-    <Compile Include="Models\LoanStrategy\LoanSelector.cs" />
     <Compile Include="Models\ATMModels\ATMTransaction.cs" />
     <Compile Include="Models\ATMModels\ATMUser.cs" />
-    <Compile Include="Models\LoanStrategy\SimpleLoanStrategy.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Transfer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -273,6 +266,7 @@
     <Content Include="Views\Insurance\InsuranceCustomer.cshtml" />
     <Content Include="Views\Insurance\DisplayPremium.cshtml" />
     <Content Include="Views\Loan\LoanResult.cshtml" />
+    <Content Include="Views\Transfer\TransferResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

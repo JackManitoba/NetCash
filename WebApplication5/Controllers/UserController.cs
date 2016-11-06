@@ -25,8 +25,8 @@ namespace WebApplication5.Controllers
         [HttpPost]
         public ActionResult Login(User user)
         {
-            //if (ModelState.IsValid)
-            //{
+            if (ModelState.IsValid)
+            {
             if (user.IsValid(user.Email, user.Password))
             {
                 FormsAuthentication.SetAuthCookie(user.Email, user.RememberMe);
@@ -37,7 +37,7 @@ namespace WebApplication5.Controllers
             {
                 ModelState.AddModelError("", "Login data is incorrect!");
             }
-            //  }
+              }
             return View(user);
         }
         public ActionResult Logout()

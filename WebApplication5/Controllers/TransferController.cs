@@ -29,12 +29,23 @@ namespace NetCash.Controllers
             Account CurrentAccount = new Account(transfer.CurrentAccountNumber);
             Account TargetAccount = new Account(transfer.TargetAccountNumber);
 
-            if(CurrentAccount.AreFundsAvailable(transfer.TransferAmount))
+            string Result;
+
+            if (CurrentAccount.AreFundsAvailable(transfer.TransferAmount))
             {
                 CurrentAccount.UpdateAmount(-transfer.TransferAmount);
                 TargetAccount.UpdateAmount(transfer.TransferAmount);
+                Result = "You have succesfully transfered €" + transfer.TransferAmount + " to account " + transfer.TargetAccountNumber;
             }
-            return View();
+            else Result = "You have insufficient funds for this transaction. You tried to transfer €" + transfer.TransferAmount + ". Your current balance is €" + CurrentAccount.Balance;
+
+            Debug.WriteLine(Result);
+            return View("TransferResult", (object)Result);
+        }
+
+        public ActionResult TransferResult(string Result)
+        {
+            return View(Result);
         }
     }
 }
