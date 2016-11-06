@@ -33,7 +33,7 @@ namespace NetCash.Models
         {
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
-                string _sql = @"SELECT [AccountNumber] FROM [dbo].[Users] " +
+                string _sql = @"SELECT [AccountNumber], [UserName] FROM [dbo].[Users] " +
                                   @"WHERE [Email] = @u AND [Password] = @p ";
 
                 var cmd = new SqlCommand(_sql, connection);

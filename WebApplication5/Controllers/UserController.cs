@@ -29,7 +29,7 @@ namespace WebApplication5.Controllers
             {
                 if (user.IsValid(user.Email, user.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(user.Email, user.RememberMe);
+                    FormsAuthentication.SetAuthCookie(user.Email, false);
                     Session["SessionUserName"] = user.UserName;
                     Session["AccountNumber"] = user.AccountNumber;
                     return RedirectToAction("Index", "Home");
@@ -44,6 +44,7 @@ namespace WebApplication5.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
+            Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
     }

@@ -47,7 +47,7 @@ namespace NetCash.Models
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
 
-                string _sql = @"INSERT INTO [dbo].[Loans] (AccountNumber, LoanType, AmountRequired, RepaymentPeriod) VALUES (@an, @lt, @ar, @rp)";
+                string _sql = @"INSERT INTO [dbo].[LoanApplications] (AccountNumber, LoanType, AmountRequired, RepaymentPeriod) VALUES (@an, @lt, @ar, @rp)";
 
                 var cmd = new SqlCommand(_sql, connection);
                 cmd.Parameters

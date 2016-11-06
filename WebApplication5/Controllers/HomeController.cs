@@ -10,7 +10,15 @@ namespace NetCash.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            if(Session["SessionUserName"] != null)
+            {
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "User");
+            }
         }
 
     }
