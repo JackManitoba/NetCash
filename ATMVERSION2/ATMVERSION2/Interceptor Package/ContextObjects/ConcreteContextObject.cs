@@ -12,5 +12,15 @@ namespace WindowsFormsApplication1.Interceptor_Package
         {
             throw new NotImplementedException();
         }
+
+        public string getShortDescription()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string getVerboseDescription()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
