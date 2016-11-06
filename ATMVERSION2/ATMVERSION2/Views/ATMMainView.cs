@@ -102,9 +102,12 @@ namespace ATMVERSION2.Views
         }
         public void setCurrentPanel(ATMPanel p)
         {
-            unRegisterButtonsWithPanel();
-            this.Controls.Remove(currentPanel);
-            Debug.WriteLine("Setting new panel");
+          
+               
+                unRegisterButtonsWithPanel();
+                this.Controls.Remove(currentPanel);
+            
+            
             this.currentPanel = p;
             this.Controls.Add(currentPanel);
             registerButtonsWithPanel();

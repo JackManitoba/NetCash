@@ -64,7 +64,7 @@ namespace ATMVERSION2.AccountManager
 
             Debug.WriteLine("getAccountByCardNumber called, card number was: " + _cardNumber);
             string accountNo;
-            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("Account class, getAccountByCardNumber method","Attempt to read ATMUsers database"));
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("Account class, getAccountByCardNumber() method","Attempt to read ATMUsers database"));
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"SELECT [AccountNumber] From [dbo].[ATMUsers] WHERE [CardNumber] = @a ";
@@ -122,7 +122,7 @@ namespace ATMVERSION2.AccountManager
         private double GetBalance()
         {
             double balance;
-
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("Account class, getBalance() method", "Attempt to read Account database"));
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"SELECT [Balance] From [dbo].[Account] WHERE [AccountNumber] = @a ";
@@ -156,7 +156,7 @@ namespace ATMVERSION2.AccountManager
         private string GetPin()
         {
            string pin;
-
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("Account class, getPin() method", "Attempt to read ATMUsers database"));
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"SELECT [PIN] From [dbo].[ATMUsers] WHERE [AccountNumber] = @a ";
@@ -184,6 +184,7 @@ namespace ATMVERSION2.AccountManager
 
         public void UpdateAmount(double _amount)
         {
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest("Account class, updateAmount() method", "Attempt to write to Account database"));
             Debug.WriteLine("Transaction has begun, balance is now" + this.Balance);
             Debug.WriteLine("Transaction amount is" + _amount);
             state.UpdateAmount(_amount);
