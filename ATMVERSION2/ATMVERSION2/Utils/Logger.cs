@@ -11,22 +11,28 @@ namespace ATMVERSION2.Utils
 {
     class Logger
     {
-        StreamWriter file2;
+        
         
         public Logger()
         {
-            file2 = File.AppendText("Log.txt");
 
         }
 
         internal void log(ContextObject context)
         {
+          
             
-            Debug.WriteLine("written to log file"+context.getObj());
-            file2.WriteLine(DateTime.Now.ToString("HH:mm:ss tt")+context.getObj());
-            
+            //file2.WriteLine(DateTime.Now.ToString("HH:mm:ss tt")+context.getObj());
+            using (System.IO.StreamWriter file =
+            new System.IO.StreamWriter(@"WriteText.txt", true))
+            {
+                file.WriteLine(context.getVerboseDescription()+"\n");
+                Debug.WriteLine("written to log file" + context.getObj());
+            }
         }
+
+    }
 
        
     }
-}
+
