@@ -164,11 +164,14 @@ namespace Helpers.AccountManager
 
 
 
+        public void DecreaseBalance(double _amount)
+        {
+            state.UpdateAmount(-_amount);
+        }
 
 
 
-
-        public void UpdateAmount(double _amount)
+        public void IncreaseBalance(double _amount)
         {
             state.UpdateAmount(_amount);
         }

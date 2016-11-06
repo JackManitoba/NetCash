@@ -25,12 +25,7 @@ namespace NetCash.Controllers
         public ActionResult LoanApplication(Models.Loan LoanApplication)
         {
             LoanApplication.SubmitApplication(Session["AccountNumber"]);
-            return RedirectToAction("LoanResult", LoanApplication);
-        }
-
-        public ActionResult LoanResult(Models.Loan LoanResult)
-        {
-            return View(LoanResult);
+            return View("LoanResult", (object)LoanApplication);
         }
        
     }

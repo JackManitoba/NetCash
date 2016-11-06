@@ -33,8 +33,8 @@ namespace NetCash.Controllers
 
             if (CurrentAccount.AreFundsAvailable(transfer.TransferAmount))
             {
-                CurrentAccount.UpdateAmount(-transfer.TransferAmount);
-                TargetAccount.UpdateAmount(transfer.TransferAmount);
+                CurrentAccount.DecreaseBalance(transfer.TransferAmount);
+                TargetAccount.IncreaseBalance(transfer.TransferAmount);
                 Result = "You have succesfully transfered €" + transfer.TransferAmount + " to account " + transfer.TargetAccountNumber;
             }
             else Result = "You have insufficient funds for this transaction. You tried to transfer €" + transfer.TransferAmount + ". Your current balance is €" + CurrentAccount.Balance;

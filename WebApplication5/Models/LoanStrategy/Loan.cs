@@ -20,7 +20,7 @@ namespace NetCash.Models
             public string Value { get; set; }
         }
 
-        [Required]
+        [Required(ErrorMessage = "You mest provide a reason for your Loan")]
         [Display(Name = "Reason for Loan")]
         public string LoanChoice { get; set; }
 
@@ -33,7 +33,7 @@ namespace NetCash.Models
                 new LoanType {LoanTypeID = 3, Value = "Other" },
             };
 
-        [Required]
+        [Required(ErrorMessage = "Please specifiy an amount required")]
         [Display(Name = "Amount Required")]
         public string AmountRequired { get; set; }
 
