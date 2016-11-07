@@ -14,16 +14,13 @@ namespace NetCash.Models
         public string EncryptionType;
 
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Email:")]
         public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Password:")]
         public string Password { get; set; }
-
-        [Display(Name = "Remember on this computer")]
-        public bool RememberMe { get; set; }
         
         public string AccountNumber { get; private set; }
 

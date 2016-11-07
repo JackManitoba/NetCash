@@ -11,29 +11,21 @@
 {
     @Html.ValidationSummary(true, "Transfer failed. Check your transfer details");
 
-    <div>
-        <fieldset>
-            <legend>Transfer Funds</legend>
 
-            <div>
-                @Html.LabelFor(t => t.TargetAccountNumber)
-            </div>
-            <div>
-                @Html.TextBoxFor(t => t.TargetAccountNumber)
+            <div class="form-group">
+                @Html.LabelFor(t => t.TargetAccountNumber, new { @class = "control-label" })
+                @Html.TextBoxFor(t => t.TargetAccountNumber, new { @class = "form-control" })
                 @Html.ValidationMessageFor(t => t.TargetAccountNumber)
             </div>
-            <div>
-                @Html.LabelFor(t => t.TransferAmount)
-            </div>
-            <div>
-                @Html.TextBoxFor(t => t.TransferAmount)
+            <div class="form-group">
+                @Html.LabelFor(t => t.TransferAmount, new { @class = "control-label" })
+                @Html.TextBoxFor(t => t.TransferAmount, new { @class = "form-control" })
                 @Html.ValidationMessageFor(t => t.TransferAmount)
             </div>
-            <input type="submit" value="Confirm" />
-        </fieldset>
-    </div>
-}
+            <input class="btn btn-primary" type="submit" value="Confirm" />
+
     }
+}
 
 
 

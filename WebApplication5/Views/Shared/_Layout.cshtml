@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     <div class="container">
@@ -14,35 +13,39 @@
         </header>
         @if (Request.IsAuthenticated)
         {
-            <nav>
-                <ul>
-                    <li>
-                        <button onclick="location.href='@Url.Action("Index", "Home")';return false;">Home</button>
-                    </li>
-                    <li>
-                        <button onclick="location.href='@Url.Action("Transfer", "Transfer")';return false;">Transfer</button>
-                    </li>
-                    <li>
-                        <button onclick="location.href='@Url.Action("LoanApplication", "Loan")';return false;">Apply for Loan</button>
-                    </li>
-                    <li>
-                        <button onclick="location.href='@Url.Action("InsuranceCustomer", "Insurance")';return false;">Insurance</button>
-                    </li>
-                    <li>
-                        <button onclick="location.href='@Url.Action("Logout", "User")';return false;">Log Out</button>
-                    </li>
-                </ul>
-            </nav>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href='@Url.Action("Index", "Home")'>Home</a>
+                        </li>
+                        <li>
+                            <a href='@Url.Action("Transfer", "Transfer")'>Transfer Funds</a>
+                        </li>
+                        <li>
+                            <a href='@Url.Action("LoanApplication", "Loan")'>Apply for Loan</a>
+                        </li>
+                        <li>
+                            <a href='@Url.Action("InsuranceCustomer", "Insurance")'>Get an Insurance Quote</a>
+                        </li>
+                        <li>
+                            <a href='@Url.Action("Logout", "User")';return false;">Log Out</a>
+                        </li>
+                    </ul>
+               </div>
+</nav>
         }
         else
         {
-            <nav>
-                <ul>
-                    <li>
-                        <button onclick="location.href='@Url.Action("Login", "User")';return false;">Log In</button>
-                    </li>
-                </ul>
-            </nav>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href='@Url.Action("Login", "User")'>Log In</a>
+                        </li>
+                    </ul>
+                    </div>
+</nav>
         }
         <article>
             @RenderSection("article", false)

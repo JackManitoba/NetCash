@@ -21,7 +21,7 @@ namespace NetCash.Models
         }
 
         [Required(ErrorMessage = "You mest provide a reason for your Loan")]
-        [Display(Name = "Reason for Loan")]
+        [Display(Name = "Reason for Loan:")]
         public string LoanChoice { get; set; }
 
         public IEnumerable<LoanType> LoanTypeOptions =
@@ -34,7 +34,7 @@ namespace NetCash.Models
             };
 
         [Required(ErrorMessage = "Please specifiy an amount required")]
-        [Display(Name = "Amount Required")]
+        [Display(Name = "Amount Required:")]
         public string AmountRequired { get; set; }
 
         [Required]
