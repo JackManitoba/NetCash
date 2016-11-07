@@ -5,6 +5,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using WindowsFormsApplication1.Interceptor_Package;
+using WindowsFormsApplication1.Interceptor_Package.Dispatchers;
 
 namespace ATMVERSION2.AccountManager
 {
@@ -25,6 +27,7 @@ namespace ATMVERSION2.AccountManager
 
         public override void UpdateAmount(double _amount)
         {
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest("BalancedState Class, updateAmount() method", "Attempt to write to Account database"));
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"UPDATE [dbo].[Account] Set [Balance]=@b WHERE [AccountNumber] = @a ";

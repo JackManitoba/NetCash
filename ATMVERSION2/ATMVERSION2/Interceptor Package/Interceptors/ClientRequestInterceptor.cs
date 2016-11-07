@@ -15,15 +15,22 @@ namespace WindowsFormsApplication1.Interceptor_Package
        Logger logger = new Logger();
         internal void onDatabaseReadRequest(DataBaseReadRequest context)
         {
-          logger.log(context);
+          logger.logDatabaseInteractions(context);
             Debug.WriteLine(context.getVerboseDescription());
 
         }
 
         internal void onDatabaseWriteRequest(DatabaseWriteRequest context)
         {
-            logger.log(context);
-            Debug.WriteLine(context.getVerboseDescription());
+            logger.logDatabaseInteractions(context);
+            
+        }
+
+        internal void onTransactionAttempted(TransactionInfo context)
+        {
+            logger.logAccountTransactions(context);
+           
+
         }
     }
 }

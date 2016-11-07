@@ -58,6 +58,7 @@
     <Compile Include="Interceptor Package\ContextObjects\ContextObject.cs" />
     <Compile Include="Interceptor Package\ContextObjects\DatabaseReadRequest.cs" />
     <Compile Include="Interceptor Package\ContextObjects\DatabaseWriteRequest.cs" />
+    <Compile Include="Interceptor Package\ContextObjects\TransactionInfo.cs" />
     <Compile Include="Interceptor Package\Dispatchers\ClientRequestDispatcher.cs" />
     <Compile Include="Interceptor Package\Dispatchers\ConcreteDispatcher.cs" />
     <Compile Include="Interceptor Package\Dispatchers\Dispatcher.cs" />

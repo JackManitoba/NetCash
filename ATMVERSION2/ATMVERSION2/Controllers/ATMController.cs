@@ -7,6 +7,8 @@ using WebApplication5.Models.ATMModels;
 using ATMVERSION2.AccountManager;
 using ATMVERSION2.HelperClasses;
 using System.Windows.Forms;
+using WindowsFormsApplication1.Interceptor_Package.Dispatchers;
+using WindowsFormsApplication1.Interceptor_Package;
 
 namespace ATMVERSION2.Controllers
 {
@@ -41,6 +43,7 @@ namespace ATMVERSION2.Controllers
 
         public void performTransaction(ATMTransaction transaction)
         {
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(this.account,transaction.type, transaction.amount));
             if (transaction.type.Equals("WITHDRAWAL"))
                 account.UpdateAmount(-transaction.amount);
             else

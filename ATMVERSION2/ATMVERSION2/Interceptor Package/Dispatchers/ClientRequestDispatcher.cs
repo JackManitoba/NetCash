@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -12,13 +13,13 @@ namespace WindowsFormsApplication1.Interceptor_Package.Dispatchers
    public  class ClientRequestDispatcher 
 
     {
-        public readonly object _syncRoot = new Object();
+        protected readonly object _syncRoot = new Object();
 
 
-        public static ClientRequestDispatcher instanciatedObject;
+        private static ClientRequestDispatcher instanciatedObject;
 
 
-        public List<Interceptor> interceptorList;
+        private List<Interceptor> interceptorList;
 
 
 
@@ -58,6 +59,24 @@ namespace WindowsFormsApplication1.Interceptor_Package.Dispatchers
                 (ClientRequestInterceptor)interceptors[i];
                 // Dispatch callback hook method.
                 ic.onDatabaseWriteRequest(context);
+            }
+        }
+
+
+        public void dispatchClientRequestInterceptorTransactionAttempt(TransactionInfo context)
+        {
+            List<Interceptor> interceptors;
+            lock (_syncRoot)
+            { // Clone vector.
+                interceptors = (List<Interceptor>)interceptorList; ;
+            }
+
+            for (int i = 0; i < interceptors.Count; ++i)
+            {
+                ClientRequestInterceptor ic =
+                (ClientRequestInterceptor)interceptors[i];
+                // Dispatch callback hook method.
+                ic.onTransactionAttempted(context);
             }
         }
 
