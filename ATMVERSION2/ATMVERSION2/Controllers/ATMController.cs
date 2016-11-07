@@ -39,9 +39,9 @@ namespace ATMVERSION2.Controllers
         }
 
 
-        public void insertCard(string cardNumber)
+        public void insertCard(string cardLocation)
         {
-            CardReader CR = new CardReader("");
+            CardReader CR = new CardReader(cardLocation);
             currentCardNumber = CR.getCardNumber();
             account = new Account(Account.getAccountByCardNumber(currentCardNumber));
         }

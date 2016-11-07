@@ -26,13 +26,13 @@ namespace ATMVERSION2.ATMHardware
             }
         }
         private void readCardFromFile(string cardLocation)
-        {
-            
+        {           
             string[] lines = System.IO.File.ReadAllLines(@cardLocation);
             string CN = lines[0].Replace("Card Number: ", "");
+            string E = lines[1].Replace("Expiry Date: ", "");
             Debug.WriteLine(lines[0]);
-                Debug.WriteLine(lines[1]);
-            currentCard = new Card(CN, lines[1]);
+            Debug.WriteLine(lines[1]);
+            currentCard = new Card(CN, E);
         }
         public string getCardNumber()
         {
