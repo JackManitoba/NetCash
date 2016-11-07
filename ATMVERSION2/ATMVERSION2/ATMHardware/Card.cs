@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,9 @@ namespace ATMVERSION2.ATMHardware
         {
             cardNumber = CN;
             expiry = E;
+
+            Debug.WriteLine("CARDNUMBER IN CARD CLASS:" + cardNumber);
+            Debug.WriteLine("EXPIRY IN CARD CLASS:" +expiry);
         }
         public string getCardNumber()
         {

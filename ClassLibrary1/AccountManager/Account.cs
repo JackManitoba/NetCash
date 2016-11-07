@@ -4,6 +4,9 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.IO;
+using Helpers.Interceptor_Package.Dispatchers;
+using Helpers.Interceptor_Package;
 
 
 namespace Helpers.AccountManager
@@ -44,13 +47,34 @@ namespace Helpers.AccountManager
             Debug.WriteLine("Account pin: "+ pin);
         }
 
+        public void IncreaseBalance(double transferAmount)
+        {
+            UpdateAmount(transferAmount);
+            
+        }
 
+        public void DecreaseBalance(double transferAmount)
+        {
+            UpdateAmount(-transferAmount);
+        }
 
         public static string getAccountByCardNumber(string _cardNumber)
         {
+            //this is probably not a good way to do this, but it seems to work
+
+            var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            var path = baseDir.Replace("\\ATMVERSION2\\WindowsFormsApplication1\\bin\\Debug", "");
+            path += "\\WebApplication5\\App_Data";
+            var fullPath = Path.GetFullPath(path);
+            Debug.WriteLine("Connection String for ATM = " + fullPath);
+            AppDomain.CurrentDomain.SetData("DataDirectory", fullPath);
+
+            //////
+
+
             Debug.WriteLine("getAccountByCardNumber called, card number was: " + _cardNumber);
             string accountNo;
-
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("Account class, getAccountByCardNumber() method","Attempt to read ATMUsers database"));
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"SELECT [AccountNumber] From [dbo].[ATMUsers] WHERE [CardNumber] = @a ";
@@ -58,7 +82,7 @@ namespace Helpers.AccountManager
                 var cmd = new SqlCommand(_sql, connection);
                 cmd.Parameters
                     .Add(new SqlParameter("@a", SqlDbType.NVarChar))
-                    .Value = _cardNumber;
+                    .Value = _cardNumber.Trim();
 
                 connection.Open();
 
@@ -75,14 +99,14 @@ namespace Helpers.AccountManager
         {
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
-                string _sql = @"UPDATE [dbo].[AtmUser] Set [PIN]=@b WHERE [AccountNumber] = @a ";
+                string _sql = @"UPDATE [dbo].[AtmUsers] Set [PIN]=@b WHERE [AccountNumber] = @a ";
 
                 var cmd = new SqlCommand(_sql, connection);
                 cmd.Parameters
                     .Add(new SqlParameter("@a", SqlDbType.NVarChar))
                     .Value = this.AccountNumber;
                 cmd.Parameters
-                    .Add(new SqlParameter("@b", SqlDbType.Money))
+                    .Add(new SqlParameter("@b", SqlDbType.NVarChar))
                     .Value = newPin;
                 this.pin = newPin;
                 connection.Open();
@@ -108,7 +132,7 @@ namespace Helpers.AccountManager
         private double GetBalance()
         {
             double balance;
-
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("Account class, getBalance() method", "Attempt to read Account database"));
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"SELECT [Balance] From [dbo].[Account] WHERE [AccountNumber] = @a ";
@@ -142,7 +166,7 @@ namespace Helpers.AccountManager
         private string GetPin()
         {
            string pin;
-
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("Account class, getPin() method", "Attempt to read ATMUsers database"));
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"SELECT [PIN] From [dbo].[ATMUsers] WHERE [AccountNumber] = @a ";
@@ -164,16 +188,19 @@ namespace Helpers.AccountManager
 
 
 
-        public void DecreaseBalance(double _amount)
+
+
+
+
+        public void UpdateAmount(double _amount)
         {
-            state.UpdateAmount(-_amount);
-        }
-
-
-
-        public void IncreaseBalance(double _amount)
-        {
+          
+            
             state.UpdateAmount(_amount);
+           this.Balance =  GetBalance();
+
+            
+         
         }
 
         public bool AreFundsAvailable(double Balance)

@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using ATMVERSION2.UserInterface.Panels;
 using ATMVERSION2.Views;
 using WebApplication5.Models.ATMModels;
-using ATMVERSION2.AccountManager;
+
 using ATMVERSION2.HelperClasses;
 using System.Windows.Forms;
-using WindowsFormsApplication1.Interceptor_Package.Dispatchers;
-using WindowsFormsApplication1.Interceptor_Package;
+
 using System.Diagnostics;
 using ATMVERSION2.Views.UserInterface.Panels;
 using ATMVERSION2.ATMHardware;
+using Helpers.AccountManager;
+using Helpers.Interceptor_Package.Dispatchers;
+using Helpers.Interceptor_Package;
 
 namespace ATMVERSION2.Controllers
 {
@@ -41,7 +43,7 @@ namespace ATMVERSION2.Controllers
         {
             CardReader CR = new CardReader("");
             currentCardNumber = CR.getCardNumber();
-            account = new Account(Account.getAccountByCardNumber(cardNumber));
+            account = new Account(Account.getAccountByCardNumber(currentCardNumber));
         }
 
         public void performTransaction(ATMTransaction transaction)

@@ -27,9 +27,12 @@ namespace ATMVERSION2.ATMHardware
         }
         private void readCardFromFile(string cardLocation)
         {
+            
             string[] lines = System.IO.File.ReadAllLines(@cardLocation);
-            string CN = lines[1].Replace("Card Number: ", "");
-            currentCard = new Card(CN, lines[2]);
+            string CN = lines[0].Replace("Card Number: ", "");
+            Debug.WriteLine(lines[0]);
+                Debug.WriteLine(lines[1]);
+            currentCard = new Card(CN, lines[1]);
         }
         public string getCardNumber()
         {

@@ -1,19 +1,19 @@
-﻿using ATMVERSION2.AccountManager;
+﻿
 using ATMVERSION2.Controllers;
 using ATMVERSION2.HelperClasses;
 using ATMVERSION2.Interfaces;
 
 using ATMVERSION2.UserInterface.Panels;
 using ATMVERSION2.Views;
+using Helpers.AccountManager;
+using Helpers.Interceptor_Package;
+using Helpers.Interceptor_Package.Dispatchers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WindowsFormsApplication1.Interceptor_Package;
-using WindowsFormsApplication1.Interceptor_Package.Dispatchers;
-
 namespace WindowsFormsApplication1
 {
 

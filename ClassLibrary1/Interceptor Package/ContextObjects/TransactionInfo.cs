@@ -1,7 +1,7 @@
-﻿using ATMVERSION2.AccountManager;
+﻿using Helpers.AccountManager;
 using System;
 
-namespace WindowsFormsApplication1.Interceptor_Package
+namespace Helpers.Interceptor_Package
 {
    public  class TransactionInfo : ContextObject
     {

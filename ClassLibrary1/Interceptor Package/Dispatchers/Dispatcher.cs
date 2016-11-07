@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowsFormsApplication1.Interceptor_Package.Interceptors
+namespace Helpers.Interceptor_Package
 {
-   public interface Interceptor
+   public interface Dispatcher
     {
     }
 }

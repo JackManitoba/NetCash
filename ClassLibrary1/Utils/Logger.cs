@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Helpers.Interceptor_Package;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WindowsFormsApplication1.Interceptor_Package;
 
-namespace ATMVERSION2.Utils
+namespace Helpers.Utils
 {
     class Logger
     {

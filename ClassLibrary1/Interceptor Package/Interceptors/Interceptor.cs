@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowsFormsApplication1.Interceptor_Package
+namespace Helpers.Interceptor_Package.Interceptors
 {
-    class ConcreteFramework
+   public interface Interceptor
     {
     }
 }

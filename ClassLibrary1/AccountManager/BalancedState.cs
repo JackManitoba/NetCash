@@ -6,6 +6,9 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
+using Helpers.Interceptor_Package.Dispatchers;
+using Helpers.Interceptor_Package;
+
 namespace Helpers.AccountManager
 {
     public class BalancedState : State
@@ -25,6 +28,7 @@ namespace Helpers.AccountManager
 
         public override void UpdateAmount(double _amount)
         {
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest("BalancedState Class, updateAmount() method", "Attempt to write to Account database"));
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"UPDATE [dbo].[Account] Set [Balance]=@b WHERE [AccountNumber] = @a ";
@@ -35,7 +39,7 @@ namespace Helpers.AccountManager
                     .Value = account.AccountNumber;
                 cmd.Parameters
                     .Add(new SqlParameter("@b", SqlDbType.Money))
-                    .Value = Balance + _amount;
+                    .Value = this.account.Balance + _amount;
 
                 connection.Open();
 
@@ -43,6 +47,7 @@ namespace Helpers.AccountManager
 
                 cmd.Dispose();
                 connection.Dispose();
+               
             }
         }
 
