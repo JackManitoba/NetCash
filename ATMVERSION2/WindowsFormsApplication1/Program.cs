@@ -58,7 +58,7 @@ namespace WindowsFormsApplication1
             //Controller
            
             controller = new ATMController(account, mainView);
-            controller.insertCard("1111111111");
+            controller.insertCard("2222222222");
             controller.startATM();
             // mainView.Activate();
             mainView.registerObserver(new Program());
