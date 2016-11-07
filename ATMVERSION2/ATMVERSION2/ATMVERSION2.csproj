@@ -48,6 +48,8 @@
     <Compile Include="AccountManager\BalancedState.cs" />
     <Compile Include="AccountManager\OverdrawnState.cs" />
     <Compile Include="AccountManager\State.cs" />
+    <Compile Include="ATMHardware\CardReader.cs" />
+    <Compile Include="ATMHardware\CheckATMCash.cs" />
     <Compile Include="ConcreteCommands\CancelCommand.cs" />
     <Compile Include="ConcreteCommands\ClearCommand.cs" />
     <Compile Include="ConcreteCommands\EnterCommand.cs" />

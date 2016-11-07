@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ATMVERSION2.ATMHardware
+{
+    class CheckATMCash
+    {
+        //check database for the amount of money currently stored in the ATM
+    }
+}
