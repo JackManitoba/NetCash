@@ -9,6 +9,8 @@ using ATMVERSION2.HelperClasses;
 using System.Windows.Forms;
 using WindowsFormsApplication1.Interceptor_Package.Dispatchers;
 using WindowsFormsApplication1.Interceptor_Package;
+using System.Diagnostics;
+using ATMVERSION2.Views.UserInterface.Panels;
 
 namespace ATMVERSION2.Controllers
 {
@@ -68,6 +70,8 @@ namespace ATMVERSION2.Controllers
         public void handleChange(Subject e)
         {
             NavigationDataClass navClass = mainView.getNavigationClass();
+            Debug.WriteLine("CurrentPanel: " + mainView.getCurrentPanel().name);
+            Debug.WriteLine("NavigationClass selection: " + mainView.getNavigationClass().getNavigationPanelName());
             PanelFactory pf = new PanelFactory();
 
             if (mainView.getCurrentPanel().name.Equals("PinPanel"))
@@ -127,6 +131,12 @@ namespace ATMVERSION2.Controllers
                 {
                     BalancePanel p = (BalancePanel)mainView.getCurrentPanel();
                     p.showBalance(account.Balance.ToString());
+                }
+
+                if (mainView.getCurrentPanel().name.Equals("PrintInfo"))
+                {
+                    PrintInfo p = (PrintInfo)mainView.getCurrentPanel();
+                    p.setFileName(account.AccountNumber);
                 }
             }
         }

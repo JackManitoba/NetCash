@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ATMVERSION2.Views.UserInterface.Panels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,11 @@ namespace ATMVERSION2.UserInterface.Panels
                 case "MAIN":
                     {
                         p = new MainPanel();
+                        break;
+                    }
+                case "PRINT":
+                    {
+                        p = new PrintInfo();
                         break;
                     }
                 case "PIN":

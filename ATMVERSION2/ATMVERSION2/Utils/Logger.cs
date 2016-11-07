@@ -33,8 +33,9 @@ namespace ATMVERSION2.Utils
 
         internal void logAccountTransactions(ContextObject context)
         {
+            TransactionInfo t = (TransactionInfo)context;
             using (System.IO.StreamWriter file =
-              new System.IO.StreamWriter(@"TransactionsLog.txt", true))
+              new System.IO.StreamWriter(@"TransactionsLog"+t.getAccountNumber().Trim()+".txt", true))
             {
                 file.WriteLine(context.getVerboseDescription() + "\n");
                 

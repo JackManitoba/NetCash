@@ -107,6 +107,9 @@
     <Compile Include="Views\UserInterface\Panels\PinResetPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Views\UserInterface\Panels\PrintInfo.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Views\UserInterface\Panels\WithdrawalPanel.cs">
       <SubType>Component</SubType>
     </Compile>
