@@ -1,15 +1,23 @@
 ﻿
 div.container {
+    min-height:100%;
     width: 100%;
     border: 1px solid gray;
 }
 
 header, footer {
+    height:100%;
     padding: 1em;
     color: white;
     background-color: black;
     clear: left;
     text-align: center;
+}
+
+footer {
+    position:absolute;
+    bottom:0;
+
 }
 
 nav {
@@ -29,6 +37,7 @@ nav ul a {
 }
 
 article {
+    min-height:100%;
     margin-left: 170px;
     border-left: 1px solid gray;
     padding: 1em;

@@ -1,6 +1,24 @@
 ﻿
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "Index";
     Layout = "/Views/Shared/_Layout.cshtml";
 }
+
+@section article{
+    <h1>Welcome @Session["SessionUserName"]</h1>
+    <p>
+        You are now on the home page of the NetCash online banking site.
+        <br/>
+        <br />
+        Transfer cash, submit a loan request, or request an insurance quote,
+        <br/>
+        using the buttons on the left panel, and be sure to log out when 
+        <br/>
+        you're finished. 
+        <br/>
+        <br/>
+        Have a nice day!
+    </p>
+    
+    }
 

@@ -21,7 +21,7 @@ namespace NetCash.Models
         }
 
         [Required(ErrorMessage = "You mest provide a reason for your Loan")]
-        [Display(Name = "Reason for Loan")]
+        [Display(Name = "Reason for Loan:")]
         public string LoanChoice { get; set; }
 
         public IEnumerable<LoanType> LoanTypeOptions =
@@ -34,7 +34,7 @@ namespace NetCash.Models
             };
 
         [Required(ErrorMessage = "Please specifiy an amount required")]
-        [Display(Name = "Amount Required")]
+        [Display(Name = "Amount Required:")]
         public string AmountRequired { get; set; }
 
         [Required]
@@ -47,7 +47,7 @@ namespace NetCash.Models
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
 
-                string _sql = @"INSERT INTO [dbo].[Loans] (AccountNumber, LoanType, AmountRequired, RepaymentPeriod) VALUES (@an, @lt, @ar, @rp)";
+                string _sql = @"INSERT INTO [dbo].[LoanApplications] (AccountNumber, LoanType, AmountRequired, RepaymentPeriod) VALUES (@an, @lt, @ar, @rp)";
 
                 var cmd = new SqlCommand(_sql, connection);
                 cmd.Parameters

@@ -11,35 +11,24 @@
     {
         @Html.ValidationSummary(true, "Application failed. Check your loan application details");
 
-        <div>
-            <fieldset>
-                <legend>Loan Application</legend>
 
-                <div>
-                    @Html.LabelFor(l => l.LoanChoice)
-                </div>
-                <div>
+                <div class="form-group">
+                    @Html.LabelFor(l => l.LoanChoice, new { @class = "control-label" })
                     @Html.DropDownListFor(l => l.LoanChoice, new SelectList(Model.LoanTypeOptions,
                                "LoanTypeID", "Value",
-                               Model.LoanTypeOptions.First().LoanTypeID))
+                               Model.LoanTypeOptions.First().LoanTypeID), new { @class = "form-control" })
                 </div>
-                <div>
-                    @Html.LabelFor(c => c.AmountRequired)
-                </div>
-                <div>
-                    @Html.TextBoxFor(c => c.AmountRequired)
+                <div class="form-group">
+                    @Html.LabelFor(c => c.AmountRequired, new { @class = "control-label" })
+                    @Html.TextBoxFor(c => c.AmountRequired, new { @class = "form-control" })
                     @Html.ValidationMessageFor(c => c.AmountRequired)
                 </div>
-                <div>
-                    @Html.LabelFor(c => c.PeriodOfRepayment)
-                </div>
-                <div>
-                    @Html.TextBoxFor(c => c.PeriodOfRepayment)
+                <div class="form-group">
+                    @Html.LabelFor(c => c.PeriodOfRepayment, new { @class = "control-label" })
+                    @Html.TextBoxFor(c => c.PeriodOfRepayment, new { @class = "form-control" })
                     @Html.ValidationMessageFor(c => c.PeriodOfRepayment)
                 </div>
-                <input type="submit" value="Confirm" />              
-                </fieldset>
-            </div>
+                <input class="btn btn-primary" type="submit" value="Confirm" />              
     }
     }
 
