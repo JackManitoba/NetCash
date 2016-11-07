@@ -1,13 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ATMVERSION2.ATMHardware
-{
+{    
     class CardReader
     {
-        //read card from txt file pass back card number
+        private Card currentCard;
+
+        public CardReader(string cardLocation)
+        {
+            if (cardLocation != "")
+            {
+                readCardFromFile(cardLocation);
+            }
+            else
+            {
+                var path = Directory.GetCurrentDirectory();
+                path += "\\NetCash_Debit_Card.txt";
+                readCardFromFile(path);
+            }
+        }
+        private void readCardFromFile(string cardLocation)
+        {
+            string[] lines = System.IO.File.ReadAllLines(@cardLocation);
+            string CN = lines[1].Replace("Card Number: ", "");
+            currentCard = new Card(CN, lines[2]);
+        }
+        public string getCardNumber()
+        {
+            return currentCard.getCardNumber();
+        }
     }
 }

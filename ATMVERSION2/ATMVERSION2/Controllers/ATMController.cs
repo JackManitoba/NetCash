@@ -11,6 +11,7 @@ using WindowsFormsApplication1.Interceptor_Package.Dispatchers;
 using WindowsFormsApplication1.Interceptor_Package;
 using System.Diagnostics;
 using ATMVERSION2.Views.UserInterface.Panels;
+using ATMVERSION2.ATMHardware;
 
 namespace ATMVERSION2.Controllers
 {
@@ -38,8 +39,8 @@ namespace ATMVERSION2.Controllers
 
         public void insertCard(string cardNumber)
         {
-            
-            currentCardNumber = cardNumber;
+            CardReader CR = new CardReader("");
+            currentCardNumber = CR.getCardNumber();
             account = new Account(Account.getAccountByCardNumber(cardNumber));
         }
 
