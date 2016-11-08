@@ -41,6 +41,9 @@ namespace ATMVERSION2.Controllers
 
         public void insertCard(string cardLocation)
         {
+            //the commented lines here are only here for testing
+            //CheckATMCash Cash = new CheckATMCash();
+            //Boolean a = Cash.isWithdrawable(5);
             CardReader CR = new CardReader(cardLocation);
             currentCardNumber = CR.getCardNumber();
             account = new Account(Account.getAccountByCardNumber(currentCardNumber));
@@ -112,6 +115,7 @@ namespace ATMVERSION2.Controllers
 
                 if (mainView.getCurrentPanel().name.Equals("WithdrawalPanel"))
                 {
+                    //this should check if the user has sufficient funds + if the ATM has sufficient funds
                     WithdrawalPanel p = (WithdrawalPanel)mainView.getCurrentPanel();
                     double amount = double.Parse(p.getInput().Text);
                     ATMTransaction withdrawal = new ATMTransaction(account.cardNumber, "WITHDRAWAL", amount);

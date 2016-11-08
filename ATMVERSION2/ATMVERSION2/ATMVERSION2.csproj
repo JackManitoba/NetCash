@@ -47,6 +47,7 @@
     <Compile Include="ATMHardware\CardReader.cs" />
     <Compile Include="ATMHardware\CheckATMCash.cs" />
     <Compile Include="ATMHardware\Card.cs" />
+    <Compile Include="ATMHardware\UpdateCashATM.cs" />
     <Compile Include="ConcreteCommands\CancelCommand.cs" />
     <Compile Include="ConcreteCommands\ClearCommand.cs" />
     <Compile Include="ConcreteCommands\EnterCommand.cs" />
