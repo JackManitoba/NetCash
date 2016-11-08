@@ -66,7 +66,7 @@ namespace Helpers.AccountManager
         {
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
-                string _sql = @"UPDATE [dbo].[AtmUsers] Set [PIN]=@b WHERE [AccountNumber] = @a ";
+                string _sql = @"UPDATE [dbo].[ATMUsers] Set [PIN]=@b WHERE [AccountNumber] = @a ";
 
                 var cmd = new SqlCommand(_sql, connection);
                 cmd.Parameters
