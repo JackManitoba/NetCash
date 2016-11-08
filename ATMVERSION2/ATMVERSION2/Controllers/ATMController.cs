@@ -115,19 +115,35 @@ namespace ATMVERSION2.Controllers
 
                 if (mainView.getCurrentPanel().name.Equals("WithdrawalPanel"))
                 {
-                    //this should check if the user has sufficient funds + if the ATM has sufficient funds
                     WithdrawalPanel p = (WithdrawalPanel)mainView.getCurrentPanel();
-                    double amount = double.Parse(p.getInput().Text);
-                    ATMTransaction withdrawal = new ATMTransaction(account.cardNumber, "WITHDRAWAL", amount);
-                    performTransaction(withdrawal);
+                    //if cancel, log out
+                    if (p.getInput().Text != "")
+                    {
+                        double amount = double.Parse(p.getInput().Text);
+                        CheckATMCash CashCheck = new CheckATMCash();
+                        if (account.AreFullFundsAvailable(amount) && CashCheck.isWithdrawable(amount))
+                        {
+                            ATMTransaction withdrawal = new ATMTransaction(account.cardNumber, "WITHDRAWAL", amount);
+                            performTransaction(withdrawal);
+                        }
+                        else
+                        {
+                            Debug.WriteLine("+++Not enough funds");
+                            //send to a new panel if you can't withdraw that much
+                        }
+                    }
                 }
 
                 if (mainView.getCurrentPanel().name.Equals("DepositPanel"))
                 {
                     DepositPanel p = (DepositPanel)mainView.getCurrentPanel();
-                    double amount = double.Parse(p.getInput().Text);
-                    ATMTransaction deposit = new ATMTransaction(account.cardNumber, "DEPOSIT", amount);
-                   performTransaction(deposit);
+                    if (p.getInput().Text != "")
+                    {
+                        double amount = double.Parse(p.getInput().Text);
+                        ATMTransaction deposit = new ATMTransaction(account.cardNumber, "DEPOSIT", amount);
+                        performTransaction(deposit);
+                        //update ATMCASH
+                    }
                 }
 
 

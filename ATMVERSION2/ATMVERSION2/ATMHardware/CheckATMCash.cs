@@ -13,7 +13,8 @@ namespace ATMVERSION2.ATMHardware
 {
     class CheckATMCash
     {
-        private int total = 0;
+        private double total = 0;
+        private int[] DenominationsAmounts = new int[9];
 
         public CheckATMCash()
         {
@@ -22,11 +23,13 @@ namespace ATMVERSION2.ATMHardware
         private void setLocalCash()
         {
             string [] denominations = { "1Euro", "2Euro", "5Euro", "10Euro", "20Euro", "50Euro", "100Euro", "200Euro", "500Euro" };
-            int [] values = { 1, 2, 5, 10, 20, 50, 100, 200, 500 };
+            double [] values = { 1, 2, 5, 10, 20, 50, 100, 200, 500 };
             int i = 0;
             while(i < denominations.Length)
             {
-                this.total += (setEachDenomination(denominations[i]) * values[i]);
+                int attempted = setEachDenomination(denominations[i]);
+                DenominationsAmounts[i] = attempted;
+                this.total +=  attempted * values[i];
                 i++;
             }
             Debug.WriteLine("ATM total = " + total);
@@ -50,19 +53,63 @@ namespace ATMVERSION2.ATMHardware
                     .Value = current;
 
                 connection.Open();
-                returnValue = Convert.ToInt32(cmd.ExecuteScalar());
+                returnValue = Convert.ToInt32(cmd.ExecuteScalar().ToString());
                 Debug.WriteLine(current + " : " + returnValue);
                 cmd.Dispose();
                 connection.Dispose();
             }
             return returnValue;
         }
-        public Boolean isWithdrawable(int attemptedWithdrawal)
+
+        public bool isWithdrawable(double attemptedWithdrawal)
         {
-            Boolean isValid = true;
-            if (attemptedWithdrawal >= this.total)
-                isValid = false;
-            return isValid;
+            bool ReturnVal = CheckBank(attemptedWithdrawal);
+            return ReturnVal;
+        }
+
+        private bool CheckBank(double doubleattempt)
+        {
+            int attempted = Convert.ToInt32(doubleattempt);
+            int[] Denominations = { 1, 2, 5, 10, 20, 50, 100, 200, 500};
+            Debug.WriteLine("Current amount = " + attempted);
+            if (attempted <= this.total)
+            {
+                for (int i = Denominations.Length -1; i >= 0; i--)
+                {
+                    Debug.WriteLine("Current amount is now, " + attempted );
+                    if (Denominations[i] > attempted)
+                    {
+                        //do nothing
+                        Debug.WriteLine("Current Denomination, " + Denominations[i] + " is GREATER than current amount");
+                    }
+                    else if (Denominations[i] == attempted)
+                    {
+                        if(DenominationsAmounts[i] != 0)
+                        {
+                            attempted -= Denominations[i];
+                            Debug.WriteLine("Current Denomination, " + Denominations[i] + " is EQUAL than current amount and there is at least one of those notes");
+                            i = -1;
+                        }
+                        else
+                            Debug.WriteLine("Current Denomination, " + Denominations[i] + " is EQUAL than current amount NO NOTES OF THIS TYPE");
+                    }
+                    else if (Denominations[i] < attempted)
+                    {
+                        if (DenominationsAmounts[i] != 0)
+                        {
+                            Debug.WriteLine("Current Denomination, " + Denominations[i] + " is LESS than current amount and there is at least one of those notes");
+                            attempted -= Denominations[i];
+                            DenominationsAmounts[i]--;
+                            if (attempted != 0)
+                                i++;
+                        }
+                    }
+                }
+            }
+            if (attempted == 0)
+                return true;
+            else
+                return false;
         }
     }
 }

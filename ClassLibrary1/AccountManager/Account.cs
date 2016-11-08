@@ -205,9 +205,15 @@ namespace Helpers.AccountManager
 
         public bool AreFundsAvailable(double Balance)
         {
-            //check in CheckATMCash
                 if (GetBalance() + 100 >= Balance) return true;
                 else return false;         
+        }
+        public bool AreFullFundsAvailable(double WithdrawAttempt)
+        {
+            if (GetBalance() >= WithdrawAttempt)
+                return true;
+            else
+                return false;
         }
     }
 }
