@@ -18,7 +18,7 @@ namespace NetCash.Models
                 
         [Required]
         [Display(Name = "Username :")]
-        public string UserName { get; private set; }
+        public string UserName { get; set; }
 
         public bool IsValid(string _Username, string _Password)
         {

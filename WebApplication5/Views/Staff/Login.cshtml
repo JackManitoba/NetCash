@@ -1,0 +1,32 @@
+﻿@model NetCash.Models.Staff
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+@section article {
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true, "Login failed. Check your login details.");
+
+
+        <h2>Staff Login</h2>
+            <div class="form-group">
+                @Html.LabelFor(u => u.UserName, new { @class = "control-label" })
+                @Html.TextBoxFor(u => u.UserName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(u => u.UserName)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(u => u.Password, new { @class = "control-label" })
+                @Html.PasswordFor(u => u.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(u => u.Password)
+            </div>
+
+            <input class="btn btn-primary" type="submit" value="Log In" />
+    }
+}
+
+

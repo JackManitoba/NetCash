@@ -271,6 +271,7 @@
     <Content Include="Views\Transfer\TransferResult.cshtml" />
     <Content Include="Views\Home\StaffHomepage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Staff\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -287,7 +288,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Overdraft_Application\" />
-    <Folder Include="Views\Staff\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

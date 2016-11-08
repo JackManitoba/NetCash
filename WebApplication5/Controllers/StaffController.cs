@@ -23,15 +23,14 @@ namespace WebApplication5.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(User user)
+        public ActionResult Login(Staff staff)
         {
             if (ModelState.IsValid)
             {
-                if (user.IsValid(user.Email, user.Password))
+                if (staff.IsValid(staff.UserName, staff.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(user.Email, false);
-                    Session["SessionUserName"] = user.UserName;
-                    Session["AccountNumber"] = user.AccountNumber;
+                    FormsAuthentication.SetAuthCookie(staff.UserName, false);
+                    Session["SessionUserName"] = staff.UserName;
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -39,7 +38,7 @@ namespace WebApplication5.Controllers
                     ModelState.AddModelError("", "Login data is incorrect!");
                 }
             }
-            return View(user);
+            return View(staff);
         }
         public ActionResult Logout()
         {
