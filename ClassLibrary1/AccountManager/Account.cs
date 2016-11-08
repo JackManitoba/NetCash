@@ -15,19 +15,9 @@ namespace Helpers.AccountManager
     {
         public State state;
 
-        public string EncodingType;
-
         [Required]
         [Display(Name = "Account Number")]
         public string AccountNumber { get; set; }
-
-        [Required]
-        [Display(Name = "PIN")]
-        public string pin { get; set; }
-
-        [Required]
-        [Display(Name = "Card Number")]
-        public string cardNumber { get; set; }
 
         [Required]
         [Display(Name = "Balance")]
@@ -38,13 +28,11 @@ namespace Helpers.AccountManager
             this.AccountNumber = _accountnumber;
             this.Balance = GetBalance();
             this.state = GetState();
-            this.EncodingType = GetEncodingType();
-            this.pin = GetPin();
+          
             Debug.WriteLine("Account constructor finished");
             Debug.WriteLine("Account number: "+ AccountNumber);
             Debug.WriteLine("Account balance: " + Balance);
             Debug.WriteLine("Account state: "+ state.ToString());
-            Debug.WriteLine("Account pin: "+ pin);
         }
 
         public void IncreaseBalance(double transferAmount)
@@ -56,71 +44,7 @@ namespace Helpers.AccountManager
         public void DecreaseBalance(double transferAmount)
         {
             UpdateAmount(-transferAmount);
-        }
-
-        public static string getAccountByCardNumber(string _cardNumber)
-        {
-            //this is probably not a good way to do this, but it seems to work
-
-            var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            var path = baseDir.Replace("\\ATMVERSION2\\WindowsFormsApplication1\\bin\\Debug", "");
-            path += "\\WebApplication5\\App_Data";
-            var fullPath = Path.GetFullPath(path);
-            Debug.WriteLine("Connection String for ATM = " + fullPath);
-            AppDomain.CurrentDomain.SetData("DataDirectory", fullPath);
-
-            //////
-
-
-            Debug.WriteLine("getAccountByCardNumber called, card number was: " + _cardNumber);
-            string accountNo;
-            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("Account class, getAccountByCardNumber() method","Attempt to read ATMUsers database"));
-            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
-            {
-                string _sql = @"SELECT [AccountNumber] From [dbo].[ATMUsers] WHERE [CardNumber] = @a ";
-
-                var cmd = new SqlCommand(_sql, connection);
-                cmd.Parameters
-                    .Add(new SqlParameter("@a", SqlDbType.NVarChar))
-                    .Value = _cardNumber.Trim();
-
-                connection.Open();
-
-                accountNo = Convert.ToString(cmd.ExecuteScalar());
-
-                cmd.Dispose();
-                connection.Dispose();
-            }
-            Debug.WriteLine("Account number returned was: " + accountNo);
-            return accountNo;
-        }
-
-        public void updatePin(string newPin)
-        {
-            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
-            {
-                string _sql = @"UPDATE [dbo].[AtmUsers] Set [PIN]=@b WHERE [AccountNumber] = @a ";
-
-                var cmd = new SqlCommand(_sql, connection);
-                cmd.Parameters
-                    .Add(new SqlParameter("@a", SqlDbType.NVarChar))
-                    .Value = this.AccountNumber;
-                cmd.Parameters
-                    .Add(new SqlParameter("@b", SqlDbType.NVarChar))
-                    .Value = newPin;
-                this.pin = newPin;
-                connection.Open();
-
-                cmd.ExecuteScalar();
-
-                cmd.Dispose();
-                connection.Dispose();
-            }
-        }
-
-        private string GetEncodingType()
-        {
-            return "SHA1";
+            state.PayInterest(transferAmount);
         }
 
         private State GetState()
@@ -152,62 +76,23 @@ namespace Helpers.AccountManager
             return balance;
         }
 
-
-        public bool IsValid(string s)
-        {
-            string currentPin = GetPin();
-            if (s == currentPin)
-                return true;
-            else
-                return false;
-        }
-
-
-        private string GetPin()
-        {
-           string pin;
-            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("Account class, getPin() method", "Attempt to read ATMUsers database"));
-            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
-            {
-                string _sql = @"SELECT [PIN] From [dbo].[ATMUsers] WHERE [AccountNumber] = @a ";
-
-                var cmd = new SqlCommand(_sql, connection);
-                cmd.Parameters
-                    .Add(new SqlParameter("@a", SqlDbType.NVarChar))
-                    .Value = AccountNumber;
-
-                connection.Open();
-
-                pin = Convert.ToString(cmd.ExecuteScalar());
-
-                cmd.Dispose();
-                connection.Dispose();
-            }
-            return pin;
-        }
-
-
-
-
-
-
-
         public void UpdateAmount(double _amount)
-        {
-          
-            
+        {          
             state.UpdateAmount(_amount);
-           this.Balance =  GetBalance();
-
-            
-         
+           this.Balance =  GetBalance();     
         }
 
         public bool AreFundsAvailable(double Balance)
         {
-            //check in CheckATMCash
                 if (GetBalance() + 100 >= Balance) return true;
                 else return false;         
+        }
+        public bool AreFullFundsAvailable(double WithdrawAttempt)
+        {
+            if (GetBalance() >= WithdrawAttempt)
+                return true;
+            else
+                return false;
         }
     }
 }

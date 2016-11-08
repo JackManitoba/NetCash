@@ -19,15 +19,12 @@ namespace Helpers.Utils
         }
 
         internal void logDatabaseInteractions(ContextObject context)
-        {
-          
-            
+        {    
             //file2.WriteLine(DateTime.Now.ToString("HH:mm:ss tt")+context.getObj());
             using (System.IO.StreamWriter file =
             new System.IO.StreamWriter(@"DatabaseInteractionsLog.txt", true))
             {
-                file.WriteLine(context.getVerboseDescription()+"\n");
-                
+                file.WriteLine(context.getVerboseDescription()+"\n");               
             }
         }
 

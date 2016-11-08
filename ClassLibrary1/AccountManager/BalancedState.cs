@@ -49,6 +49,8 @@ namespace Helpers.AccountManager
                 connection.Dispose();
                
             }
+
+            StateChangeCheck();
         }
 
         private double GetInterestRate()
@@ -56,9 +58,9 @@ namespace Helpers.AccountManager
             return 2.00;
         }
 
-        public override void PayInterest()
+        public override void PayInterest(double amount)
         {
-            throw new NotImplementedException();
+            //No interest paid
         }
 
         public override void StateChangeCheck()

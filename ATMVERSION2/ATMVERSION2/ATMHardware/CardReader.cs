@@ -22,7 +22,9 @@ namespace ATMVERSION2.ATMHardware
             {
                 var path = Directory.GetCurrentDirectory();
                 path += "\\NetCash_Debit_Card.txt";
+                Debug.WriteLine("+++" + path);
                 readCardFromFile(path);
+ 
             }
         }
         private void readCardFromFile(string cardLocation)

@@ -14,12 +14,13 @@ using ATMVERSION2.ATMHardware;
 using Helpers.AccountManager;
 using Helpers.Interceptor_Package.Dispatchers;
 using Helpers.Interceptor_Package;
+using System.IO;
 
 namespace ATMVERSION2.Controllers
 {
     public class ATMController : Observer
     {
-       Account account;
+        ATMAccount account;
         static ATMMainView mainView;
         string currentCardNumber = "";
 
@@ -31,8 +32,14 @@ namespace ATMVERSION2.Controllers
             }
         }
 
-        public ATMController(Account m, ATMMainView v)
+        public ATMController(ATMAccount m, ATMMainView v)
         {
+            var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            var path = baseDir.Replace("\\ATMVERSION2\\WindowsFormsApplication1\\bin\\Debug", "");
+            path += "\\WebApplication5\\App_Data";
+            var fullPath = Path.GetFullPath(path);
+            AppDomain.CurrentDomain.SetData("DataDirectory", fullPath);
+
             account = m;
             mainView = v;
             mainView.registerObserver(this);
@@ -41,12 +48,9 @@ namespace ATMVERSION2.Controllers
 
         public void insertCard(string cardLocation)
         {
-            //the commented lines here are only here for testing
-            //CheckATMCash Cash = new CheckATMCash();
-            //Boolean a = Cash.isWithdrawable(5);
             CardReader CR = new CardReader(cardLocation);
             currentCardNumber = CR.getCardNumber();
-            account = new Account(Account.getAccountByCardNumber(currentCardNumber));
+            account = new ATMAccount(ATMAccount.getAccountByCardNumber(currentCardNumber));
         }
 
         public void performTransaction(ATMTransaction transaction)
@@ -90,8 +94,8 @@ namespace ATMVERSION2.Controllers
                 }
                 else
                 {
-                    insertCard(currentCardNumber);
-                  setPanel(pf.getPanel("PIN"));
+                    insertCard("");
+                    setPanel(pf.getPanel("PIN"));
                 }
             }
             else
@@ -115,19 +119,38 @@ namespace ATMVERSION2.Controllers
 
                 if (mainView.getCurrentPanel().name.Equals("WithdrawalPanel"))
                 {
-                    //this should check if the user has sufficient funds + if the ATM has sufficient funds
                     WithdrawalPanel p = (WithdrawalPanel)mainView.getCurrentPanel();
-                    double amount = double.Parse(p.getInput().Text);
-                    ATMTransaction withdrawal = new ATMTransaction(account.cardNumber, "WITHDRAWAL", amount);
-                    performTransaction(withdrawal);
+                    //if cancel, log out
+                    if (p.getInput().Text != "")
+                    {
+                        double amount = double.Parse(p.getInput().Text);
+                        CheckATMCash CashCheck = new CheckATMCash();
+                        if (account.AreFullFundsAvailable(amount) && CashCheck.isWithdrawable(amount))
+                        {
+                            ATMTransaction withdrawal = new ATMTransaction(account.cardNumber, "WITHDRAWAL", amount);
+                            performTransaction(withdrawal);
+                            UpdateCashATM update = new UpdateCashATM();
+                            update.UpdateAmountWithdrawal(amount);
+                        }
+                        else
+                        {
+                            Debug.WriteLine("+++Not enough funds");
+                            //send to a new panel if you can't withdraw that much
+                        }
+                    }
                 }
 
                 if (mainView.getCurrentPanel().name.Equals("DepositPanel"))
                 {
                     DepositPanel p = (DepositPanel)mainView.getCurrentPanel();
-                    double amount = double.Parse(p.getInput().Text);
-                    ATMTransaction deposit = new ATMTransaction(account.cardNumber, "DEPOSIT", amount);
-                   performTransaction(deposit);
+                    if (p.getInput().Text != "")
+                    {
+                        double amount = double.Parse(p.getInput().Text);
+                        ATMTransaction deposit = new ATMTransaction(account.cardNumber, "DEPOSIT", amount);
+                        performTransaction(deposit);
+                        UpdateCashATM update = new UpdateCashATM();
+                        update.UpdateAmountDeposit(amount);
+                    }
                 }
 
 
