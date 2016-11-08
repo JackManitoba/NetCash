@@ -198,6 +198,7 @@
     <Compile Include="Controllers\InsuranceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoanController.cs" />
+    <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\TransferController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -212,6 +213,7 @@
     <Compile Include="Models\LoanStrategy\Loan.cs" />
     <Compile Include="Models\ATMModels\ATMTransaction.cs" />
     <Compile Include="Models\ATMModels\ATMUser.cs" />
+    <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Transfer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -259,7 +261,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\UserHomePage.cshtml" />
     <Content Include="Views\Transfer\Transfer.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Loan\LoanApplication.cshtml" />
@@ -267,6 +269,8 @@
     <Content Include="Views\Insurance\DisplayPremium.cshtml" />
     <Content Include="Views\Loan\LoanResult.cshtml" />
     <Content Include="Views\Transfer\TransferResult.cshtml" />
+    <Content Include="Views\Home\StaffHomepage.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -280,6 +284,10 @@
       <Project>{478C3A72-B9D6-46F1-A0C5-DE7E3A06F332}</Project>
       <Name>Helpers</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Overdraft_Application\" />
+    <Folder Include="Views\Staff\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

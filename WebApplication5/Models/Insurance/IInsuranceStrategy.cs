@@ -8,6 +8,6 @@ namespace WebApplication5.Models.Insurance
 {
     interface IInsuranceStrategy
     {
-        double calculatequte(int province , int insuranceType);
+        double calculatequote(int ageBracket , int Location);
     }
 }

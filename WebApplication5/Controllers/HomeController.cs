@@ -10,16 +10,34 @@ namespace NetCash.Controllers
     {
         public ActionResult Index()
         {
-            if(Session["SessionUserName"] != null)
-            {
+                if ( Session["SessionRole"] != null){
 
-                return View();
+                if (Session["SessionRole"].ToString() == "BankStaff")
+                {
+
+                    return RedirectToAction("StaffHomepage");
+                }
+                else 
+                {
+
+                    return RedirectToAction("UserHomePage");
+                }
             }
-            else
-            {
-                return RedirectToAction("Login", "User");
-            }
+               else
+
+               {
+                   return View();
+               }
+            
+        }
+        public ActionResult StaffHomepage()
+        {
+            return View();
         }
 
+        public ActionResult UserHomePage()
+        {
+            return View();
+        }
     }
 }

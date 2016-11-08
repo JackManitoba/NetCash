@@ -17,7 +17,7 @@ namespace NetCash.Models
 
         public void CalculatePremium()
         {
-            quote = strategy.calculatequte(LocationChoice, InsuranceTypeChoice);
+            quote = strategy.calculatequote(LocationChoice, AgeChoice);
         }
 
         public class InsuranceCustomer 
@@ -84,7 +84,7 @@ namespace NetCash.Models
                 new InsuranceCustomer {Location = 1, Value = "Connacht" },
                 new InsuranceCustomer {Location = 2, Value = "Munster" },
                 new InsuranceCustomer {Location = 3, Value = "Leinster" },
-                new InsuranceCustomer {Location = 3, Value = "Ulster" }
+                new InsuranceCustomer {Location = 4, Value = "Ulster" }
            };
     }
 }

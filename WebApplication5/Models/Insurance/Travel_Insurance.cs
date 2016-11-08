@@ -8,7 +8,7 @@ namespace WebApplication5.Models.Insurance
     public class Travel_Insurance : IInsuranceStrategy
     {
 
-        public double calculatequte(int Location, int ageBracket)
+        public double calculatequote(int ageBracket, int Location )
         {
             return Location * 50 + ageBracket * 50;
         }
