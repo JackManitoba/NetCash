@@ -55,12 +55,12 @@ namespace Helpers.AccountManager
 
         private double GetInterestRate()
         {
-            return 2.00;
+            return 0.1;
         }
 
-        public override void PayInterest()
+        public override void PayInterest(double amount)
         {
-            throw new NotImplementedException();
+            Balance -= amount * InterestRate;      
         }
 
         public override void StateChangeCheck()

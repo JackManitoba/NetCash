@@ -34,7 +34,7 @@ namespace WindowsFormsApplication1
 
         static ATMMainView mainView;
         static ATMController controller;
-        static Account account;
+        static ATMAccount account;
         [STAThread]
         public static void Main()
         {

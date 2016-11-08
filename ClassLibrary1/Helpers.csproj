@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountManager\Account.cs" />
+    <Compile Include="AccountManager\ATMAccount.cs" />
     <Compile Include="AccountManager\BalancedState.cs" />
     <Compile Include="AccountManager\OverdrawnState.cs" />
     <Compile Include="AccountManager\State.cs" />

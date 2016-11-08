@@ -20,9 +20,11 @@ namespace ATMVERSION2.ATMHardware
             }
             else
             {
-                var path = Directory.GetCurrentDirectory();
+                var path = "C:\\Users\\Jack Daniel McNamara\\Desktop";
                 path += "\\NetCash_Debit_Card.txt";
+                Debug.WriteLine("+++" + path);
                 readCardFromFile(path);
+ 
             }
         }
         private void readCardFromFile(string cardLocation)

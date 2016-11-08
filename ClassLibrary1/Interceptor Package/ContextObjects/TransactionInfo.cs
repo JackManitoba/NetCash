@@ -5,10 +5,10 @@ namespace Helpers.Interceptor_Package
 {
    public  class TransactionInfo : ContextObject
     {
-        Account account;
+        ATMAccount account;
         string description;
         int transactionAmount;
-    public TransactionInfo(Account account, string description, int amount)
+    public TransactionInfo(ATMAccount account, string description, int amount)
         {
             this.account = account;
             this.description = description;

@@ -19,7 +19,7 @@ namespace ATMVERSION2.Controllers
 {
     public class ATMController : Observer
     {
-       Account account;
+        ATMAccount account;
         static ATMMainView mainView;
         string currentCardNumber = "";
 
@@ -31,7 +31,7 @@ namespace ATMVERSION2.Controllers
             }
         }
 
-        public ATMController(Account m, ATMMainView v)
+        public ATMController(ATMAccount m, ATMMainView v)
         {
             account = m;
             mainView = v;
@@ -46,7 +46,7 @@ namespace ATMVERSION2.Controllers
             //Boolean a = Cash.isWithdrawable(5);
             CardReader CR = new CardReader(cardLocation);
             currentCardNumber = CR.getCardNumber();
-            account = new Account(Account.getAccountByCardNumber(currentCardNumber));
+            account = new ATMAccount(ATMAccount.getAccountByCardNumber(currentCardNumber));
         }
 
         public void performTransaction(ATMTransaction transaction)
