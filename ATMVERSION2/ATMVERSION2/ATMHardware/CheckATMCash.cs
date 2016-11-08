@@ -37,11 +37,6 @@ namespace ATMVERSION2.ATMHardware
         private int setEachDenomination(string current)
         {
             int returnValue;
-            var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            var path = baseDir.Replace("\\ATMVERSION2\\WindowsFormsApplication1\\bin\\Debug", "");
-            path += "\\WebApplication5\\App_Data";
-            var fullPath = Path.GetFullPath(path);
-            AppDomain.CurrentDomain.SetData("DataDirectory", fullPath);
 
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {

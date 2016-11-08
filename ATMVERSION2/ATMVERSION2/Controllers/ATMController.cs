@@ -14,6 +14,7 @@ using ATMVERSION2.ATMHardware;
 using Helpers.AccountManager;
 using Helpers.Interceptor_Package.Dispatchers;
 using Helpers.Interceptor_Package;
+using System.IO;
 
 namespace ATMVERSION2.Controllers
 {
@@ -33,6 +34,12 @@ namespace ATMVERSION2.Controllers
 
         public ATMController(ATMAccount m, ATMMainView v)
         {
+            var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            var path = baseDir.Replace("\\ATMVERSION2\\WindowsFormsApplication1\\bin\\Debug", "");
+            path += "\\WebApplication5\\App_Data";
+            var fullPath = Path.GetFullPath(path);
+            AppDomain.CurrentDomain.SetData("DataDirectory", fullPath);
+
             account = m;
             mainView = v;
             mainView.registerObserver(this);
@@ -41,9 +48,6 @@ namespace ATMVERSION2.Controllers
 
         public void insertCard(string cardLocation)
         {
-            //the commented lines here are only here for testing
-            //CheckATMCash Cash = new CheckATMCash();
-            //Boolean a = Cash.isWithdrawable(5);
             CardReader CR = new CardReader(cardLocation);
             currentCardNumber = CR.getCardNumber();
             account = new ATMAccount(ATMAccount.getAccountByCardNumber(currentCardNumber));
@@ -90,8 +94,8 @@ namespace ATMVERSION2.Controllers
                 }
                 else
                 {
-                    insertCard(currentCardNumber);
-                  setPanel(pf.getPanel("PIN"));
+                    insertCard("");
+                    setPanel(pf.getPanel("PIN"));
                 }
             }
             else
@@ -125,6 +129,8 @@ namespace ATMVERSION2.Controllers
                         {
                             ATMTransaction withdrawal = new ATMTransaction(account.cardNumber, "WITHDRAWAL", amount);
                             performTransaction(withdrawal);
+                            UpdateCashATM update = new UpdateCashATM();
+                            update.UpdateAmount(amount);
                         }
                         else
                         {
