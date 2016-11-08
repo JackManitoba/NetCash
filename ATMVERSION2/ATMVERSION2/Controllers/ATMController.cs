@@ -130,7 +130,7 @@ namespace ATMVERSION2.Controllers
                             ATMTransaction withdrawal = new ATMTransaction(account.cardNumber, "WITHDRAWAL", amount);
                             performTransaction(withdrawal);
                             UpdateCashATM update = new UpdateCashATM();
-                            update.UpdateAmount(amount);
+                            update.UpdateAmountWithdrawal(amount);
                         }
                         else
                         {
@@ -148,7 +148,8 @@ namespace ATMVERSION2.Controllers
                         double amount = double.Parse(p.getInput().Text);
                         ATMTransaction deposit = new ATMTransaction(account.cardNumber, "DEPOSIT", amount);
                         performTransaction(deposit);
-                        //update ATMCASH
+                        UpdateCashATM update = new UpdateCashATM();
+                        update.UpdateAmountDeposit(amount);
                     }
                 }
 
