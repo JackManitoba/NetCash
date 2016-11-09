@@ -2,6 +2,7 @@
 using ATMVERSION2.UserInterface.Buttons;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace ATMVERSION2.UserInterface.Panels
    public class PinPanel : ATMPanel , Subject 
     {
         protected static TextBox pinEntryBox;
+        protected static Label messageLabel;
         protected static Label netCashLabel;
         public PinPanel()
         {
@@ -34,6 +36,12 @@ namespace ATMVERSION2.UserInterface.Panels
             netCashLabel.Text = "NET-CASH";
             netCashLabel.SetBounds(((this.Width / 2) - 30), ((this.Height / 2) - 30), 100, 40);
             this.Controls.Add(netCashLabel);
+
+            messageLabel = new Label();
+            messageLabel.Text = "";
+            messageLabel.ForeColor = System.Drawing.Color.Red;
+            messageLabel.SetBounds(((this.Width / 2) - 70), ((this.Height / 2) - 70), 150, 40);
+            this.Controls.Add(messageLabel);
 
             navData.addNavigaion("MAIN");
         }  
@@ -66,6 +74,12 @@ namespace ATMVERSION2.UserInterface.Panels
         public override TextBox getInput()
         {
             return pinEntryBox;
+        }
+        public void DisplayMessage(string message)
+        {
+            messageLabel.Text = message;
+            Debug.WriteLine(messageLabel.Text);
+            messageLabel.Update();
         }
     }
 }

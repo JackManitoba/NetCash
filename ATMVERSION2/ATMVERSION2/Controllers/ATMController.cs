@@ -23,6 +23,8 @@ namespace ATMVERSION2.Controllers
         ATMAccount account;
         static ATMMainView mainView;
         string currentCardNumber = "";
+        int ChancesLeft = 3;
+        bool canceled = false;
 
         public List<Subject> subjectList
         {
@@ -47,9 +49,11 @@ namespace ATMVERSION2.Controllers
 
 
         public void insertCard(string cardLocation)
-        {
+        {            
             CardReader CR = new CardReader(cardLocation);
             currentCardNumber = CR.getCardNumber();
+            canceled = CR.isCardCanceled();
+            Debug.WriteLine("+++" + canceled);       
             account = new ATMAccount(ATMAccount.getAccountByCardNumber(currentCardNumber));
         }
 
@@ -87,15 +91,38 @@ namespace ATMVERSION2.Controllers
             if (mainView.getCurrentPanel().name.Equals("PinPanel"))
             {
                 PinPanel p = (PinPanel)mainView.getCurrentPanel();
-                bool validate = account.IsValid(p.getInput().Text);
-                if (validate)
-                {
-                    setPanel(pf.getPanel(navClass.getNavigationPanelName()));
+                if (canceled == false)
+                {                    
+                    bool validate = account.IsValid(p.getInput().Text);
+                    if (validate)
+                    {
+                        ChancesLeft = 3;
+                        setPanel(pf.getPanel(navClass.getNavigationPanelName()));
+                    }
+                    else
+                    {
+                        if (ChancesLeft != 0)
+                        {
+                            ChancesLeft--;
+                            insertCard("");
+                            setPanel(pf.getPanel("PIN"));
+                            if(ChancesLeft != 0)
+                                p.DisplayMessage("INCORRECT PIN, YOU HAVE " + (ChancesLeft + 1) + " ENTRIES LEFT");
+                            else
+                                p.DisplayMessage("INCORRECT PIN, YOU HAVE " + (ChancesLeft + 1) + " ENTRY LEFT");
+                        }
+                        else
+                        {
+                            setPanel(pf.getPanel("PIN"));
+                            p.DisplayMessage("INCORRECT PIN, YOUR CARD HAS BEEN CANCELED");
+                            CancelCard Canceler = new CancelCard(currentCardNumber);
+                        }
+                    }
                 }
                 else
                 {
-                    insertCard("");
                     setPanel(pf.getPanel("PIN"));
+                    p.DisplayMessage("THIS CARD HAS BEEN CANCELED");
                 }
             }
             else
@@ -161,6 +188,7 @@ namespace ATMVERSION2.Controllers
                 {
                     BalancePanel p = (BalancePanel)mainView.getCurrentPanel();
                     p.showBalance(account.Balance.ToString());
+                
                 }
 
                 if (mainView.getCurrentPanel().name.Equals("PrintInfo"))
@@ -173,10 +201,9 @@ namespace ATMVERSION2.Controllers
 
         public void startATM()
         {
-
             setPanel(new PinPanel());
             Application.Run(mainView);
-            }
+        }
 
         public void update()
         {

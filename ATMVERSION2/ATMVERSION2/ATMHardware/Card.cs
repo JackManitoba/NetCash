@@ -11,14 +11,17 @@ namespace ATMVERSION2.ATMHardware
     {
         private string cardNumber = "";
         private string expiry = "";
+        private bool canceled = false;
 
-        public Card (string CN, string E)
+        public Card (string CNo, string E, bool Canceled)
         {
-            cardNumber = CN;
+            cardNumber = CNo;
             expiry = E;
+            canceled = Canceled;
 
             Debug.WriteLine("CARDNUMBER IN CARD CLASS:" + cardNumber);
             Debug.WriteLine("EXPIRY IN CARD CLASS:" +expiry);
+            Debug.WriteLine("CARD canceled:" + canceled);
         }
         public string getCardNumber()
         {
@@ -27,6 +30,10 @@ namespace ATMVERSION2.ATMHardware
         public string getExpiryDate()
         {
             return this.expiry;
+        }
+        public bool isCardCanceled()
+        {
+            return this.canceled;
         }
     }
 }
