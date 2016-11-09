@@ -15,20 +15,20 @@
                 <div class="form-group">
                     @Html.LabelFor(l => l.AgeChoice, new { @class = "control-label" })
                     @Html.DropDownListFor(l => l.AgeChoice, new SelectList(Model.ageBracketOptions,
-                               "ageBracket", "Value",
-                               Model.ageBracketOptions.First().ageBracket), new { @class = "form-control" })
+                               "StringValue", "StringValue",
+                               Model.ageBracketOptions.First().StringValue), new { @class = "form-control" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(l => l.InsuranceTypeChoice, new { @class = "control-label" })             
                     @Html.DropDownListFor(l => l.InsuranceTypeChoice, new SelectList(Model.InsuranceTypeOptions,
-                               "InsuranceType", "Value",
-                               Model.InsuranceTypeOptions.First().InsuranceType), new { @class = "form-control" })
+                               "StringValue", "StringValue",
+                               Model.InsuranceTypeOptions.First().StringValue), new { @class = "form-control" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(l => l.LocationChoice, new { @class = "control-label" })               
                     @Html.DropDownListFor(l => l.LocationChoice, new SelectList(Model.LocationOptions,
-                               "Location", "Value",
-                               Model.LocationOptions.First().Location), new { @class = "form-control" })
+                               "StringValue", "StringValue",
+                               Model.LocationOptions.First().StringValue), new { @class = "form-control" })
                 </div>
                 <input type="submit" value="Confirm" />         
     }

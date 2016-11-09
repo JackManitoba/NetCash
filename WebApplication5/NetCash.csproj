@@ -197,6 +197,7 @@
     <Compile Include="Controllers\ATMControllers\ATMUserController.cs" />
     <Compile Include="Controllers\InsuranceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Insurance_StaffController.cs" />
     <Compile Include="Controllers\LoanController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\LoanStaffController.cs" />
@@ -280,6 +281,8 @@
     <Content Include="Views\LoanStaff\DisplayLoan.cshtml" />
     <Content Include="Views\LoanStaff\LoanStaffQuery.cshtml" />
     <Content Include="Views\LoanStaff\DiscussLoan.cshtml" />
+    <Content Include="Views\Insurance_Staff\Insurance_StaffQuery.cshtml" />
+    <Content Include="Views\Insurance_Staff\DiscussInsurance.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
