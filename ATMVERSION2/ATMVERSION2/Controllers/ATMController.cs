@@ -144,7 +144,6 @@ namespace ATMVERSION2.Controllers
                 if (mainView.getCurrentPanel().name.Equals("WithdrawalPanel"))
                 {
                     WithdrawalPanel p = (WithdrawalPanel)mainView.getCurrentPanel();
-                    //if cancel, log out
                     if (p.getInput().Text != "")
                     {
                         double amount = double.Parse(p.getInput().Text);
@@ -158,8 +157,9 @@ namespace ATMVERSION2.Controllers
                         }
                         else
                         {
-                            Debug.WriteLine("+++Not enough funds");
-                            //send to a new panel if you can't withdraw that much
+                            p.DisplayMessage("INSUFFIECIENT FUNDS FOR THIS TRANSACTION");
+                            //set it so that it doesn't navigate away from withdraw panel
+
                         }
                     }
                 }

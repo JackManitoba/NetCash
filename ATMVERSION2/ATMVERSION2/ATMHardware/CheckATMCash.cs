@@ -14,7 +14,7 @@ namespace ATMVERSION2.ATMHardware
     class CheckATMCash
     {
         private double total = 0;
-        private int[] DenominationsAmounts = new int[9];
+        private int[] DenominationsAmounts = new int[6];
 
         public CheckATMCash()
         {
@@ -22,8 +22,8 @@ namespace ATMVERSION2.ATMHardware
         }
         private void setLocalCash()
         {
-            string [] denominations = { "1Euro", "2Euro", "5Euro", "10Euro", "20Euro", "50Euro", "100Euro", "200Euro", "500Euro" };
-            double [] values = { 1, 2, 5, 10, 20, 50, 100, 200, 500 };
+            string [] denominations = { "10Euro", "20Euro", "50Euro", "100Euro", "200Euro", "500Euro" };
+            double [] values = { 10, 20, 50, 100, 200, 500 };
             int i = 0;
             while(i < denominations.Length)
             {
@@ -65,7 +65,7 @@ namespace ATMVERSION2.ATMHardware
         private bool CheckBank(double doubleattempt)
         {
             int attempted = Convert.ToInt32(doubleattempt);
-            int[] Denominations = { 1, 2, 5, 10, 20, 50, 100, 200, 500};
+            int[] Denominations = { 10, 20, 50, 100, 200, 500};
             Debug.WriteLine("Current amount = " + attempted);
             if (attempted <= this.total)
             {

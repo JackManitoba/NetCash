@@ -13,7 +13,7 @@ namespace ATMVERSION2.ATMHardware
 {
     class UpdateCashATM
     {
-        private int[] DenominationsAmounts = new int[9];
+        private int[] DenominationsAmounts = new int[6];
 
         public UpdateCashATM()
         {
@@ -22,7 +22,7 @@ namespace ATMVERSION2.ATMHardware
 
         private void setLocalCash()
         {
-            string[] denominations = { "1Euro", "2Euro", "5Euro", "10Euro", "20Euro", "50Euro", "100Euro", "200Euro", "500Euro" };
+            string[] denominations = { "10Euro", "20Euro", "50Euro", "100Euro", "200Euro", "500Euro" };
             int i = 0;
             while (i < denominations.Length)
             {
@@ -57,7 +57,7 @@ namespace ATMVERSION2.ATMHardware
         {
             updatecashWithdrawal(updateAmount);
             int i = 0;
-            string[] denominations = { "1Euro", "2Euro", "5Euro", "10Euro", "20Euro", "50Euro", "100Euro", "200Euro", "500Euro" };
+            string[] denominations = { "10Euro", "20Euro", "50Euro", "100Euro", "200Euro", "500Euro" };
             while (i < DenominationsAmounts.Length)
             {
                 StoreonDatabase(denominations[i], i);
@@ -68,7 +68,7 @@ namespace ATMVERSION2.ATMHardware
         {
             updatecashDeposit(updateAmount);
             int i = 0;
-            string[] denominations = { "1Euro", "2Euro", "5Euro", "10Euro", "20Euro", "50Euro", "100Euro", "200Euro", "500Euro" };
+            string[] denominations = { "10Euro", "20Euro", "50Euro", "100Euro", "200Euro", "500Euro" };
             while (i < DenominationsAmounts.Length)
             {
                 StoreonDatabase(denominations[i], i);
@@ -100,7 +100,7 @@ namespace ATMVERSION2.ATMHardware
         private void updatecashWithdrawal(double doubleattempt)
         {
             int attempted = Convert.ToInt32(doubleattempt);
-            int[] Denominations = { 1, 2, 5, 10, 20, 50, 100, 200, 500 };
+            int[] Denominations = { 10, 20, 50, 100, 200, 500 };
             Debug.WriteLine("+++Current amount = " + attempted);
             for (int i = Denominations.Length - 1; i >= 0; i--)
             {
@@ -138,7 +138,7 @@ namespace ATMVERSION2.ATMHardware
         private void updatecashDeposit(double doubleattempt)
         {
             int attempted = Convert.ToInt32(doubleattempt);
-            int[] Denominations = { 1, 2, 5, 10, 20, 50, 100, 200, 500 };
+            int[] Denominations = { 10, 20, 50, 100, 200, 500 };
             Debug.WriteLine("+++Current amount = " + attempted);
             for (int i = Denominations.Length - 1; i >= 0; i--)
             {

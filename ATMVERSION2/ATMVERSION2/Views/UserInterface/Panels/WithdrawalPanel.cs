@@ -57,7 +57,6 @@ namespace ATMVERSION2.UserInterface.Panels
             messageLabel.Text = "";
             messageLabel.Update();
         }
-
         public override void cancel()
         {
             this.navData.setNavigationPanelName("LOGOUT");
@@ -91,6 +90,13 @@ namespace ATMVERSION2.UserInterface.Panels
         public override TextBox getInput()
         {
             return amountEntryBox;
+        }
+
+        public void DisplayMessage(string message)
+        {
+            messageLabel.Text = message;
+            Debug.WriteLine(messageLabel.Text);
+            messageLabel.Update();
         }
     }
 }
