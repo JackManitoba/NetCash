@@ -279,6 +279,7 @@
     <Content Include="Views\Loan\View.cshtml" />
     <Content Include="Views\LoanStaff\DisplayLoan.cshtml" />
     <Content Include="Views\LoanStaff\LoanStaffQuery.cshtml" />
+    <Content Include="Views\LoanStaff\DiscussLoan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
