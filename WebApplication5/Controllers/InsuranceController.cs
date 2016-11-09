@@ -24,6 +24,7 @@ namespace NetCash.Controllers
         [HttpPost]
         public ActionResult InsuranceCustomer(Models.Insurance Insurance)
         {
+            Insurance.SubmitApplication(Session["AccountNumber"].ToString());
             Insurance.SetStrategy();
             Insurance.CalculatePremium();
             return RedirectToAction("DisplayPremium", Insurance);
