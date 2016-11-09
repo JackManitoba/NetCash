@@ -49,7 +49,6 @@ namespace ATMVERSION2.ATMHardware
             }
             Debug.WriteLine(lines[0]);
             Debug.WriteLine(lines[1]);
-            Debug.WriteLine(Canceled);
             currentCard = new Card(CNO, E, Canceled);
         }
         public string getCardNumber()

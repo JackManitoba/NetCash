@@ -36,11 +36,8 @@ namespace ATMVERSION2.Controllers
 
         public ATMController(ATMAccount m, ATMMainView v)
         {
-            var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            var path = baseDir.Replace("\\ATMVERSION2\\WindowsFormsApplication1\\bin\\Debug", "");
-            path += "\\WebApplication5\\App_Data";
-            var fullPath = Path.GetFullPath(path);
-            AppDomain.CurrentDomain.SetData("DataDirectory", fullPath);
+            var path = Path.GetFullPath(((AppDomain.CurrentDomain.BaseDirectory).Replace("\\ATMVERSION2\\WindowsFormsApplication1\\bin\\Debug", "")) + "\\WebApplication5\\App_Data");
+            AppDomain.CurrentDomain.SetData("DataDirectory", path);
 
             account = m;
             mainView = v;
@@ -52,8 +49,7 @@ namespace ATMVERSION2.Controllers
         {            
             CardReader CR = new CardReader(cardLocation);
             currentCardNumber = CR.getCardNumber();
-            canceled = CR.isCardCanceled();
-            Debug.WriteLine("+++" + canceled);       
+            canceled = CR.isCardCanceled(); 
             account = new ATMAccount(ATMAccount.getAccountByCardNumber(currentCardNumber));
         }
 
@@ -116,6 +112,7 @@ namespace ATMVERSION2.Controllers
                             setPanel(pf.getPanel("PIN"));
                             p.DisplayMessage("INCORRECT PIN, YOUR CARD HAS BEEN CANCELED");
                             CancelCard Canceler = new CancelCard(currentCardNumber);
+                            canceled = true;
                         }
                     }
                 }

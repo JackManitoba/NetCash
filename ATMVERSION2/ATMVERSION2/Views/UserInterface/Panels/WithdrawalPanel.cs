@@ -15,6 +15,7 @@ namespace ATMVERSION2.UserInterface.Panels
         protected static TextBox amountEntryBox;
         protected static Label withdrawalLabel;
         protected static Label netCashLabel;
+        protected static Label messageLabel;
         public WithdrawalPanel()
         {
             this.name = "WithdrawalPanel";
@@ -40,6 +41,12 @@ namespace ATMVERSION2.UserInterface.Panels
             netCashLabel.Text = "NET-CASH";
             netCashLabel.SetBounds(((this.Width / 2) - 30), ((this.Height / 2) - 30), 100, 40);
             this.Controls.Add(netCashLabel);
+
+            messageLabel = new Label();
+            messageLabel.Text = "";
+            messageLabel.ForeColor = System.Drawing.Color.Red;
+            messageLabel.SetBounds(((this.Width / 2) - 70), ((this.Height / 2) - 70), 150, 40);
+            this.Controls.Add(messageLabel);
         }
 
         public override void update(Subject e)
@@ -47,6 +54,8 @@ namespace ATMVERSION2.UserInterface.Panels
             ATMButton b = (ATMButton)e;
             amountEntryBox.Text += b.Text;
             amountEntryBox.Update();
+            messageLabel.Text = "";
+            messageLabel.Update();
         }
 
         public override void cancel()
@@ -61,10 +70,22 @@ namespace ATMVERSION2.UserInterface.Panels
         }
         public override void enter()
         {
-            if (amountEntryBox.Text != "")
+            if (amountEntryBox.Text == "")
             {
-                this.navData.setNavigationPanelName("LOGOUT");
-                notifyObservers();
+                //do nothing
+            }
+            else
+            {
+                if (((Convert.ToInt32(amountEntryBox.Text)) % 10) != 0)
+                {
+                    messageLabel.Text = "THIS MACHINE DOES NOT CARRY ANY CURRECY LESS THAN €10";
+                    messageLabel.Update();
+                }
+                else
+                {
+                    this.navData.setNavigationPanelName("LOGOUT");
+                    notifyObservers();
+                }
             }
         }
         public override TextBox getInput()
