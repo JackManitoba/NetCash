@@ -15,6 +15,10 @@ namespace NetCash.Models
     {
         public string AccountNumber { get; set; }
 
+        public DateTime DateOfApplication { get; set; }
+
+        public bool Discussed { get; set; }
+
         string Title { get; set; }
 
         public class LoanType
@@ -50,24 +54,31 @@ namespace NetCash.Models
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
 
-                string _sql = @"INSERT INTO [dbo].[LoanApplications] (AccountNumber, LoanType, AmountRequired, RepaymentPeriod) VALUES (@an, @lt, @ar, @rp)";
+                string _sql = @"INSERT INTO [dbo].[LoanApplications] (GUID, AccountNumber, LoanType, AmountRequired, RepaymentPeriod, DateOfApplication, Discussed) VALUES (@id, @an, @lt, @ar, @rp, @doa, @d)";
 
                 var cmd = new SqlCommand(_sql, connection);
+
+                cmd.Parameters
+                    .Add(new SqlParameter("@id", SqlDbType.UniqueIdentifier))
+                    .Value = Guid.NewGuid();
                 cmd.Parameters
                     .Add(new SqlParameter("@an", SqlDbType.NVarChar))
                     .Value = AccountNumber.ToString();
-
                 cmd.Parameters
                     .Add(new SqlParameter("@lt", SqlDbType.NVarChar))
                     .Value = LoanChoice;
-
                 cmd.Parameters
                     .Add(new SqlParameter("@ar", SqlDbType.NVarChar))
                     .Value = AmountRequired;
-
                 cmd.Parameters
                     .Add(new SqlParameter("@rp", SqlDbType.NVarChar))
                     .Value = PeriodOfRepayment;
+                cmd.Parameters
+                   .Add(new SqlParameter("@doa", SqlDbType.DateTime))
+                   .Value = DateTime.Now;
+                cmd.Parameters
+                   .Add(new SqlParameter("@d", SqlDbType.Bit))
+                   .Value = 0;
 
                 connection.Open();
 
@@ -83,7 +94,7 @@ namespace NetCash.Models
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"SELECT * FROM [dbo].[LoanApplications] " +
-                                  @"WHERE [AccountNumber] = @an";
+                                  @"WHERE [AccountNumber] = @an AND [Discussed] = 0";
 
                 Debug.WriteLine(AccountNumber);
                 var cmd = new SqlCommand(_sql, connection);
@@ -99,6 +110,7 @@ namespace NetCash.Models
                     this.LoanChoice = reader.GetString(reader.GetOrdinal("LoanType"));
                     this.AmountRequired = reader.GetString(reader.GetOrdinal("AmountRequired"));
                     this.PeriodOfRepayment = reader.GetString(reader.GetOrdinal("RepaymentPeriod"));
+                    this.DateOfApplication = reader.GetDateTime(reader.GetOrdinal("DateOfApplication"));
                     reader.Dispose();
                     cmd.Dispose();
                 }
@@ -108,6 +120,11 @@ namespace NetCash.Models
                     cmd.Dispose();
                 }
             }
+        }
+
+        public void MarkLoanAsDiscussed()
+        {
+            Debug.WriteLine("well done");
         }
     }
 }

@@ -27,5 +27,11 @@ namespace WebApplication5.Controllers
             Loan.GetLoanDataByAccountNumber();
             return View("DisplayLoan", Loan);
         }
+
+        public ActionResult DiscussLoan(Loan Loan)
+        {
+            Loan.MarkLoanAsDiscussed();
+            return View();
+        }
     }
 }
