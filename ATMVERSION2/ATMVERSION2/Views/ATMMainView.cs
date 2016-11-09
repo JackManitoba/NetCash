@@ -165,7 +165,9 @@ namespace ATMVERSION2.Views
         #endregion
         private List<ATMButton> keypadButtons;
 
+#pragma warning disable CS0108 // 'ATMMainView.CancelButton' hides inherited member 'Form.CancelButton'. Use the new keyword if hiding was intended.
         private ATMButton CancelButton;
+#pragma warning restore CS0108 // 'ATMMainView.CancelButton' hides inherited member 'Form.CancelButton'. Use the new keyword if hiding was intended.
         private ATMButton ClearButton;
         private ATMButton EnterButton;
         private ATMPanel currentPanel;

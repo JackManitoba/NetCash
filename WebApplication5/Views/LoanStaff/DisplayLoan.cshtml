@@ -1,0 +1,42 @@
+﻿@model NetCash.Models.Loan
+@{
+    ViewBag.Title = "LoanStaff";
+}
+
+@section article{
+    <h1>Outstanding Loan Application</h1>
+    
+<div class="form-horizontal">
+    <strong>
+        @Html.LabelFor(l => l.AccountNumber, new { @class = "control-label" })
+    </strong>
+    @Html.Label(Model.AccountNumber)
+</div>
+<div class="form-horizontal">
+    <strong>
+        @Html.LabelFor(l => l.LoanChoice, new { @class = "control-label" })
+    </strong>
+    @Html.Label(Model.LoanChoice)
+</div>
+<div class="form-horizontal">
+    <strong>
+        @Html.LabelFor(l => l.AmountRequired, new { @class = "control-label" })
+    </strong>
+    @Html.Label(Model.AmountRequired)
+</div>
+<div class="form-horizontal">
+    <strong>
+        @Html.LabelFor(l => l.PeriodOfRepayment, new { @class = "control-label" })
+    </strong>
+    @Html.Label(Model.PeriodOfRepayment)
+</div>
+
+    
+    
+    
+    
+    
+    
+    
+    }
+

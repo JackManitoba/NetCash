@@ -48,6 +48,7 @@
     <Compile Include="AccountManager\OverdrawnState.cs" />
     <Compile Include="AccountManager\State.cs" />
     <Compile Include="EncryptionHelper\IEncryptionHelper.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interceptor Package\ConcreteFramework.cs" />
     <Compile Include="Interceptor Package\ContextObjects\ConcreteContextObject.cs" />
     <Compile Include="Interceptor Package\ContextObjects\ContextObject.cs" />

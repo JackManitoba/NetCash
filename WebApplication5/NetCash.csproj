@@ -199,17 +199,19 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoanController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
+    <Compile Include="Controllers\LoanStaffController.cs" />
     <Compile Include="Controllers\TransferController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\Insurance\Car_Insurance.cs" />
     <Compile Include="Models\Insurance\Home_insurance.cs" />
     <Compile Include="Models\Insurance\IInsuranceStrategy.cs" />
     <Compile Include="Models\Insurance\Persnal_Insurance.cs" />
     <Compile Include="Models\Insurance\Travel_Insurance.cs" />
-    <Compile Include="Models\Insurance.cs" />
+    <Compile Include="Models\Insurance\Insurance.cs" />
     <Compile Include="Models\LoanStrategy\Loan.cs" />
     <Compile Include="Models\ATMModels\ATMTransaction.cs" />
     <Compile Include="Models\ATMModels\ATMUser.cs" />
@@ -260,7 +262,7 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_UserLayout.cshtml" />
     <Content Include="Views\Home\UserHomePage.cshtml" />
     <Content Include="Views\Transfer\Transfer.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
@@ -272,6 +274,11 @@
     <Content Include="Views\Home\StaffHomepage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Staff\Login.cshtml" />
+    <Content Include="Views\Shared\_StaffLayout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Loan\View.cshtml" />
+    <Content Include="Views\LoanStaff\DisplayLoan.cshtml" />
+    <Content Include="Views\LoanStaff\LoanStaffQuery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -287,7 +294,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Overdraft_Application\" />
+    <Folder Include="Views\StaffLoan\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

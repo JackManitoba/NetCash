@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Login";
-    Layout = "/Views/Shared/_Layout.cshtml";
+   // Layout = "/Views/Shared/_StaffLayout.cshtml";
 }
 
 @section article {
@@ -14,7 +14,7 @@
 
 
         <h2>Staff Login</h2>
-            <div class="form-group">
+            <div class="form-group form-group">
                 @Html.LabelFor(u => u.UserName, new { @class = "control-label" })
                 @Html.TextBoxFor(u => u.UserName, new { @class = "form-control" })
                 @Html.ValidationMessageFor(u => u.UserName)

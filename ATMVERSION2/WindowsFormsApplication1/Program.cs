@@ -34,7 +34,9 @@ namespace WindowsFormsApplication1
 
         static ATMMainView mainView;
         static ATMController controller;
+#pragma warning disable CS0649 // Field 'Program.account' is never assigned to, and will always have its default value null
         static ATMAccount account;
+#pragma warning restore CS0649 // Field 'Program.account' is never assigned to, and will always have its default value null
         [STAThread]
         public static void Main()
         {
@@ -67,7 +69,9 @@ namespace WindowsFormsApplication1
             {
                 Application.Run(mainView);
             }
+#pragma warning disable CS0168 // The variable 'e' is declared but never used
             catch (Exception e) { Debug.WriteLine("Application Exited"); }
+#pragma warning restore CS0168 // The variable 'e' is declared but never used
         }
 
         public void update()

@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Net Cash</h1>
+        </header>
+        @if (Request.IsAuthenticated)
+        {
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href='@Url.Action("Index", "Home")'>Home</a>
+                        </li>
+                        <li>
+                            <a href='@Url.Action("Transfer", "Transfer")'>Transfer Funds</a>
+                        </li>
+                        <li>
+                            <a href='@Url.Action("LoanApplication", "Loan")'>Apply for Loan</a>
+                        </li>
+                        <li>
+                            <a href='@Url.Action("InsuranceCustomer", "Insurance")'>Get an Insurance Quote</a>
+                        </li>
+                        <li>
+                            <a href='@Url.Action("Logout", "User")';return false;">Log Out</a>
+                        </li>
+                    </ul>
+               </div>
+</nav>
+        }
+        else
+        {
+             <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                  <!-- <ul class="nav navbar-nav">
+                        <li>
+                            <a href='Url.Action("Login", "User")'>Log In</a>
+                        </li>
+                    </ul> --> 
+                    </div> 
+</nav>
+        }
+        <article>
+            @RenderSection("article", false)
+        </article>
+
+        <footer>Copyright © Jack, Marc, Dermit, and R-Eoin 2K16</footer>
+    </div>
+    @RenderBody()
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

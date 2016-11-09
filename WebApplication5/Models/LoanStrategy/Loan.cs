@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,7 +12,9 @@ using System.Web.Mvc;
 namespace NetCash.Models
 {
     public class Loan
-    {  
+    {
+        public string AccountNumber { get; set; }
+
         string Title { get; set; }
 
         public class LoanType
@@ -72,6 +75,38 @@ namespace NetCash.Models
 
                 cmd.Dispose();
                 connection.Dispose();
+            }
+        }
+
+        public void GetLoanDataByAccountNumber()
+        {
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"SELECT * FROM [dbo].[LoanApplications] " +
+                                  @"WHERE [AccountNumber] = @an";
+
+                Debug.WriteLine(AccountNumber);
+                var cmd = new SqlCommand(_sql, connection);
+                cmd.Parameters
+                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
+                    .Value = this.AccountNumber;
+                connection.Open();
+
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    Debug.WriteLine("well");
+                    this.LoanChoice = reader.GetString(reader.GetOrdinal("LoanType"));
+                    this.AmountRequired = reader.GetString(reader.GetOrdinal("AmountRequired"));
+                    this.PeriodOfRepayment = reader.GetString(reader.GetOrdinal("RepaymentPeriod"));
+                    reader.Dispose();
+                    cmd.Dispose();
+                }
+                else
+                {
+                    reader.Dispose();
+                    cmd.Dispose();
+                }
             }
         }
     }

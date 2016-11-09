@@ -52,6 +52,7 @@
     <Compile Include="ConcreteCommands\ClearCommand.cs" />
     <Compile Include="ConcreteCommands\EnterCommand.cs" />
     <Compile Include="Controllers\ATMController.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HelperClasses\RegistrationHelper.cs" />
     <Compile Include="Interfaces\Reciever.cs" />
     <Compile Include="Interfaces\Command.cs" />

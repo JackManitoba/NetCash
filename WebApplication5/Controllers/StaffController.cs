@@ -30,6 +30,7 @@ namespace WebApplication5.Controllers
                 if (staff.IsValid(staff.UserName, staff.Password))
                 {
                     FormsAuthentication.SetAuthCookie(staff.UserName, false);
+                    Session["SessionRole"] = "BankStaff";
                     Session["SessionUserName"] = staff.UserName;
                     return RedirectToAction("Index", "Home");
                 }
