@@ -55,7 +55,7 @@ namespace ATMVERSION2.Controllers
             CardReader CR = new CardReader(cardLocation);
             currentCardNumber = CR.getCardNumber();
             canceled = CR.isCardCanceled(); 
-            account = new ATMAccount(ATMAccount.getAccountByCardNumber(currentCardNumber));
+            facade = new ATMFacade(facade.getAccountByCardNumber(currentCardNumber));
         }
 
         public void performTransaction(Transaction transaction)
@@ -160,10 +160,11 @@ namespace ATMVERSION2.Controllers
                     {
                         double amount = double.Parse(p.getInput().Text);
                         ATMCashManager cashManager = new ATMCashManager();
-                        Transaction withdrawal = new Withdrawal(account.cardNumber, "WITHDRAWAL", amount);
-                        if (withdrawal.AreFundsAvailable() && cashManager.isWithdrawable(amount))
-                        { 
-                            withdrawal.PerformTransaction();                        
+                        
+                       
+                        if (cashManager.isWithdrawable(amount)&&facade.areFundsAvailable(amount))
+                        {
+                            facade.performWithdraw(amount);                     
                             cashManager.UpdateAmountWithdrawal(amount);
                         }
                         else
@@ -182,8 +183,7 @@ namespace ATMVERSION2.Controllers
                     if (p.getInput().Text != "")
                     {
                         double amount = double.Parse(p.getInput().Text);
-                        Transaction deposit = new Deposit(account.cardNumber, "DEPOSIT", amount);
-                        deposit.PerformTransaction();
+                        facade.performDeposit(amount);
                         ATMCashManager cashManager = new ATMCashManager();
                         cashManager.UpdateAmountDeposit(amount);
                     }
@@ -196,14 +196,14 @@ namespace ATMVERSION2.Controllers
                 if (mainView.getCurrentPanel().name.Equals("BalancePanel"))
                 {
                     BalancePanel p = (BalancePanel)mainView.getCurrentPanel();
-                    p.showBalance(account.Balance.ToString());
+                    p.showBalance(facade.returnAccountBalance());
                 
                 }
 
                 if (mainView.getCurrentPanel().name.Equals("PrintInfo"))
                 {
                     PrintInfo p = (PrintInfo)mainView.getCurrentPanel();
-                    p.setFileName(account.AccountNumber);
+                    p.setFileName(facade.getAccountNumber());
                 }
             }
         }
