@@ -41,7 +41,7 @@ namespace Helpers.AccountManager
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         public void IncreaseBalance(double transferAmount)
-        {UpdateAmount(Convert.ToInt32(transferAmount));}
+        {state.UpdateAmount(Convert.ToInt32(transferAmount));}
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,7 +49,7 @@ namespace Helpers.AccountManager
 
         public void DecreaseBalance(double transferAmount)
         {
-            UpdateAmount(-Convert.ToInt32(transferAmount));
+            state.UpdateAmount(-Convert.ToInt32(transferAmount));
             state.PayInterest(transferAmount);
         }
 
@@ -94,7 +94,8 @@ namespace Helpers.AccountManager
 
         public bool AreFundsAvailable(double Balance)
         {
-                if (GetBalance() + 100 >= Balance) return true;
+            double accountAmount = GetBalance() + 100;
+                if (accountAmount >= Balance) return true;
                 else return false;         
         }
 

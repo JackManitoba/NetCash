@@ -24,7 +24,7 @@ namespace ATMVERSION2.Controllers
     public class ATMController : Observer
     {
         ATMFacade facade;
-        ATMAccount account;
+      
         static ATMMainView mainView;
         string currentCardNumber = "";
         int ChancesLeft = 3;
@@ -44,7 +44,6 @@ namespace ATMVERSION2.Controllers
             var path = Path.GetFullPath(((AppDomain.CurrentDomain.BaseDirectory).Replace("\\ATMVERSION2\\WindowsFormsApplication1\\bin\\Debug", "")) + "\\WebApplication5\\App_Data");
             AppDomain.CurrentDomain.SetData("DataDirectory", path);
             databaseManager = new DatabaseManager();
-            account = m;
             mainView = v;
             mainView.registerObserver(this);
         }
@@ -55,19 +54,10 @@ namespace ATMVERSION2.Controllers
             CardReader CR = new CardReader(cardLocation);
             currentCardNumber = CR.getCardNumber();
             canceled = CR.isCardCanceled(); 
-            facade = new ATMFacade(ATMFacade.getAccountByCardNumber(currentCardNumber));
+            this.facade = new ATMFacade(currentCardNumber);
         }
 
-        public void performTransaction(Transaction transaction)
-        {
-            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(this.account,transaction.type(), transaction.amount()));
-            account.UpdateAmount(transaction);
-           
-            
-               
-            
-        }
-
+       
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -164,6 +154,8 @@ namespace ATMVERSION2.Controllers
                        
                         if (cashManager.isWithdrawable(amount)&&facade.areFundsAvailable(amount))
                         {
+                          
+
                             facade.performWithdraw(amount);                     
                             cashManager.UpdateAmountWithdrawal(amount);
                         }
