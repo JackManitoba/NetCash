@@ -17,6 +17,7 @@ namespace Helpers.AccountManager
 
         public BalancedState(State state): this(state.account)
         {
+          
         }
 
         public BalancedState(Account account)

@@ -147,13 +147,13 @@ namespace ATMVERSION2.Controllers
                     if (p.getInput().Text != "")
                     {
                         double amount = double.Parse(p.getInput().Text);
-                        CheckATMCash CashCheck = new CheckATMCash();
-                        if (account.AreFullFundsAvailable(amount) && CashCheck.isWithdrawable(amount))
+                        ATMCashManager cashManager = new ATMCashManager();
+                        if (account.AreFullFundsAvailable(amount) && cashManager.isWithdrawable(amount))
                         {
                             ATMTransaction withdrawal = new ATMTransaction(account.cardNumber, "WITHDRAWAL", amount);
                             performTransaction(withdrawal);
-                            UpdateCashATM update = new UpdateCashATM();
-                            update.UpdateAmountWithdrawal(amount);
+                            
+                            cashManager.UpdateAmountWithdrawal(amount);
                         }
                         else
                         {
@@ -172,8 +172,8 @@ namespace ATMVERSION2.Controllers
                         double amount = double.Parse(p.getInput().Text);
                         ATMTransaction deposit = new ATMTransaction(account.cardNumber, "DEPOSIT", amount);
                         performTransaction(deposit);
-                        UpdateCashATM update = new UpdateCashATM();
-                        update.UpdateAmountDeposit(amount);
+                        ATMCashManager cashManager = new ATMCashManager();
+                        cashManager.UpdateAmountDeposit(amount);
                     }
                 }
 

@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ATMHardware\ATMCashManager.cs" />
     <Compile Include="ATMHardware\CancelCard.cs" />
     <Compile Include="ATMHardware\CardReader.cs" />
     <Compile Include="ATMHardware\CheckATMCash.cs" />

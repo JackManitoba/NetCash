@@ -49,20 +49,19 @@
     <Compile Include="AccountManager\State.cs" />
     <Compile Include="EncryptionHelper\IEncryptionHelper.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Interceptor Package\ConcreteFramework.cs" />
     <Compile Include="Interceptor Package\ContextObjects\ConcreteContextObject.cs" />
     <Compile Include="Interceptor Package\ContextObjects\ContextObject.cs" />
     <Compile Include="Interceptor Package\ContextObjects\DatabaseReadRequest.cs" />
     <Compile Include="Interceptor Package\ContextObjects\DatabaseWriteRequest.cs" />
     <Compile Include="Interceptor Package\ContextObjects\TransactionInfo.cs" />
     <Compile Include="Interceptor Package\Dispatchers\ClientRequestDispatcher.cs" />
-    <Compile Include="Interceptor Package\Dispatchers\ConcreteDispatcher.cs" />
     <Compile Include="Interceptor Package\Dispatchers\Dispatcher.cs" />
     <Compile Include="Interceptor Package\Interceptors\ClientRequestInterceptor.cs" />
     <Compile Include="Interceptor Package\Interceptors\Interceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EncryptionHelper\SHA1Encryption.cs" />
     <Compile Include="EncryptionHelper\TSC.cs" />
+    <Compile Include="Utils\DatabaseManager.cs" />
     <Compile Include="Utils\Logger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
