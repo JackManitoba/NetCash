@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Helpers.AccountManager;
+using Helpers.BankTransactions;
 
 namespace NetCash.Controllers
 {
@@ -26,15 +27,13 @@ namespace NetCash.Controllers
         public ActionResult Transfer(Models.Transfer transfer)
         {
             transfer.CurrentAccountNumber = Session["AccountNumber"].ToString();
-            Account CurrentAccount = new Account(transfer.CurrentAccountNumber);
-            Account TargetAccount = new Account(transfer.TargetAccountNumber);
+            Transaction Transfer = new Transfer();
 
             string Result;
 
-            if (CurrentAccount.AreFundsAvailable(transfer.TransferAmount))
+            if (Transfer.AreFundsAvailable())
             {
-                CurrentAccount.DecreaseBalance(transfer.TransferAmount);
-                TargetAccount.IncreaseBalance(transfer.TransferAmount);
+                Transfer.PerformTransaction();
                 Result = "You have succesfully transfered €" + transfer.TransferAmount + " to account " + transfer.TargetAccountNumber;
             }
             else Result = "You have insufficient funds for this transaction. You tried to transfer €" + transfer.TransferAmount + ". Your current balance is €" + CurrentAccount.Balance;

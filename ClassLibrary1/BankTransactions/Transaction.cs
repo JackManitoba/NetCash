@@ -10,5 +10,8 @@ namespace Helpers.BankTransactions
     {
         string type();
         int amount();
-     }
+
+        void PerformTransaction();
+        bool AreFundsAvailable();
+    }
 }

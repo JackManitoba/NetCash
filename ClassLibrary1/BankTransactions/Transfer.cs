@@ -9,6 +9,13 @@ namespace Helpers.BankTransactions
 {
    public class Transfer : Transaction
     {
+        AccountManager.Account IncomingTransferAccount;
+        AccountManager.Account OutgoingTransferAccount;
+
+        public Transfer()
+        {
+
+        }
 
         [Required]
         [Display(Name = "Target Account Number:")]
@@ -28,6 +35,17 @@ namespace Helpers.BankTransactions
         public int amount()
         {
             return Convert.ToInt32(TransferAmount);
+        }
+
+        public void PerformTransaction()
+        {
+            IncomingTransferAccount.IncreaseBalance(TransferAmount);
+            OutgoingTransferAccount.DecreaseBalance(TransferAmount);
+        }
+
+        public bool AreFundsAvailable()
+        {
+            return OutgoingTransferAccount.AreFundsAvailable(TransferAmount);
         }
     }
 }

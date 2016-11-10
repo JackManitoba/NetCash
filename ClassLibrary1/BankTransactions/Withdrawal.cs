@@ -11,6 +11,7 @@ namespace Helpers.BankTransactions
         private double withdrawalAmount;
         private string cardNumber;
         private string description;
+        private AccountManager.Account WithdrawalAccount;
 
         public Withdrawal(string cardNumber, string description, double amount1)
         {
@@ -27,6 +28,16 @@ namespace Helpers.BankTransactions
         public string type()
         {
             return "WITHDRAWAL";
+        }
+
+        public void PerformTransaction()
+        {
+            WithdrawalAccount.DecreaseBalance(withdrawalAmount);
+        }
+
+        public bool AreFundsAvailable()
+        {
+            return WithdrawalAccount.AreFundsAvailable(withdrawalAmount);
         }
     }
 }

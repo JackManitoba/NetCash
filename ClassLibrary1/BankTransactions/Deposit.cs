@@ -8,6 +8,8 @@ namespace Helpers.BankTransactions
 {
     public class Deposit : Transaction
     {
+        private AccountManager.Account DepositAccount;
+
         private double depositAmount;
 
         private string description;
@@ -31,6 +33,16 @@ namespace Helpers.BankTransactions
         public string type()
         {
             return "DEPOSIT";
+        }
+        
+        public void PerformTransaction()
+        {
+            DepositAccount.IncreaseBalance(depositAmount);
+        }
+
+        public bool AreFundsAvailable()
+        {
+            return DepositAccount.AreFundsAvailable(depositAmount);
         }
     }
 }
