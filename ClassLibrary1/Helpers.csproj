@@ -54,6 +54,7 @@
     <Compile Include="BankTransactions\Transfer.cs" />
     <Compile Include="EncryptionHelper\IEncryptionHelper.cs" />
     <Compile Include="FacadeClasses\ATMFacade.cs" />
+    <Compile Include="FacadeClasses\OnlineAppFacade.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interceptor Package\ContextObjects\ConcreteContextObject.cs" />
     <Compile Include="Interceptor Package\ContextObjects\ContextObject.cs" />

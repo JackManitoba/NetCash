@@ -12,17 +12,19 @@ namespace Helpers.BankTransactions
         AccountManager.Account IncomingTransferAccount;
         AccountManager.Account OutgoingTransferAccount;
 
-        public Transfer()
+        public Transfer(string accountNumber, string targetAccountNumber, string description, double amount)
         {
+            this.CurrentAccountNumber = accountNumber;
+            this.TargetAccountNumber = targetAccountNumber;
+            this.TransferAmount = amount;
+
+            IncomingTransferAccount = new AccountManager.Account(targetAccountNumber);
+            OutgoingTransferAccount = new AccountManager.Account(accountNumber);
 
         }
 
-        [Required]
-        [Display(Name = "Target Account Number:")]
         public string TargetAccountNumber { get; set; }
 
-        [Required]
-        [Display(Name = "Transfer Amount:")]
         public double TransferAmount { get; set; }
 
         public string CurrentAccountNumber { get; set; }

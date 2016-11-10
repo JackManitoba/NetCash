@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Helpers.AccountManager;
 using Helpers.BankTransactions;
+using Helpers.FacadeClasses;
 
 namespace NetCash.Controllers
 {
@@ -26,14 +27,13 @@ namespace NetCash.Controllers
         [HttpPost]
         public ActionResult Transfer(Models.Transfer transfer)
         {
-            transfer.CurrentAccountNumber = Session["AccountNumber"].ToString();
-            Transaction Transfer = new Transfer();
+            OnlineAppFacade onlineAppFacade = new OnlineAppFacade(Session["AccountNumber"].ToString());
 
             string Result;
 
-            if (Transfer.AreFundsAvailable())
+            if (onlineAppFacade.areFundsAvailable(transfer.TransferAmount))
             {
-                Transfer.PerformTransaction();
+                onlineAppFacade.PerformTransaction(transfer.TargetAccountNumber, transfer.TransferAmount);
                 Result = "You have succesfully transfered €" + transfer.TransferAmount + " to account " + transfer.TargetAccountNumber;
             }
             else Result = "You have insufficient funds for this transaction. You tried to transfer €" + transfer.TransferAmount;
