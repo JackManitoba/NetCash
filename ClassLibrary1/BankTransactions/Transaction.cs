@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ATMVERSION2.Interfaces
+namespace Helpers.BankTransactions
 {
-   public interface Model
+   public interface Transaction
     {
-    }
+        string type();
+        int amount();
+     }
 }

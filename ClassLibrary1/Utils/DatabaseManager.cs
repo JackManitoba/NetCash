@@ -5,7 +5,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
-
+using Helpers.BankTransactions;
 
 namespace Helpers.Utils
 {
@@ -61,6 +61,11 @@ namespace Helpers.Utils
                 cmd.Dispose();
                 connection.Dispose();
             }
+        }
+
+        internal void addTransactionToDatabase(Transaction t)
+        {
+            throw new NotImplementedException();
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 namespace WindowsFormsApplication1
 {
 
@@ -40,8 +41,10 @@ namespace WindowsFormsApplication1
         [STAThread]
         public static void Main()
         {
-             ClientRequestInterceptor myInterceptor = new ClientRequestInterceptor();
+
+            ClientRequestInterceptor myInterceptor = new ClientRequestInterceptor();
             ClientRequestDispatcher.theInstance().registerClientInterceptor(myInterceptor);
+
             Debug.WriteLine("Dispatcher and interceptor created and connected");
 
 

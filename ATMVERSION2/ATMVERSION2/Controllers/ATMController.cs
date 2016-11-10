@@ -15,6 +15,8 @@ using Helpers.AccountManager;
 using Helpers.Interceptor_Package.Dispatchers;
 using Helpers.Interceptor_Package;
 using System.IO;
+using Helpers.BankTransactions;
+using Helpers.Utils;
 
 namespace ATMVERSION2.Controllers
 {
@@ -25,6 +27,7 @@ namespace ATMVERSION2.Controllers
         string currentCardNumber = "";
         int ChancesLeft = 3;
         bool canceled = false;
+        DatabaseManager databaseManager;
 
         public List<Subject> subjectList
         {
@@ -38,7 +41,7 @@ namespace ATMVERSION2.Controllers
         {
             var path = Path.GetFullPath(((AppDomain.CurrentDomain.BaseDirectory).Replace("\\ATMVERSION2\\WindowsFormsApplication1\\bin\\Debug", "")) + "\\WebApplication5\\App_Data");
             AppDomain.CurrentDomain.SetData("DataDirectory", path);
-
+            databaseManager = new DatabaseManager();
             account = m;
             mainView = v;
             mainView.registerObserver(this);
@@ -53,21 +56,27 @@ namespace ATMVERSION2.Controllers
             account = new ATMAccount(ATMAccount.getAccountByCardNumber(currentCardNumber));
         }
 
-        public void performTransaction(ATMTransaction transaction)
+        public void performTransaction(Transaction transaction)
         {
-            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(this.account,transaction.type, transaction.amount));
-            if (transaction.type.Equals("WITHDRAWAL"))
-                account.UpdateAmount(-transaction.amount);
-            else
-                account.UpdateAmount(transaction.amount);
-
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(this.account,transaction.type(), transaction.amount()));
+            account.UpdateAmount(transaction);
+           
+            
+               
+            
         }
 
-         public void resetAccountPin(string newPin)
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        public void resetAccountPin(string newPin)
         {
             if(newPin.Length==4)
             account.updatePin(newPin);
         }
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         internal void setPanel(ATMPanel currentPanel)
         {
@@ -75,7 +84,9 @@ namespace ATMVERSION2.Controllers
            mainView.setCurrentPanel(currentPanel);
         }
 
-        
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
         public void handleChange(Subject e)
         {
@@ -150,7 +161,7 @@ namespace ATMVERSION2.Controllers
                         ATMCashManager cashManager = new ATMCashManager();
                         if (account.AreFullFundsAvailable(amount) && cashManager.isWithdrawable(amount))
                         {
-                            ATMTransaction withdrawal = new ATMTransaction(account.cardNumber, "WITHDRAWAL", amount);
+                            Transaction withdrawal = new Withdrawal(account.cardNumber, "WITHDRAWAL", amount);
                             performTransaction(withdrawal);
                             
                             cashManager.UpdateAmountWithdrawal(amount);
@@ -164,13 +175,14 @@ namespace ATMVERSION2.Controllers
                     }
                 }
 
+
                 if (mainView.getCurrentPanel().name.Equals("DepositPanel"))
                 {
                     DepositPanel p = (DepositPanel)mainView.getCurrentPanel();
                     if (p.getInput().Text != "")
                     {
                         double amount = double.Parse(p.getInput().Text);
-                        ATMTransaction deposit = new ATMTransaction(account.cardNumber, "DEPOSIT", amount);
+                        Transaction deposit = new Deposit(account.cardNumber, "DEPOSIT", amount);
                         performTransaction(deposit);
                         ATMCashManager cashManager = new ATMCashManager();
                         cashManager.UpdateAmountDeposit(amount);
@@ -196,20 +208,34 @@ namespace ATMVERSION2.Controllers
             }
         }
 
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
         public void startATM()
         {
             setPanel(new PinPanel());
             Application.Run(mainView);
         }
 
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         public void update()
         {
             throw new NotImplementedException();
         }
 
-        public void update(Subject e)
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+       public void update(Subject e)
         {
             handleChange(e);
         }
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     }
 }

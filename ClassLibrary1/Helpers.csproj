@@ -47,6 +47,10 @@
     <Compile Include="AccountManager\BalancedState.cs" />
     <Compile Include="AccountManager\OverdrawnState.cs" />
     <Compile Include="AccountManager\State.cs" />
+    <Compile Include="BankTransactions\Deposit.cs" />
+    <Compile Include="BankTransactions\Withdrawal.cs" />
+    <Compile Include="BankTransactions\Transaction.cs" />
+    <Compile Include="BankTransactions\Transfer.cs" />
     <Compile Include="EncryptionHelper\IEncryptionHelper.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interceptor Package\ContextObjects\ConcreteContextObject.cs" />

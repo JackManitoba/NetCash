@@ -58,9 +58,7 @@
     <Compile Include="HelperClasses\RegistrationHelper.cs" />
     <Compile Include="Interfaces\Reciever.cs" />
     <Compile Include="Interfaces\Command.cs" />
-    <Compile Include="Interfaces\Controller.cs" />
     <Compile Include="Interfaces\Invoker.cs" />
-    <Compile Include="Interfaces\Model.cs" />
     <Compile Include="Interfaces\Observer.cs" />
     <Compile Include="Interfaces\Subject.cs" />
     <Compile Include="Interfaces\View.cs" />
