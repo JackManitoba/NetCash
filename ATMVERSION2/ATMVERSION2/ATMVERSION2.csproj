@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ATMHardware\ATMCashManager.cs" />
-    <Compile Include="ATMHardware\CancelCard.cs" />
     <Compile Include="ATMHardware\CardReader.cs" />
     <Compile Include="ATMHardware\CheckATMCash.cs" />
     <Compile Include="ATMHardware\Card.cs" />

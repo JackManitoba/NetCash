@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ATMVERSION2.ATMHardware
+namespace Helpers.ATMHardware
 {
     class CancelCard
     {
