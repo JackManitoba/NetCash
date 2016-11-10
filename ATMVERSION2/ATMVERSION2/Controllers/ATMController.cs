@@ -55,7 +55,7 @@ namespace ATMVERSION2.Controllers
             CardReader CR = new CardReader(cardLocation);
             currentCardNumber = CR.getCardNumber();
             canceled = CR.isCardCanceled(); 
-            facade = new ATMFacade(facade.getAccountByCardNumber(currentCardNumber));
+            facade = new ATMFacade(ATMFacade.getAccountByCardNumber(currentCardNumber));
         }
 
         public void performTransaction(Transaction transaction)

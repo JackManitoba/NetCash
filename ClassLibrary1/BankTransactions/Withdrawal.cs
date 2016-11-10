@@ -18,6 +18,7 @@ namespace Helpers.BankTransactions
             this.cardNumber = cardNumber;
             this.description = description;
             this.withdrawalAmount = amount1;
+            this.WithdrawalAccount = new AccountManager.Account(cardNumber);
         }
 
         public int amount()

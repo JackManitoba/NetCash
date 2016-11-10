@@ -71,7 +71,7 @@ namespace Helpers.FacadeClasses
             return account.AccountNumber;
         }
 
-        public string getAccountByCardNumber(string currentCardNumber)
+        public static string getAccountByCardNumber(string currentCardNumber)
         {
             return ATMAccount.getAccountByCardNumber(currentCardNumber);
         }

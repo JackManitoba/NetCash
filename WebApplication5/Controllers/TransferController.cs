@@ -36,7 +36,7 @@ namespace NetCash.Controllers
                 Transfer.PerformTransaction();
                 Result = "You have succesfully transfered €" + transfer.TransferAmount + " to account " + transfer.TargetAccountNumber;
             }
-            else Result = "You have insufficient funds for this transaction. You tried to transfer €" + transfer.TransferAmount + ". Your current balance is €" + CurrentAccount.Balance;
+            else Result = "You have insufficient funds for this transaction. You tried to transfer €" + transfer.TransferAmount;
 
             Debug.WriteLine(Result);
             return View("TransferResult", (object)Result);

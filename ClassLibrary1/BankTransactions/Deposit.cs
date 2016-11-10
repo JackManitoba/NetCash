@@ -23,6 +23,7 @@ namespace Helpers.BankTransactions
             this.cardNumber = cardNumber;
             this.description = description;
             this.depositAmount = amount;
+            this.DepositAccount = new AccountManager.Account(cardNumber);
         }
 
         public int amount()
