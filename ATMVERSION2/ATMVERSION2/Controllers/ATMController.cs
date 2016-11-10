@@ -17,11 +17,13 @@ using Helpers.Interceptor_Package;
 using System.IO;
 using Helpers.BankTransactions;
 using Helpers.Utils;
+using Helpers.FacadeClasses;
 
 namespace ATMVERSION2.Controllers
 {
     public class ATMController : Observer
     {
+        ATMFacade facade;
         ATMAccount account;
         static ATMMainView mainView;
         string currentCardNumber = "";
@@ -71,16 +73,15 @@ namespace ATMVERSION2.Controllers
 
         public void resetAccountPin(string newPin)
         {
-            if(newPin.Length==4)
-            account.updatePin(newPin);
+            if (newPin.Length == 4)
+                facade.updateAccountPinNumber(newPin);
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         internal void setPanel(ATMPanel currentPanel)
-        {
-            
+        {            
            mainView.setCurrentPanel(currentPanel);
         }
 
@@ -99,8 +100,8 @@ namespace ATMVERSION2.Controllers
             {
                 PinPanel p = (PinPanel)mainView.getCurrentPanel();
                 if (canceled == false)
-                {                    
-                    bool validate = account.IsValid(p.getInput().Text);
+                {
+                    bool validate = facade.validateAccount(p.getInput().Text);
                     if (validate)
                     {
                         ChancesLeft = 3;
@@ -122,7 +123,7 @@ namespace ATMVERSION2.Controllers
                         {
                             setPanel(pf.getPanel("PIN"));
                             p.DisplayMessage("INCORRECT PIN, YOUR CARD HAS BEEN CANCELED");
-                            CancelCard Canceler = new CancelCard(currentCardNumber);
+                            facade.cancelCard(currentCardNumber);
                             canceled = true;
                         }
                     }
