@@ -24,8 +24,15 @@ namespace WebApplication5.Controllers
         [HttpPost]
         public ActionResult LoanStaffQuery(Loan Loan)
         {
-            Loan.GetLoanDataByAccountNumber();
-            return View("DisplayLoan", Loan);
+            if(Loan.PendingApplicationExists())
+            {
+                Loan.GetLoanDataByAccountNumber();
+                return View("DisplayLoan", Loan);
+            }
+            else
+            {
+                return View("ReviewLoanFailure", Loan);
+            }
         }
 
         public ActionResult DiscussLoan(Loan Loan)

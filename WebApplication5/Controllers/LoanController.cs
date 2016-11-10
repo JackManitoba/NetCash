@@ -24,8 +24,16 @@ namespace NetCash.Controllers
         [HttpPost]
         public ActionResult LoanApplication(Models.Loan LoanApplication)
         {
-            LoanApplication.SubmitApplication(Session["AccountNumber"]);
-            return View("LoanResult", (object)LoanApplication);
+            if(LoanApplication.PendingApplicationExists(Session["AccountNumber"].ToString()))
+            {
+                return View("LoanFailure");
+            }
+            else
+            {
+                LoanApplication.SubmitApplication(Session["AccountNumber"]);
+                return View("LoanResult");
+            }
+            
         }
        
     }

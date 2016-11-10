@@ -24,10 +24,18 @@ namespace NetCash.Controllers
         [HttpPost]
         public ActionResult InsuranceCustomer(Models.Insurance Insurance)
         {
-            Insurance.SubmitApplication(Session["AccountNumber"].ToString());
-            Insurance.SetStrategy();
-            Insurance.CalculatePremium();
-            return RedirectToAction("DisplayPremium", Insurance);
+            if(Insurance.PendingQueryExists(Session["AccountNumber"]))
+            {
+                return View("InsuranceFailure");               
+            }
+            else
+            {
+                Insurance.SubmitApplication(Session["AccountNumber"].ToString());
+                Insurance.SetStrategy();
+                Insurance.CalculatePremium();
+                return View("DisplayPremium", Insurance);
+            }
+            
         }
 
         public ActionResult DisplayPremium(Models.Insurance Insurance)

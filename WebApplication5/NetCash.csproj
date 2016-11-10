@@ -277,12 +277,16 @@
     <Content Include="Views\Staff\Login.cshtml" />
     <Content Include="Views\Shared\_StaffLayout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Loan\View.cshtml" />
+    <Content Include="Views\LoanStaff\ReviewLoanFailure.cshtml" />
     <Content Include="Views\LoanStaff\DisplayLoan.cshtml" />
     <Content Include="Views\LoanStaff\LoanStaffQuery.cshtml" />
     <Content Include="Views\LoanStaff\DiscussLoan.cshtml" />
     <Content Include="Views\Insurance_Staff\Insurance_StaffQuery.cshtml" />
     <Content Include="Views\Insurance_Staff\DiscussInsurance.cshtml" />
+    <Content Include="Views\Loan\LoanFailure.cshtml" />
+    <Content Include="Views\Insurance_Staff\ReviewQuote.cshtml" />
+    <Content Include="Views\Insurance_Staff\ReviewInsuranceFailure.cshtml" />
+    <Content Include="Views\Insurance\InsuranceFailure.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -11,7 +11,8 @@ using System.Diagnostics;
 
 namespace NetCash.Models
 {
-    public class Insurance { 
+    public class Insurance
+    {
         public string apply = " thank you ";
         public double quote { get; set; }
 
@@ -22,6 +23,42 @@ namespace NetCash.Models
         public bool Discussed { get; set; }
 
         IInsuranceStrategy strategy { get; set; }
+
+        internal bool PendingQueryExists()
+        {
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"SELECT * FROM [dbo].[InsuranceQuery] " +
+                                  @"WHERE [AccountNumber] = @an AND [Discussed] = 0";
+
+                Debug.WriteLine(AccountNumber);
+                var cmd = new SqlCommand(_sql, connection);
+                cmd.Parameters
+                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
+                    .Value = this.AccountNumber;
+                connection.Open();
+
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    reader.Dispose();
+                    cmd.Dispose();
+                    return true;
+                }
+                else
+                {
+                    reader.Dispose();
+                    cmd.Dispose();
+                    return false;
+                }
+            }
+        }
+
+        internal bool PendingQueryExists(object AccountNumber)
+        {
+            this.AccountNumber = AccountNumber.ToString();
+            return PendingQueryExists();
+        }
 
         public static List<InsuranceType> InsuranceTypeList = new List<InsuranceType>
             {
@@ -66,18 +103,18 @@ namespace NetCash.Models
             public string StringValue { get; set; }
         }
 
-        public class InsuranceCustomer 
-    {
-        public int InsuranceType { get; set; }
-        public int ageBracket { get; set; }
-        public int Location { get; set; }
-        public string Value { get; set; }
+        public class InsuranceCustomer
+        {
+            public int InsuranceType { get; set; }
+            public int ageBracket { get; set; }
+            public int Location { get; set; }
+            public string Value { get; set; }
 
         }
 
         internal void SetStrategy()
         {
-            switch(InsuranceTypeChoice)
+            switch (InsuranceTypeChoice)
             {
                 case "Travel":
                     strategy = new Travel_Insurance();
@@ -105,7 +142,7 @@ namespace NetCash.Models
         public string AgeChoice { get; set; }
 
         public IEnumerable<AgeType> ageBracketOptions = AgeTypeList;
-           
+
 
         public static List<LocationType> LocationTypeList = new List<LocationType>
            {
@@ -123,82 +160,98 @@ namespace NetCash.Models
 
 
 
-    public void SubmitApplication(string AccountNumber)
-    {
-        using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+        public void SubmitApplication(string AccountNumber)
         {
-
-            string _sql = @"INSERT INTO [dbo].[InsuranceQuery] (GUID, AccountNumber, Insurancetype, AgeBracket, Location, Date, Discussed) VALUES (@id, @an,@in, @ab, @lc, @dt, @d)";
-
-            var cmd = new SqlCommand(_sql, connection);
-
-            cmd.Parameters
-                .Add(new SqlParameter("@id", SqlDbType.UniqueIdentifier))
-                .Value = Guid.NewGuid();
-            cmd.Parameters
-                .Add(new SqlParameter("@an", SqlDbType.NVarChar))
-                .Value = AccountNumber.ToString();
-            cmd.Parameters
-                .Add(new SqlParameter("@in", SqlDbType.NVarChar))
-                .Value = InsuranceTypeChoice;
-            cmd.Parameters
-                .Add(new SqlParameter("@ab", SqlDbType.NVarChar))
-                .Value = AgeChoice;
-            cmd.Parameters
-                .Add(new SqlParameter("@lc", SqlDbType.NVarChar))
-                .Value = LocationChoice;
-            cmd.Parameters
-               .Add(new SqlParameter("@dt", SqlDbType.DateTime))
-               .Value = DateTime.Now;
-            cmd.Parameters
-               .Add(new SqlParameter("@d", SqlDbType.Bit))
-               .Value = 0;
-
-            connection.Open();
-
-            cmd.ExecuteScalar();
-
-            cmd.Dispose();
-            connection.Dispose();
-        }
-    }
-
-    public void GetInsuranceByAccountNumber()
-    {
-        using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
-        {
-            string _sql = @"SELECT * FROM [dbo].[InsuranceQuery] " +
-                              @"WHERE [AccountNumber] = @an" ;
-
-            Debug.WriteLine(AccountNumber);
-            var cmd = new SqlCommand(_sql, connection);
-            cmd.Parameters
-                .Add(new SqlParameter("@an", SqlDbType.NVarChar))
-                .Value = this.AccountNumber;
-            connection.Open();
-
-            var reader = cmd.ExecuteReader();
-            if (reader.Read())
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
-                Debug.WriteLine("well");
-                this.InsuranceTypeChoice = reader.GetString(reader.GetOrdinal("Insurancetype"));
-                this.AgeChoice = reader.GetString(reader.GetOrdinal("AgeBracket"));
-                this.LocationChoice = reader.GetString(reader.GetOrdinal("Location"));
-                this.DateOfApplication = reader.GetDateTime(reader.GetOrdinal("Date"));
-                reader.Dispose();
+
+                string _sql = @"INSERT INTO [dbo].[InsuranceQuery] (GUID, AccountNumber, Insurancetype, AgeBracket, Location, Date, Discussed) VALUES (@id, @an,@in, @ab, @lc, @dt, @d)";
+
+                var cmd = new SqlCommand(_sql, connection);
+
+                cmd.Parameters
+                    .Add(new SqlParameter("@id", SqlDbType.UniqueIdentifier))
+                    .Value = Guid.NewGuid();
+                cmd.Parameters
+                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
+                    .Value = AccountNumber.ToString();
+                cmd.Parameters
+                    .Add(new SqlParameter("@in", SqlDbType.NVarChar))
+                    .Value = InsuranceTypeChoice;
+                cmd.Parameters
+                    .Add(new SqlParameter("@ab", SqlDbType.NVarChar))
+                    .Value = AgeChoice;
+                cmd.Parameters
+                    .Add(new SqlParameter("@lc", SqlDbType.NVarChar))
+                    .Value = LocationChoice;
+                cmd.Parameters
+                   .Add(new SqlParameter("@dt", SqlDbType.DateTime))
+                   .Value = DateTime.Now;
+                cmd.Parameters
+                   .Add(new SqlParameter("@d", SqlDbType.Bit))
+                   .Value = 0;
+
+                connection.Open();
+
+                cmd.ExecuteScalar();
+
                 cmd.Dispose();
-            }
-            else
-            {
-                reader.Dispose();
-                cmd.Dispose();
+                connection.Dispose();
             }
         }
-    }
 
-    public void MarkInsuranceAsDiscussed()
-    {
-        Debug.WriteLine("well done");
-    }
+        public void GetInsuranceByAccountNumber()
+        {
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"SELECT * FROM [dbo].[InsuranceQuery] " +
+                                  @"WHERE [AccountNumber] = @an";
+
+                Debug.WriteLine(AccountNumber);
+                var cmd = new SqlCommand(_sql, connection);
+                cmd.Parameters
+                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
+                    .Value = this.AccountNumber;
+                connection.Open();
+
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    Debug.WriteLine("well");
+                    this.InsuranceTypeChoice = reader.GetString(reader.GetOrdinal("Insurancetype"));
+                    this.AgeChoice = reader.GetString(reader.GetOrdinal("AgeBracket"));
+                    this.LocationChoice = reader.GetString(reader.GetOrdinal("Location"));
+                    this.DateOfApplication = reader.GetDateTime(reader.GetOrdinal("Date"));
+                    reader.Dispose();
+                    cmd.Dispose();
+                }
+                else
+                {
+                    reader.Dispose();
+                    cmd.Dispose();
+                }
+            }
         }
+
+        public void MarkInsuranceAsDiscussed()
+        {
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"UPDATE [dbo].[InsuranceQuery] " + @"SET [Discussed] = 1 " +
+                                  @"WHERE [AccountNumber] = @an";
+
+                var cmd = new SqlCommand(_sql, connection);
+                cmd.Parameters
+                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
+                    .Value = this.AccountNumber;
+                connection.Open();
+
+                var reader = cmd.ExecuteScalar();
+
+                cmd.Dispose();
+                connection.Close();
+            }
+
+        }
+    }
 }

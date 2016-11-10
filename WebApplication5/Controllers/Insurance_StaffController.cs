@@ -22,8 +22,16 @@ namespace WebApplication5.Controllers
         [HttpPost]
         public ActionResult Insurance_StaffQuery(Insurance insurance)
         {
-            insurance.GetInsuranceByAccountNumber();
-            return View("DiscussInsurance", insurance);
+            if(insurance.PendingQueryExists())
+            {
+                insurance.GetInsuranceByAccountNumber();
+                return View("ReviewQuote", insurance);
+            }
+            else
+            {
+                return View("ReviewInsuranceFailure");
+            }
+            
         }
         public ActionResult DiscussInsurance(Insurance insurance)
         {

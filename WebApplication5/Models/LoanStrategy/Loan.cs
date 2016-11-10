@@ -27,6 +27,36 @@ namespace NetCash.Models
             public string Value { get; set; }
         }
 
+        public bool PendingApplicationExists()
+        {
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"SELECT * FROM [dbo].[LoanApplications] WHERE [AccountNumber] = @an AND [Discussed] = 0 ";
+
+                var cmd = new SqlCommand(_sql, connection);
+
+                cmd.Parameters
+                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
+                    .Value = AccountNumber;
+
+                connection.Open();
+
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    cmd.Dispose();
+                    connection.Dispose();
+                    return true;
+                }
+                else
+                {
+                    cmd.Dispose();
+                    connection.Dispose();
+                    return false;
+                }
+            }
+        }
+
         [Required(ErrorMessage = "You mest provide a reason for your Loan")]
         [Display(Name = "Reason for Loan:")]
         public string LoanChoice { get; set; }
@@ -52,9 +82,8 @@ namespace NetCash.Models
         public void SubmitApplication(object AccountNumber)
         {
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
-            {
-
-                string _sql = @"INSERT INTO [dbo].[LoanApplications] (GUID, AccountNumber, LoanType, AmountRequired, RepaymentPeriod, DateOfApplication, Discussed) VALUES (@id, @an, @lt, @ar, @rp, @doa, @d)";
+            {       
+                string _sql =@"INSERT INTO [dbo].[LoanApplications] (GUID, AccountNumber, LoanType, AmountRequired, RepaymentPeriod, DateOfApplication, Discussed) VALUES (@id, @an, @lt, @ar, @rp, @doa, @d) ";
 
                 var cmd = new SqlCommand(_sql, connection);
 
@@ -89,6 +118,12 @@ namespace NetCash.Models
             }
         }
 
+        public bool PendingApplicationExists(string AccountNumber)
+        {
+            this.AccountNumber = AccountNumber;
+            return PendingApplicationExists();
+        }
+
         public void GetLoanDataByAccountNumber()
         {
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
@@ -106,7 +141,6 @@ namespace NetCash.Models
                 var reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    Debug.WriteLine("well");
                     this.LoanChoice = reader.GetString(reader.GetOrdinal("LoanType"));
                     this.AmountRequired = reader.GetString(reader.GetOrdinal("AmountRequired"));
                     this.PeriodOfRepayment = reader.GetString(reader.GetOrdinal("RepaymentPeriod"));
@@ -124,7 +158,22 @@ namespace NetCash.Models
 
         public void MarkLoanAsDiscussed()
         {
-            Debug.WriteLine("well done");
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"UPDATE [dbo].[LoanApplications] " + @"SET [Discussed] = 1 " +
+                                  @"WHERE [AccountNumber] = @an";
+
+                var cmd = new SqlCommand(_sql, connection);
+                cmd.Parameters
+                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
+                    .Value = this.AccountNumber;
+                connection.Open();
+
+                var reader = cmd.ExecuteScalar();
+
+                cmd.Dispose();
+                connection.Close();
+            }
         }
     }
 }
