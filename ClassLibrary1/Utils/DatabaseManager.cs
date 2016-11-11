@@ -93,7 +93,7 @@ namespace Helpers.Utils
             ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest("DatabaseManager, updateATMPinNumber()","Attempt to read ATMUsers database"));
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
-                string _sql = @"UPDATE [dbo].[ATMUsers] Set [PIN]=@b WHERE [AccountNumber] = @a ";
+                string _sql = @"UPDATE [dbo].[Users] Set [PIN]=@b WHERE [AccountNumber] = @a ";
 
                 var cmd = new SqlCommand(_sql, connection);
                 cmd.Parameters
@@ -123,7 +123,7 @@ namespace Helpers.Utils
             ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("DatabaseManager, getAccountByATMCardNumber() method", "Attempt to read ATMUsers database"));
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
-                string _sql = @"SELECT [AccountNumber] From [dbo].[ATMUsers] WHERE [CardNumber] = @a ";
+                string _sql = @"SELECT [AccountNumber] From [dbo].[Users] WHERE [CardNumber] = @a ";
 
                 var cmd = new SqlCommand(_sql, connection);
                 cmd.Parameters
@@ -180,7 +180,7 @@ namespace Helpers.Utils
             ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("DatabaseManager, getATMAccountPin() method", "Attempt to read ATMUsers database"));
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
-                string _sql = @"SELECT [PIN] From [dbo].[ATMUsers] WHERE [AccountNumber] = @a ";
+                string _sql = @"SELECT [PIN] From [dbo].[Users] WHERE [AccountNumber] = @a ";
 
                 var cmd = new SqlCommand(_sql, connection);
                 cmd.Parameters

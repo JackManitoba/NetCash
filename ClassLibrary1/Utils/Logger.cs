@@ -39,7 +39,8 @@ namespace Helpers.Utils
             {
                 Debug.WriteLine(t.getAccountNumber());
                 Debug.WriteLine(context.getVerboseDescription() + "\n");
-                file.WriteLine(context.getVerboseDescription() + "\n");                
+                file.WriteLine(context.getVerboseDescription() + "\n");
+                file.Close();               
             }
         }
 

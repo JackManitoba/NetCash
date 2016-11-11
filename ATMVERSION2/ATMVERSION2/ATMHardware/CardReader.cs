@@ -37,7 +37,7 @@ namespace ATMVERSION2.ATMHardware
             bool Canceled = false;
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
-                string _sql = @"SELECT [Canceled] From [dbo].[ATMUsers] WHERE [CardNumber] = @a ";
+                string _sql = @"SELECT [Cancelled] From [dbo].[Users] WHERE [CardNumber] = @a ";
 
                 var cmd = new SqlCommand(_sql, connection);
                 cmd.Parameters
