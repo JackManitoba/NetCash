@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Helpers.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,8 @@ namespace Helpers.BankTransactions
             this.cardNumber = cardNumber;
             this.description = description;
             this.withdrawalAmount = amount1;
-            this.WithdrawalAccount = new AccountManager.Account(cardNumber);
+            string accountNumber = DatabaseManager.getAccountByATMCardNumber(cardNumber);
+            this.WithdrawalAccount = new AccountManager.Account(accountNumber);
         }
 
         public int amount()
