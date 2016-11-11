@@ -1,6 +1,8 @@
 ﻿using Helpers.AccountManager;
 using Helpers.ATMHardware;
 using Helpers.BankTransactions;
+using Helpers.Interceptor_Package;
+using Helpers.Interceptor_Package.Dispatchers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +15,10 @@ namespace Helpers.FacadeClasses
     {
         private ATMAccount account;
 
-        public ATMFacade(string accountNumber)
+        public ATMFacade(string cardnumber)
         {
-            account = new ATMAccount(accountNumber);
+            account = new ATMAccount(ATMAccount.getAccountByCardNumber(cardnumber));
+            account.cardNumber = cardnumber;
         }
 
         public void updateAccountPinNumber(string newPin)
@@ -41,10 +44,12 @@ namespace Helpers.FacadeClasses
 
         public void performWithdraw(double amount)
         {
+
             Transaction withdrawal = new Withdrawal(account.cardNumber, "WITHDRAWAL", amount);
             if (withdrawal.AreFundsAvailable())
             {
                 withdrawal.PerformTransaction();
+                ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(this.account, withdrawal.type(), withdrawal.amount()));
             }
         }
         public void performDeposit(double amount)

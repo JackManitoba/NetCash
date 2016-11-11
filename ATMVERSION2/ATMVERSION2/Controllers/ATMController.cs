@@ -24,7 +24,7 @@ namespace ATMVERSION2.Controllers
     public class ATMController : Observer
     {
         ATMFacade facade;
-        ATMAccount account;
+      
         static ATMMainView mainView;
         string currentCardNumber = "";
         int ChancesLeft = 3;
@@ -44,7 +44,6 @@ namespace ATMVERSION2.Controllers
             var path = Path.GetFullPath(((AppDomain.CurrentDomain.BaseDirectory).Replace("\\ATMVERSION2\\WindowsFormsApplication1\\bin\\Debug", "")) + "\\WebApplication5\\App_Data");
             AppDomain.CurrentDomain.SetData("DataDirectory", path);
             databaseManager = new DatabaseManager();
-            account = m;
             mainView = v;
             mainView.registerObserver(this);
         }
@@ -55,19 +54,10 @@ namespace ATMVERSION2.Controllers
             CardReader CR = new CardReader(cardLocation);
             currentCardNumber = CR.getCardNumber();
             canceled = CR.isCardCanceled(); 
-            facade = new ATMFacade(ATMFacade.getAccountByCardNumber(currentCardNumber));
+            this.facade = new ATMFacade(currentCardNumber);
         }
 
-        public void performTransaction(Transaction transaction)
-        {
-            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(this.account,transaction.type(), transaction.amount()));
-            account.UpdateAmount(transaction);
-           
-            
-               
-            
-        }
-
+       
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -99,39 +89,42 @@ namespace ATMVERSION2.Controllers
             if (mainView.getCurrentPanel().name.Equals("PinPanel"))
             {
                 PinPanel p = (PinPanel)mainView.getCurrentPanel();
-                if (canceled == false)
+                if (p.getInput().Text != "")
                 {
-                    bool validate = facade.validateAccount(p.getInput().Text);
-                    if (validate)
+                    if (canceled == false)
                     {
-                        ChancesLeft = 3;
-                        setPanel(pf.getPanel(navClass.getNavigationPanelName()));
-                    }
-                    else
-                    {
-                        if (ChancesLeft != 0)
+                        bool validate = facade.validateAccount(p.getInput().Text);
+                        if (validate)
                         {
-                            ChancesLeft--;
-                            insertCard("");
-                            setPanel(pf.getPanel("PIN"));
-                            if(ChancesLeft != 0)
-                                p.DisplayMessage("INCORRECT PIN, YOU HAVE " + (ChancesLeft + 1) + " ENTRIES LEFT");
-                            else
-                                p.DisplayMessage("INCORRECT PIN, YOU HAVE " + (ChancesLeft + 1) + " ENTRY LEFT");
+                            ChancesLeft = 3;
+                            setPanel(pf.getPanel(navClass.getNavigationPanelName()));
                         }
                         else
                         {
-                            setPanel(pf.getPanel("PIN"));
-                            p.DisplayMessage("INCORRECT PIN, YOUR CARD HAS BEEN CANCELED");
-                            facade.cancelCard(currentCardNumber);
-                            canceled = true;
+                            if (ChancesLeft != 0)
+                            {
+                                ChancesLeft--;
+                                insertCard("");
+                                setPanel(pf.getPanel("PIN"));
+                                if (ChancesLeft != 0)
+                                    p.DisplayMessage("INCORRECT PIN, YOU HAVE " + (ChancesLeft + 1) + " ENTRIES LEFT");
+                                else
+                                    p.DisplayMessage("INCORRECT PIN, YOU HAVE " + (ChancesLeft + 1) + " ENTRY LEFT");
+                            }
+                            else
+                            {
+                                setPanel(pf.getPanel("PIN"));
+                                p.DisplayMessage("INCORRECT PIN, YOUR CARD HAS BEEN CANCELED");
+                                facade.cancelCard(currentCardNumber);
+                                canceled = true;
+                            }
                         }
                     }
-                }
-                else
-                {
-                    setPanel(pf.getPanel("PIN"));
-                    p.DisplayMessage("THIS CARD HAS BEEN CANCELED");
+                    else
+                    {
+                        setPanel(pf.getPanel("PIN"));
+                        p.DisplayMessage("THIS CARD HAS BEEN CANCELED");
+                    }
                 }
             }
             else
@@ -164,6 +157,8 @@ namespace ATMVERSION2.Controllers
                        
                         if (cashManager.isWithdrawable(amount)&&facade.areFundsAvailable(amount))
                         {
+                          
+
                             facade.performWithdraw(amount);                     
                             cashManager.UpdateAmountWithdrawal(amount);
                         }
