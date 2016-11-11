@@ -42,11 +42,23 @@ namespace Helpers.BankTransactions
         public void PerformTransaction()
         {
             DepositAccount.IncreaseBalance(depositAmount);
+            DatabaseManager.getInstance().addTransactionToDatabase(this);
         }
 
         public bool AreFundsAvailable()
         {
             return DepositAccount.AreFundsAvailable(depositAmount);
+
+        }
+        public string sourceAccount()
+        {
+            return "";
+        }
+
+        public string targetAccount()
+        {
+            return this.DepositAccount.AccountNumber;
+           
         }
     }
 }

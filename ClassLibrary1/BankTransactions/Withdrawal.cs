@@ -37,11 +37,21 @@ namespace Helpers.BankTransactions
         public void PerformTransaction()
         {
             WithdrawalAccount.DecreaseBalance(withdrawalAmount);
+            DatabaseManager.getInstance().addTransactionToDatabase(this);
         }
 
         public bool AreFundsAvailable()
         {
             return WithdrawalAccount.AreFundsAvailable(withdrawalAmount);
+        }
+        public string sourceAccount()
+        {
+            return this.WithdrawalAccount.AccountNumber;
+        }
+
+        public string targetAccount()
+        {
+            return "";
         }
     }
 }

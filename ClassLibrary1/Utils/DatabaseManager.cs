@@ -81,7 +81,40 @@ namespace Helpers.Utils
 
         internal void addTransactionToDatabase(Transaction t)
         {
-            throw new NotImplementedException();
+            Debug.WriteLine(t.sourceAccount()+ "lol");
+            Debug.WriteLine(t.targetAccount());
+           
+            var dateAndTime = DateTime.Now;
+            
+            Debug.WriteLine(dateAndTime.ToString("dd/MM/yyyy"));
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"INSERT INTO [dbo].[BankTransactions] VALUES (@origAccount,@targetAccount,@type,@amount,@date) ";
+
+                var cmd = new SqlCommand(_sql, connection);
+                cmd.Parameters
+                    .Add(new SqlParameter("@origAccount", SqlDbType.NVarChar))
+                    .Value = t.sourceAccount();
+                cmd.Parameters
+                    .Add(new SqlParameter("@targetAccount", SqlDbType.NVarChar))
+                    .Value = t.targetAccount();
+                cmd.Parameters
+                     .Add(new SqlParameter("@type", SqlDbType.NVarChar))
+                     .Value = t.type();
+                cmd.Parameters
+                    .Add(new SqlParameter("@amount", SqlDbType.Money))
+                    .Value = Convert.ToInt32(t.amount());
+                cmd.Parameters
+                    .Add(new SqlParameter("@date", SqlDbType.NVarChar))
+                    .Value = dateAndTime.ToString("dd/MM/yyyy");
+
+                connection.Open();
+
+                cmd.ExecuteScalar();
+
+                cmd.Dispose();
+                connection.Dispose();
+            }
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

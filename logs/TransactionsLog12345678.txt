@@ -1,1 +1,19 @@
 Account: 12345678 Description: Transfer to 12345555 Amount: € 100 11/11/2016 15:04:21
+Account: 12345678 Description: WITHDRAWAL Amount: € 100 11/11/2016 3:14:51 PM
+Account: 12345678 Description: DEPOSIT Amount: € 2000 11/11/2016 3:14:58 PM
+Account: 12345678 Description: DEPOSIT Amount: € 55550 11/11/2016 3:15:09 PM
+Account: 12345678 Description: Transfer to 12345555 Amount: € 200 11/11/2016 3:17:37 PM
+Account: 12345678 Description: WITHDRAWAL Amount: € 250 11/11/2016 3:44:49 PM
+Account: 12345678 Description: DEPOSIT Amount: € 300 11/11/2016 3:45:58 PM
+Account: 12345678 Description: Transfer from 12345555 Amount: € 190 11/11/2016 3:47:07 PM
+Account: 12345678 Description: Transfer to 12345555 Amount: € 1050 11/11/2016 3:49:35 PM
+Account: 12345678 Description: WITHDRAWAL Amount: € 600 11/11/2016 4:18:55 PM
+Account: 12345678 Description: WITHDRAWAL Amount: € 250 11/11/2016 4:23:00 PM
+Account: 12345678 Description: WITHDRAWAL Amount: € 200 11/11/2016 4:38:14 PM
+Account: 12345678 Description: DEPOSIT Amount: € 300 11/11/2016 4:38:57 PM
+Account: 12345678 Description: Transfer to 12345555 Amount: € 20 11/11/2016 4:40:11 PM
+Account: 12345678 Description: WITHDRAWAL Amount: € 250 11/11/2016 4:45:45 PM
+Account: 12345678 Description: DEPOSIT Amount: € 3000 11/11/2016 4:45:53 PM
+Account: 12345678 Description: WITHDRAWAL Amount: € 110 11/11/2016 4:47:53 PM
+Account: 12345678 Description: DEPOSIT Amount: € 250 11/11/2016 4:48:10 PM
+Account: 12345678 Description: Transfer to 12345555 Amount: € 100 11/11/2016 4:50:25 PM
