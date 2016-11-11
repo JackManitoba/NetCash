@@ -48,8 +48,12 @@ namespace ATMVERSION2.Views.UserInterface.Panels
 
         internal void setFileName(string accountNumber)
         {
-   
-            this.filename = @"TransactionsLog" + accountNumber.Trim() + ".txt";
+            var path = (AppDomain.CurrentDomain.BaseDirectory);
+            int position = path.IndexOf("NetCash");
+            var substring = path.Substring(0, position);
+            path = substring + "NetCash\\logs\\TransactionsLog"+ accountNumber.Trim() + ".txt";
+
+            this.filename = @path;
             Process.Start("notepad.exe", this.filename);
             message.Text = "Printing Complete, press enter to continue";
         }
