@@ -1,5 +1,7 @@
 ﻿using Helpers.Interceptor_Package;
+using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace Helpers.Utils
 {
@@ -17,12 +19,22 @@ namespace Helpers.Utils
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         internal void logDatabaseInteractions(ContextObject context)
-        {    
+        {
             //file2.WriteLine(DateTime.Now.ToString("HH:mm:ss tt")+context.getObj());
-            using (System.IO.StreamWriter file =
-            new System.IO.StreamWriter(@"DatabaseInteractionsLog.txt", true))
+            var path = (AppDomain.CurrentDomain.BaseDirectory);
+            int position = path.IndexOf("NetCash");
+            var substring = path.Substring(0, position);
+            path = substring + "NetCash\\logs\\DatabaseInteractionsLog.txt";
+
+            if (!File.Exists(path))
             {
-                file.WriteLine(context.getVerboseDescription()+"\n");               
+                string createText = context.getVerboseDescription() + Environment.NewLine;
+                File.WriteAllText(path, createText);
+            }
+            else
+            {
+                string appendText = context.getVerboseDescription() + Environment.NewLine;
+                File.AppendAllText(path, appendText);
             }
         }
 
@@ -34,13 +46,22 @@ namespace Helpers.Utils
         internal void logAccountTransactions(ContextObject context)
         {
             TransactionInfo t = (TransactionInfo)context;
-            using (System.IO.StreamWriter file =
-            new System.IO.StreamWriter(@"TransactionsLog"+t.getAccountNumber().Trim()+".txt", true))
+
+            var path = (AppDomain.CurrentDomain.BaseDirectory);
+            int position = path.IndexOf("NetCash");
+            var substring = path.Substring(0, position);
+            path = substring + "NetCash\\logs\\TransactionsLog";
+
+            path = path + t.getAccountNumber().Trim() + ".txt";
+            if (!File.Exists(path))
             {
-                Debug.WriteLine(t.getAccountNumber());
-                Debug.WriteLine(context.getVerboseDescription() + "\n");
-                file.WriteLine(context.getVerboseDescription() + "\n");
-                file.Close();               
+                string createText = context.getVerboseDescription() + Environment.NewLine;
+                File.WriteAllText(path, createText);
+            }
+            else
+            {
+                string appendText = context.getVerboseDescription() + Environment.NewLine;
+                File.AppendAllText(path, appendText);
             }
         }
 
