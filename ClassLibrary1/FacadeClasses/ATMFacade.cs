@@ -57,7 +57,8 @@ namespace Helpers.FacadeClasses
             Transaction deposit = new Deposit(account, "DEPOSIT", amount);
            
                deposit.PerformTransaction();
-            
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(this.account, deposit.type(), deposit.amount()));
+
         }
 
         public bool areFundsAvailable(double amount)
