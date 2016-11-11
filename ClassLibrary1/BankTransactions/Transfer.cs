@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Helpers.Interceptor_Package;
+using Helpers.Interceptor_Package.Dispatchers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -41,7 +43,10 @@ namespace Helpers.BankTransactions
 
         public void PerformTransaction()
         {
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(OutgoingTransferAccount, "Transfer to "+IncomingTransferAccount.AccountNumber, Convert.ToInt32(TransferAmount)));
             IncomingTransferAccount.IncreaseBalance(TransferAmount);
+
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(IncomingTransferAccount, "Transfer to " + OutgoingTransferAccount.AccountNumber, Convert.ToInt32(TransferAmount)));
             OutgoingTransferAccount.DecreaseBalance(TransferAmount);
         }
 

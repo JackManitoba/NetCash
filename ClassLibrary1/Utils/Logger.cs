@@ -1,5 +1,5 @@
 ﻿using Helpers.Interceptor_Package;
-
+using System.Diagnostics;
 
 namespace Helpers.Utils
 {
@@ -35,12 +35,12 @@ namespace Helpers.Utils
         {
             TransactionInfo t = (TransactionInfo)context;
             using (System.IO.StreamWriter file =
-              new System.IO.StreamWriter(@"TransactionsLog"+t.getAccountNumber().Trim()+".txt", true))
+            new System.IO.StreamWriter(@"TransactionsLog"+t.getAccountNumber().Trim()+".txt", true))
             {
-                file.WriteLine(context.getVerboseDescription() + "\n");
-                
+                Debug.WriteLine(t.getAccountNumber());
+                Debug.WriteLine(context.getVerboseDescription() + "\n");
+                file.WriteLine(context.getVerboseDescription() + "\n");                
             }
-
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
