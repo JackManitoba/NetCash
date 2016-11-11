@@ -45,7 +45,7 @@ namespace Helpers.FacadeClasses
         public void performWithdraw(double amount)
         {
 
-            Transaction withdrawal = new Withdrawal(account.cardNumber, "WITHDRAWAL", amount);
+            Transaction withdrawal = new Withdrawal(account, "WITHDRAWAL", amount);
             if (withdrawal.AreFundsAvailable())
             {
                 withdrawal.PerformTransaction();
@@ -54,7 +54,7 @@ namespace Helpers.FacadeClasses
         }
         public void performDeposit(double amount)
         {
-            Transaction deposit = new Deposit(account.cardNumber, "DEPOSIT", amount);
+            Transaction deposit = new Deposit(account, "DEPOSIT", amount);
            
                deposit.PerformTransaction();
             
@@ -68,6 +68,7 @@ namespace Helpers.FacadeClasses
 
         public string returnAccountBalance()
         {
+            account.updateAccountBalance();
             return account.Balance.ToString();
         }
 

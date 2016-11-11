@@ -1,4 +1,5 @@
-﻿using Helpers.Utils;
+﻿using Helpers.AccountManager;
+using Helpers.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +20,13 @@ namespace Helpers.BankTransactions
 
         public Deposit() { }
 
-        public Deposit(string cardNumber, string description, double amount)
+        public Deposit(Account account, string description, double amount)
         {
-            this.cardNumber = cardNumber;
+           
             this.description = description;
             this.depositAmount = amount;
-            string accountNumber = DatabaseManager.getAccountByATMCardNumber(cardNumber);
-            this.DepositAccount = new AccountManager.Account(accountNumber);
+            string accountNumber = account.AccountNumber;
+            this.DepositAccount = account;
         }
 
         public int amount()
