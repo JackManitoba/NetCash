@@ -29,7 +29,7 @@ namespace ATMVERSION2.Controllers
         string currentCardNumber = "";
         int ChancesLeft = 3;
         bool canceled = false;
-        DatabaseManager databaseManager;
+       
 
         public List<Subject> subjectList
         {
@@ -43,7 +43,7 @@ namespace ATMVERSION2.Controllers
         {
             var path = Path.GetFullPath(((AppDomain.CurrentDomain.BaseDirectory).Replace("\\ATMVERSION2\\WindowsFormsApplication1\\bin\\Debug", "")) + "\\WebApplication5\\App_Data");
             AppDomain.CurrentDomain.SetData("DataDirectory", path);
-            databaseManager = new DatabaseManager();
+           
             mainView = v;
             mainView.registerObserver(this);
         }

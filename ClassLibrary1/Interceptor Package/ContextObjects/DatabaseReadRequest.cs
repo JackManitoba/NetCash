@@ -3,7 +3,7 @@
 
 namespace Helpers.Interceptor_Package
 {
-   public class DataBaseReadRequest : ConcreteContextObject
+   public class DataBaseReadRequest : ContextObject
     {
        string source, description;
 

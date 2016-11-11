@@ -11,12 +11,25 @@ namespace Helpers.Utils
 {
   public  class DatabaseManager
     {
-        public DatabaseManager() { }
+
+        private static DatabaseManager instance;
+
+        public static DatabaseManager getInstance()
+        {
+            if (instance == null)
+            {
+                instance = new DatabaseManager();
+                return instance;
+            }
+            else return instance;
+        }
+       private DatabaseManager() { }
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public int retrieveDenominationAmounts(string current)
         {
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest("DatabaseManager, retrieveDenominationAmounts()", "Attempt to read ATMCash database"));
             int returnValue;
 
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
@@ -43,6 +56,7 @@ namespace Helpers.Utils
 
         public void updateATMCashAmount(string note, int amount)
         {
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest("DatabaseManager, updateATMPinNumber()", "Attempt to read ATMUsers database"));
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"UPDATE [dbo].[ATMCash] Set [Amount]=@b WHERE [Note] = @a ";
@@ -74,6 +88,7 @@ namespace Helpers.Utils
 
         public void updateATMPinNumber(string accountNumber, string newPin)
         {
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest("DatabaseManager, updateATMPinNumber()","Attempt to read ATMUsers database"));
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"UPDATE [dbo].[ATMUsers] Set [PIN]=@b WHERE [AccountNumber] = @a ";
@@ -101,9 +116,9 @@ namespace Helpers.Utils
 
         public static string getAccountByATMCardNumber(string _cardNumber)
         {
-            Debug.WriteLine("getAccountByCardNumber called, card number was: " + _cardNumber);
+           
             string accountNo;
-            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("Account class, getAccountByCardNumber() method", "Attempt to read ATMUsers database"));
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("DatabaseManager, getAccountByATMCardNumber() method", "Attempt to read ATMUsers database"));
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"SELECT [AccountNumber] From [dbo].[ATMUsers] WHERE [CardNumber] = @a ";
@@ -131,7 +146,7 @@ namespace Helpers.Utils
         public double GetAccountBalance(string AccountNumber)
         {
             double balance;
-            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("Account class, getBalance() method", "Attempt to read Account database"));
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("DatabaseManager, getAccountBalance() method", "Attempt to read Account database"));
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"SELECT [Balance] From [dbo].[Account] WHERE [AccountNumber] = @a ";
@@ -160,7 +175,7 @@ namespace Helpers.Utils
         {
 
             string pin;
-            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("Account class, getPin() method", "Attempt to read ATMUsers database"));
+            ClientRequestDispatcher.theInstance().dispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("DatabaseManager, getATMAccountPin() method", "Attempt to read ATMUsers database"));
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"SELECT [PIN] From [dbo].[ATMUsers] WHERE [AccountNumber] = @a ";

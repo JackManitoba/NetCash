@@ -13,14 +13,13 @@ namespace ATMVERSION2.ATMHardware
 
         private double total = 0;
         private int[] DenominationsAmounts = new int[6];
-        DatabaseManager databaseManager;
-
+      
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public ATMCashManager()
         {
-            databaseManager = new DatabaseManager();
+            
             setLocalCash();
         }
 
@@ -49,7 +48,7 @@ namespace ATMVERSION2.ATMHardware
 
         private int setEachDenomination(string current)
         {
-            int returnedValue = databaseManager.retrieveDenominationAmounts(current);
+            int returnedValue = DatabaseManager.getInstance().retrieveDenominationAmounts(current);
             return returnedValue;
         }
 
@@ -144,7 +143,7 @@ namespace ATMVERSION2.ATMHardware
 
         private void updateCashAmounts(string note, int amount)
         {
-            databaseManager.updateATMCashAmount(note, amount);
+            DatabaseManager.getInstance().updateATMCashAmount(note, amount);
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

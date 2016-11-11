@@ -30,7 +30,7 @@ namespace Helpers.AccountManager
         {
             
        
-            return databaseManager.GetATMAccountPin(this.AccountNumber);
+            return DatabaseManager.getInstance().GetATMAccountPin(this.AccountNumber);
         }
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,8 +48,8 @@ namespace Helpers.AccountManager
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public void updatePin(string newPin)
         {
-            databaseManager.updateATMPinNumber(this.AccountNumber, newPin);
-            this.pin = databaseManager.GetATMAccountPin(AccountNumber);
+            DatabaseManager.getInstance().updateATMPinNumber(this.AccountNumber, newPin);
+            this.pin = DatabaseManager.getInstance().GetATMAccountPin(AccountNumber);
 
             
         }

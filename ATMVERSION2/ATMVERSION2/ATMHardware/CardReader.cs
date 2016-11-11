@@ -15,10 +15,10 @@ namespace ATMVERSION2.ATMHardware
     class CardReader
     {
         private Card currentCard;
-        private DatabaseManager databaseManager;
+        
         public CardReader(string cardLocation)
         {
-            databaseManager = new DatabaseManager();
+           
             if (cardLocation != "")
                 readCardFromFile(cardLocation);
             else

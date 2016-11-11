@@ -15,7 +15,7 @@ namespace Helpers.AccountManager
     public class Account
     {
         public State state;
-        protected DatabaseManager databaseManager;
+        
 
         [Required]
         [Display(Name = "Account Number")]
@@ -31,7 +31,7 @@ namespace Helpers.AccountManager
         public Account(string _accountnumber)
         {
             this.AccountNumber = _accountnumber;
-            databaseManager = new DatabaseManager();
+           
             this.Balance = GetBalance();
             this.state = GetState();
 
@@ -67,7 +67,7 @@ namespace Helpers.AccountManager
 
         public void updateAccountBalance()
         {
-            this.Balance= databaseManager.GetAccountBalance(this.AccountNumber);
+            this.Balance= DatabaseManager.getInstance().GetAccountBalance(this.AccountNumber);
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,7 +75,8 @@ namespace Helpers.AccountManager
 
         private double GetBalance()
         {
-            return databaseManager.GetAccountBalance(this.AccountNumber);
+            DatabaseManager.getInstance();
+            return DatabaseManager.getInstance().GetAccountBalance(this.AccountNumber);
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -84,7 +85,7 @@ namespace Helpers.AccountManager
         public void UpdateAmount(Transaction t)
         {          
             state.UpdateAmount(t.amount());
-            databaseManager.addTransactionToDatabase(t);
+            DatabaseManager.getInstance().addTransactionToDatabase(t);
            this.Balance =  GetBalance();     
         }
 
