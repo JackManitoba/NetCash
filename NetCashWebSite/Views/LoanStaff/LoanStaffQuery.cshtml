@@ -1,0 +1,23 @@
+﻿@model NetCashWebSite.Models.Loan
+
+@{
+    ViewBag.Title = "DisplayLoan";
+}
+
+@section article {
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true, "Query failed.");
+
+        <h2>View Outstanding Application</h2>
+                <div class="form-group">
+                    @Html.LabelFor(l => l.AccountNumber, new { @class = "control-label" })
+                    @Html.TextBoxFor(l => l.AccountNumber, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(l => l.AccountNumber)
+                </div>
+
+                <input id="btnConfirm" class="btn btn-primary" type="submit" value="Confirm" />
+    }
+}
+

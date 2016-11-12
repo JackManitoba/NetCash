@@ -1,0 +1,17 @@
+﻿@{
+    if (Session["SessionRole"] != null)
+    {
+        if (Session["SessionRole"].ToString() == "BankStaff")
+        {
+            Layout = "~/Views/Shared/_StaffLayout.cshtml";
+        }
+        else
+        {
+            Layout = "~/Views/Shared/_UserLayout.cshtml";
+        }
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_UserLayout.cshtml";
+    }
+}

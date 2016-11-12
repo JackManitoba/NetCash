@@ -1,0 +1,45 @@
+﻿@model NetCashWebSite.Models.Insurance.InsuranceQuery
+
+@{
+    ViewBag.Title = "ReviewQuote";
+}
+
+@section article{
+    <h1>Outstanding Insurance Query</h1>
+
+    <div class="form-horizontal">
+        <strong>
+            @Html.LabelFor(i => i.AccountNumber, new { @class = "control-label" })
+        </strong>
+        @Html.Label(Model.AccountNumber)
+    </div>
+    <div class="form-horizontal">
+        <strong>
+            @Html.LabelFor(i => i.InsuranceTypeChoice, new { @class = "control-label" })
+        </strong>
+        @Html.Label(Model.InsuranceTypeChoice)
+    </div>
+    <div class="form-horizontal">
+        <strong>
+            @Html.LabelFor(i => i.AgeChoice, new { @class = "control-label" })
+        </strong>
+        @Html.Label(Model.AgeChoice)
+    </div>
+    <div class="form-horizontal">
+        <strong>
+            @Html.LabelFor(i => i.LocationChoice, new { @class = "control-label" })
+        </strong>
+        @Html.Label(Model.LocationChoice)
+    </div>
+<div class="form-horizontal">
+    <strong>
+        @Html.LabelFor(i => i.DateOfApplication, new { @class = "control-label" })
+    </strong>
+    @Html.Label(Model.DateOfApplication.ToString())
+</div>
+
+    <button class="btn btn-primary" onclick="location.href='@Url.Action("DiscussInsurance", "Insurance_Staff", Model)'">Mark as discussed</button>
+
+
+}
+

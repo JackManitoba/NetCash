@@ -4,3 +4,15 @@ DataBaseReadRequest Object DatabaseManager, getAccountBalance() method Attempt t
 DataBaseReadRequest Object DatabaseManager, getAccountBalance() method Attempt to read Account database11/11/2016 15:04:21
 DataBaseWriteRequest Object BalancedState Class, updateAmount() method Attempt to write to Account database11/11/2016 15:04:21
 DataBaseWriteRequest Object BalancedState Class, updateAmount() method Attempt to write to Account database11/11/2016 15:04:21
+DataBaseReadRequest Object DatabaseManager, getAccountByATMCardNumber() method Attempt to read ATMUsers database12/11/2016 02:51:09
+DataBaseReadRequest Object DatabaseManager, getAccountBalance() method Attempt to read Account database12/11/2016 02:51:09
+DataBaseReadRequest Object DatabaseManager, getATMAccountPin() method Attempt to read ATMUsers database12/11/2016 02:51:09
+DataBaseReadRequest Object DatabaseManager, getAccountByATMCardNumber() method Attempt to read ATMUsers database12/11/2016 03:00:41
+DataBaseReadRequest Object DatabaseManager, getAccountBalance() method Attempt to read Account database12/11/2016 03:00:41
+DataBaseReadRequest Object DatabaseManager, getATMAccountPin() method Attempt to read ATMUsers database12/11/2016 03:00:41
+DataBaseReadRequest Object DatabaseManager, getAccountBalance() method Attempt to read Account database12/11/2016 03:03:33
+DataBaseReadRequest Object DatabaseManager, getAccountBalance() method Attempt to read Account database12/11/2016 03:03:33
+DataBaseReadRequest Object DatabaseManager, getAccountBalance() method Attempt to read Account database12/11/2016 03:03:33
+DataBaseReadRequest Object DatabaseManager, getAccountBalance() method Attempt to read Account database12/11/2016 03:03:33
+DataBaseWriteRequest Object BalancedState Class, updateAmount() method Attempt to write to Account database12/11/2016 03:03:33
+DataBaseWriteRequest Object BalancedState Class, updateAmount() method Attempt to write to Account database12/11/2016 03:03:33
