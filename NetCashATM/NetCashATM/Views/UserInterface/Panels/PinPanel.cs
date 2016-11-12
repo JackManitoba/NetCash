@@ -1,4 +1,6 @@
-﻿using NetCashATM.Interfaces;
+﻿using NetCashATM.Presenters;
+using NetCashATM.HelperClasses;
+using NetCashATM.Interfaces;
 using NetCashATM.UserInterface.Buttons;
 using System;
 using System.Collections.Generic;
@@ -10,13 +12,27 @@ using System.Windows.Forms;
 
 namespace NetCashATM.UserInterface.Panels
 {
-   public class PinPanel : ATMPanel , Subject 
+   public class PinPanel : Panel, ATMPanel , Subject 
     {
+        private PINPresenter _pinPresenter;
+        private List<Subject> _subjectList;
+        private List<Observer> _observerList;
+        public NavigationDataClass NavData;
+
         protected static TextBox _pinEntryBox;
         protected static Label _messageLabel;
         protected static Label _netCashLabel;
 
         public PinPanel()
+        {
+            _pinPresenter = new PINPresenter(this);
+            _subjectList = new List<Subject>();
+            _observerList = new List<Observer>();
+            NavData = new NavigationDataClass();
+            CreateChildControls();
+        }
+
+        public void CreateChildControls()
         {
             Name = "PinPanel";
             BackColor = System.Drawing.Color.White;
@@ -45,38 +61,42 @@ namespace NetCashATM.UserInterface.Panels
             Controls.Add(_messageLabel);
 
             NavData.AddNavigaion("MAIN");
-        }  
-                
+        }
+
+
+
+
+        //COMMAND RELATED FUNCTIONS
+
+        public void Cancel()
+        {
+            NavData.SetNavigationPanelName("LOGOUT");
+            NotifyObservers();
+        }
+
+        public void Clear()
+        {
+            _pinEntryBox.Clear();
+            _pinEntryBox.Update();
+        }
+
+        public new void Enter()
+        {
+            NavData.SetNavigationPanelName("MAIN");
+            NotifyObservers();
+        }
+
 
         //PART OF OBSERVER DESIGN PATTERN -- SUBJECT PASSES ITSELF AS PARAMETER TO GET TEXT FROM AND UPDATES
 
-        public override void Update(Subject e)
+        public void Update(Subject e)
         {
             ATMButton b = (ATMButton)e;
             _pinEntryBox.Text += b.Text;
             _pinEntryBox.Update();
         }
 
-        public override void Cancel()
-        {
-            NavData.SetNavigationPanelName("LOGOUT");
-            NotifyObservers();
-        }
-
-        public override void Clear()
-        {
-            _pinEntryBox.Clear();
-            _pinEntryBox.Update();
-        }
-
-        public override void Enter()
-        {
-                //pinEntryBox.Clear();
-                NavData.SetNavigationPanelName("MAIN");
-                NotifyObservers();           
-        }
-
-        public override TextBox GetInput()
+        public TextBox GetInput()
         {
             return _pinEntryBox;
         }
@@ -86,6 +106,45 @@ namespace NetCashATM.UserInterface.Panels
             _messageLabel.Text = message;
             Debug.WriteLine(_messageLabel.Text);
             _messageLabel.Update();
+        }
+
+        List<Observer> Subject.ObserverList
+        {
+            get
+            {
+                return _observerList;
+            }
+        }
+
+        List<Subject> Observer.SubjectList
+        {
+            get
+            {
+                return _subjectList;
+            }
+        }
+
+        public void NotifyObservers()
+        {
+            foreach (Observer e in _observerList)
+            {
+                e.Update(this);
+            }
+        }
+
+        public void RegisterObserver(Observer e)
+        {
+            _observerList.Add(e);
+        }
+
+        public void UnregisterObserver(Observer e)
+        {
+            _observerList.Remove(e);
+        }
+
+        public void Action()
+        {
+            throw new NotImplementedException();
         }
     }
 }

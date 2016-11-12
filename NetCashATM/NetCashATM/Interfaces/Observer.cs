@@ -10,7 +10,6 @@ namespace NetCashATM.Interfaces
     {
         List<Subject> SubjectList { get; }
 
-        void Update();
         void Update(Subject e);
     }
 }

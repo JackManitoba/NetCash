@@ -187,8 +187,7 @@ namespace NetCashATM.Controllers
 
         public void StartATM()
         {
-            SetPanel(new PinPanel());
-            Application.Run(MainView);
+            
         }
 
         public void Update()

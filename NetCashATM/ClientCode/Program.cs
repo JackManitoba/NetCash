@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 using NetCashATM.Views;
+using NetCashATM.ATMHardware;
+using NetCashATM.Presenters;
 
 namespace ClientCode
 {
@@ -27,12 +29,15 @@ namespace ClientCode
             }
         }
 
+        public static void SetPanel(ATMPanel currentPanel)
+        {
+            _mainView.SetCurrentPanel(currentPanel);
+        }
 
-        static ATMMainView mainView;
+        private static ATMMainView _mainView;
         static ATMController controller;
-#pragma warning disable CS0649 // Field 'Program.account' is never assigned to, and will always have its default value null
         static ATMAccount account;
-#pragma warning restore CS0649 // Field 'Program.account' is never assigned to, and will always have its default value null
+        
         [STAThread]
         public static void Main()
         {
@@ -40,32 +45,17 @@ namespace ClientCode
             ClientRequestInterceptor myInterceptor = new ClientRequestInterceptor();
             ClientRequestDispatcher.TheInstance().RegisterClientInterceptor(myInterceptor);
 
-            Debug.WriteLine("Dispatcher and interceptor created and connected");
-
-
-
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //MainView
-            mainView = new ATMMainView();
-
-            //model
-           
-
-            //CurrentView
-            ATMPanel currentPanel = new PinPanel();
-            //Controller
-           
-            controller = new ATMController(account, mainView);
-            controller.InsertCard("");
-            controller.StartATM();
+            _mainView = new ATMMainView();
+            SetPanel(new PinPanel());
+            Application.Run(_mainView);
             // mainView.Activate();
-            mainView.RegisterObserver(new Program());
+            //_mainView.RegisterObserver(new Program());
 
             try
             {
-                Application.Run(mainView);
+                Application.Run(_mainView);
             }
 #pragma warning disable CS0168 // The variable 'e' is declared but never used
             catch (Exception e) { Debug.WriteLine("Application Exited"); }
@@ -74,6 +64,12 @@ namespace ClientCode
 
         public void Update()
         {
+        }
+
+        public static string InsertCard(string cardLocation)
+        {
+            CardReader cardReader = new CardReader(cardLocation);
+            return cardReader.GetCardNumber();
         }
 
         public void Update(Subject e)

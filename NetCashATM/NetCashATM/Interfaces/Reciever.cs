@@ -1,6 +1,6 @@
 ﻿namespace NetCashATM.Interfaces
 {
-    interface Reciever
+    public interface Reciever
     {
         void Enter();
         void Cancel();

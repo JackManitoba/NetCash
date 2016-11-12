@@ -59,6 +59,9 @@
     <Compile Include="Interfaces\Observer.cs" />
     <Compile Include="Interfaces\Subject.cs" />
     <Compile Include="Interfaces\View.cs" />
+    <Compile Include="Presenters\MainMenuPresenter.cs" />
+    <Compile Include="Presenters\PINPresenter.cs" />
+    <Compile Include="Presenters\PINRetryPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HelperClasses\NavigationDataClass.cs" />
     <Compile Include="Views\UserInterface\Buttons\ATMButton.cs">
@@ -71,34 +74,20 @@
     <Compile Include="Views\UserInterface\Buttons\NumberButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Views\UserInterface\Panels\ATMPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Views\UserInterface\Panels\BalancePanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Views\UserInterface\Panels\DepositPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Views\UserInterface\Panels\LogoutPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Views\UserInterface\Panels\MainPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Views\UserInterface\Panels\ATMPanel.cs" />
+    <Compile Include="Views\UserInterface\Panels\BalancePanel.cs" />
+    <Compile Include="Views\UserInterface\Panels\Class1.cs" />
+    <Compile Include="Views\UserInterface\Panels\DepositPanel.cs" />
+    <Compile Include="Views\UserInterface\Panels\KeypadPartialPanel.cs" />
+    <Compile Include="Views\UserInterface\Panels\LogoutPanel.cs" />
+    <Compile Include="Views\UserInterface\Panels\MainPanel.cs" />
     <Compile Include="Views\UserInterface\Panels\PanelFactory.cs" />
     <Compile Include="Views\UserInterface\Panels\PinPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Views\UserInterface\Panels\PinResetPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Views\UserInterface\Panels\PrintInfo.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Views\UserInterface\Panels\WithdrawalPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Views\UserInterface\Panels\PinResetPanel.cs" />
+    <Compile Include="Views\UserInterface\Panels\PrintInfo.cs" />
+    <Compile Include="Views\UserInterface\Panels\WithdrawalPanel.cs" />
     <Compile Include="Views\ATMMainView.cs">
       <SubType>Form</SubType>
     </Compile>
