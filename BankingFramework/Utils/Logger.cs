@@ -13,7 +13,6 @@ namespace BankingFramework.Utils
             var path = (AppDomain.CurrentDomain.BaseDirectory);
            
             int position = path.IndexOf("NetCash");
-            Debug.WriteLine("+++" + path + "  " + position);
             var substring = path.Substring(0, position);
             path = substring + "NetCash\\logs\\DatabaseInteractionsLog.txt";
 

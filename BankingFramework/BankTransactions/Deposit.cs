@@ -40,11 +40,22 @@ namespace BankingFramework.BankTransactions
         public void PerformTransaction()
         {
             _depositAccount.IncreaseBalance(_depositAmount);
+            DatabaseManager.GetInstance().AddTransactionToDatabase(this);
         }
 
         public bool AreFundsAvailable()
         {
             return _depositAccount.AreFundsAvailable(_depositAmount);
+        }
+
+        public string SourceAccount()
+        {
+            return "";
+        }
+
+        public string TargetAccount()
+        {
+            return this._depositAccount.AccountNumber;
         }
     }
 }

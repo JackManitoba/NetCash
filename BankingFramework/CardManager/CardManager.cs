@@ -11,7 +11,7 @@ namespace BankingFramework.CardManager
         {
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
-                string _sql = @"UPDATE [dbo].[ATMUsers] Set [Canceled]=@b WHERE [CardNumber] = @a ";
+                string _sql = @"UPDATE [dbo].[Users] Set [Cancelled]=@b WHERE [CardNumber] = @a ";
                 var cmd = new SqlCommand(_sql, connection);
                 cmd.Parameters
                     .Add(new SqlParameter("@a", SqlDbType.NVarChar))
