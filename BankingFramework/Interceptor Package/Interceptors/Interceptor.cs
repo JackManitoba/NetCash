@@ -8,5 +8,6 @@ namespace BankingFramework.Interceptor_Package.Interceptors
 {
     public interface Interceptor
     {
+         void baseFunction(ContextObject e);
     }
 }

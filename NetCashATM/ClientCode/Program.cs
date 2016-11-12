@@ -1,7 +1,6 @@
 ﻿
 using NetCashATM.Controllers;
 using NetCashATM.Interfaces;
-
 using NetCashATM.UserInterface.Panels;
 using NetCashATM.Views;
 using BankingFramework.AccountManager;
@@ -11,16 +10,31 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
-using NetCashATM.Views;
 using NetCashATM.ATMHardware;
-using NetCashATM.Presenters;
+using BankingFramework.Interceptor_Package.Interceptors;
 
 namespace ClientCode
 {
 
-    class Program : Observer
+    class Program 
     {
-        public int VerifiedSession = 0;
+
+        private static ATMMainView _mainView;
+        static ATMController controller;
+        static ATMAccount account;
+
+
+
+        class NavigationRequestInterceptor : Interceptor
+        {
+            PanelFactory _panelFactory = new PanelFactory();
+
+            public void baseFunction(ContextObject e)
+            {
+                _mainView.SetCurrentPanel(_panelFactory.GetPanel(e.GetShortDescription()));
+            }
+        }
+            public int VerifiedSession = 0;
         public List<Subject> SubjectList
         {
             get
@@ -34,16 +48,18 @@ namespace ClientCode
             _mainView.SetCurrentPanel(currentPanel);
         }
 
-        private static ATMMainView _mainView;
-        static ATMController controller;
-        static ATMAccount account;
+        
         
         [STAThread]
         public static void Main()
         {
+            
+
 
             ClientRequestInterceptor myInterceptor = new ClientRequestInterceptor();
             ClientRequestDispatcher.TheInstance().RegisterClientInterceptor(myInterceptor);
+            NavigationRequestInterceptor navInterceptor = new NavigationRequestInterceptor();
+            NavigationRequestDispatcher.TheInstance().RegisterClientInterceptor(navInterceptor);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -57,9 +73,9 @@ namespace ClientCode
             {
                 Application.Run(_mainView);
             }
-#pragma warning disable CS0168 // The variable 'e' is declared but never used
+
             catch (Exception e) { Debug.WriteLine("Application Exited"); }
-#pragma warning restore CS0168 // The variable 'e' is declared but never used
+
         }
 
         public void Update()
@@ -76,7 +92,10 @@ namespace ClientCode
         {
             controller.HandleChange(e);
         }
-        
-        
-    }
+
+            public void baseFunction(ContextObject e)
+            {
+                throw new NotImplementedException();
+            }
+        }
 }

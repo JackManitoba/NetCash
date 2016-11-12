@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using NetCashATM.UserInterface.Panels;
 using BankingFramework.FacadeClasses;
-using System.Data.Common;
 using System.Configuration;
+using BankingFramework.Interceptor_Package.Dispatchers;
+using BankingFramework.Interceptor_Package.ContextObjects;
 
 namespace NetCashATM.Presenters
 {
@@ -18,11 +19,13 @@ namespace NetCashATM.Presenters
         public PINPresenter(PinPanel pinPanel)
         {
             _pinPanel = pinPanel;
+            NavigationRequestDispatcher.TheInstance().DispatchNavigationRequestInterceptors(new NavigationContextObject("PinPanel"));
         }
 
         public ATMPanel GetPinPanel()
         {
             _atmFacade = new ATMFacade(ConfigurationManager.AppSettings["CardNumber"]);
+            NavigationRequestDispatcher.TheInstance().DispatchNavigationRequestInterceptors(new NavigationContextObject("PinPanel"));
             return _pinPanel;
         }
 
@@ -30,7 +33,7 @@ namespace NetCashATM.Presenters
         {
             if(_atmFacade.ValidateAccount(pin))
             {
-                return
+                return MainPanel();
             }
             return new PinRetryPanel;
         }
