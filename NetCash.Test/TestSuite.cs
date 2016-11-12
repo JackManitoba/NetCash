@@ -5,7 +5,6 @@ using BankingFramework.FacadeClasses;
 using NetCashWebSite.Models.Insurance;
 
 
-
 namespace NetCash.Test
 {
     [TestClass]
@@ -40,7 +39,7 @@ namespace NetCash.Test
             string word = "DEPOSIT";
             Account acc = new Account("12345678");
             double startBalance = acc.Balance;
-            double amountToDeposit = 20;
+            double amountToDeposit = 70;
 
             Deposit dep = new Deposit(acc, word, amountToDeposit);
             dep.PerformTransaction();
@@ -53,7 +52,7 @@ namespace NetCash.Test
         [TestMethod]
         public void TestMethod4()
         {
-            string word = "WITHDRAWEL";
+            string word = "WITHDRAWAL";
             Account acc = new Account("12345678");
             double startBalance = acc.Balance;
             double amountToWithDraw = 20;
@@ -69,7 +68,7 @@ namespace NetCash.Test
         [TestMethod]
         public void TestMethod5()
         {
-            string word = "3333";
+            string word = "1234";
             ATMFacade fcd = new ATMFacade("1111111111");
 
             bool vcard = fcd.ValidateAccount(word);
@@ -79,7 +78,7 @@ namespace NetCash.Test
         [TestMethod]
         public void TestMethod6()
         {
-            string word = "995";
+            string word = "725";
             ATMFacade fcd = new ATMFacade("1111111111");
             string retAccBal = fcd.ReturnAccountBalance();
 
@@ -136,12 +135,13 @@ namespace NetCash.Test
         [TestMethod]
         public void TestMethod11()
         { 
-            string desc = "Transfer";
+            string desc = "TRANSFER";
             double amnt = 50;
             Account outAcc = new Account("12345678");
             Account inAcc = new Account("12345555");
+
                 
-            Transfer trf = new Transfer(outAcc.ToString(), inAcc.ToString(), desc, amnt);
+            Transfer trf = new Transfer(outAcc.AccountNumber, inAcc.AccountNumber, desc, amnt);
             trf.PerformTransaction();
 
             double expectedOutgoingBalance = outAcc.Balance - amnt;
@@ -151,11 +151,32 @@ namespace NetCash.Test
 
 
             Assert.AreEqual(NewOutAcc.Balance, expectedOutgoingBalance);
-
-
-
+            Assert.AreEqual(NewInAcc.Balance, expectedIncomingBalance);
         }
 
-    }
+        [TestMethod]
+        public void TestMethod12()
+        {
+            NetCashWebSite.Models.Loan ln = new NetCashWebSite.Models.Loan();
+            string AccNum = "12345678";
+
+            bool LoanAppCheck = ln.PendingApplicationExists(AccNum);
+
+            Assert.IsTrue(LoanAppCheck); 
+
+        }
+        [TestMethod]
+        public void TestMethod13()
+        {
+            NetCashWebSite.Models.Staff staffGuy = new NetCashWebSite.Models.Staff();
+            string staffname = "dermot";
+            string password = "12345";
+
+            bool vstaff = staffGuy.IsValid(staffname, password);
+
+            Assert.IsTrue(vstaff);
+        }
+
+        }
 }
 
