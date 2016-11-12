@@ -69,7 +69,7 @@ namespace NetCash.Test
         [TestMethod]
         public void TestMethod5()
         {
-            string word = "0216";
+            string word = "3333";
             ATMFacade fcd = new ATMFacade("1111111111");
 
             bool vcard = fcd.ValidateAccount(word);
@@ -79,7 +79,7 @@ namespace NetCash.Test
         [TestMethod]
         public void TestMethod6()
         {
-            string word = "1710";
+            string word = "995";
             ATMFacade fcd = new ATMFacade("1111111111");
             string retAccBal = fcd.ReturnAccountBalance();
 
@@ -136,10 +136,22 @@ namespace NetCash.Test
         [TestMethod]
         public void TestMethod11()
         { 
-            string frmAcc = "12345678";
-            string toAcc = "12345555";
             string desc = "Transfer";
             double amnt = 50;
+            Account outAcc = new Account("12345678");
+            Account inAcc = new Account("12345555");
+                
+            Transfer trf = new Transfer(outAcc.ToString(), inAcc.ToString(), desc, amnt);
+            trf.PerformTransaction();
+
+            double expectedOutgoingBalance = outAcc.Balance - amnt;
+            double expectedIncomingBalance = inAcc.Balance + amnt;
+            Account NewOutAcc = new Account("12345678");
+            Account NewInAcc = new Account("12345555");
+
+
+            Assert.AreEqual(NewOutAcc.Balance, expectedOutgoingBalance);
+
 
 
         }
