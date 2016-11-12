@@ -13,5 +13,9 @@ namespace BankingFramework.BankTransactions
 
         void PerformTransaction();
         bool AreFundsAvailable();
+
+        string SourceAccount();
+        string TargetAccount();
+
     }
 }

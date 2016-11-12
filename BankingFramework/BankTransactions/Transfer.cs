@@ -1,14 +1,15 @@
 ﻿using BankingFramework.AccountManager;
 using BankingFramework.Interceptor_Package;
 using BankingFramework.Interceptor_Package.Dispatchers;
+using BankingFramework.Utils;
 using System;
 
 namespace BankingFramework.BankTransactions
 {
    public class Transfer : Transaction
     {
-        Account IncomingTransferAccount;
-        Account OutgoingTransferAccount;
+        private  Account _incomingTransferAccount;
+        private  Account _outgoingTransferAccount;
 
         public string TargetAccountNumber { get; set; }
 
@@ -23,8 +24,8 @@ namespace BankingFramework.BankTransactions
             TargetAccountNumber = targetAccountNumber;
             TransferAmount = amount;
 
-            IncomingTransferAccount = new Account(targetAccountNumber);
-            OutgoingTransferAccount = new Account(accountNumber);
+            _incomingTransferAccount = new Account(targetAccountNumber);
+            _outgoingTransferAccount = new Account(accountNumber);
 
         }
 
@@ -40,16 +41,27 @@ namespace BankingFramework.BankTransactions
 
         public void PerformTransaction()
         {
-            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(OutgoingTransferAccount, "Transfer to "+IncomingTransferAccount.AccountNumber, Convert.ToInt32(TransferAmount)));
-            IncomingTransferAccount.IncreaseBalance(TransferAmount);
+            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(_outgoingTransferAccount, "Transfer to "+_incomingTransferAccount.AccountNumber, Convert.ToInt32(TransferAmount)));
+            _incomingTransferAccount.IncreaseBalance(TransferAmount);
 
-            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(IncomingTransferAccount, "Transfer to " + OutgoingTransferAccount.AccountNumber, Convert.ToInt32(TransferAmount)));
-            OutgoingTransferAccount.DecreaseBalance(TransferAmount);
+            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(_incomingTransferAccount, "Transfer from " + _outgoingTransferAccount.AccountNumber, Convert.ToInt32(TransferAmount)));
+            _outgoingTransferAccount.DecreaseBalance(TransferAmount);
+            DatabaseManager.GetInstance().AddTransactionToDatabase(this);
         }
 
         public bool AreFundsAvailable()
         {
-            return OutgoingTransferAccount.AreFundsAvailable(TransferAmount);
+            return _outgoingTransferAccount.AreFundsAvailable(TransferAmount);
+        }
+
+        public string SourceAccount()
+        {
+            return this._incomingTransferAccount.AccountNumber;
+        }
+
+        public string TargetAccount()
+        {
+            return this._outgoingTransferAccount.AccountNumber;
         }
     }
 }

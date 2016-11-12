@@ -1,4 +1,5 @@
 ﻿using BankingFramework.AccountManager;
+using BankingFramework.Utils;
 using System;
 
 namespace BankingFramework.BankTransactions
@@ -8,7 +9,7 @@ namespace BankingFramework.BankTransactions
         private double _withdrawalAmount;
         private string _cardNumber;
         private string _description;
-        Account WithdrawalAccount;
+        private Account _withdrawalAccount;
 
         public Withdrawal(Account account, string description, double amount)
         {
@@ -16,7 +17,7 @@ namespace BankingFramework.BankTransactions
             _description = description;
             _withdrawalAmount = amount;
             string accountNumber = account.AccountNumber;
-            WithdrawalAccount = account;
+            _withdrawalAccount = account;
         }
 
         public int GetAmount()
@@ -31,12 +32,22 @@ namespace BankingFramework.BankTransactions
 
         public void PerformTransaction()
         {
-            WithdrawalAccount.DecreaseBalance(_withdrawalAmount);
+            _withdrawalAccount.DecreaseBalance(_withdrawalAmount);
+            DatabaseManager.GetInstance().AddTransactionToDatabase(this);
         }
 
         public bool AreFundsAvailable()
         {
-            return WithdrawalAccount.AreFundsAvailable(_withdrawalAmount);
+            return _withdrawalAccount.AreFundsAvailable(_withdrawalAmount);
+        }
+        public string SourceAccount()
+        {
+            return this._withdrawalAccount.AccountNumber;
+        }
+
+        public string TargetAccount()
+        {
+            return "";
         }
     }
 }

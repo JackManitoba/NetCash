@@ -67,7 +67,7 @@ namespace NetCashATM.Controllers
             Debug.WriteLine("CurrentPanel: " + MainView.GetCurrentPanel().Name);
             Debug.WriteLine("NavigationClass selection: " + MainView.getNavigationClass().GetNavigationPanelName());
             PanelFactory pf = new PanelFactory();
-
+            Debug.WriteLine("Why Jack," + MainView.GetCurrentPanel().Name);
             if (MainView.GetCurrentPanel().Name.Equals("PinPanel"))
             {
                 PinPanel p = (PinPanel)MainView.GetCurrentPanel();

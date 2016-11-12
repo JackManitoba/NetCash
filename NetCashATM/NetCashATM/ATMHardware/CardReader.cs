@@ -26,7 +26,6 @@ namespace NetCashATM.ATMHardware
             {
                 var path = Directory.GetCurrentDirectory();
                 path += "\\NetCash_Debit_Card.txt";
-                Debug.WriteLine("+++" + path);
                 ReadCardFromFile(path);
             }
         }
