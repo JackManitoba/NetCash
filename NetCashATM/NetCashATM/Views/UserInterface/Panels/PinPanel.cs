@@ -21,7 +21,7 @@ namespace NetCashATM.UserInterface.Panels
             Name = "PinPanel";
             BackColor = System.Drawing.Color.White;
             Location = new System.Drawing.Point(109, 57);
-            Name = "panel1";
+            
             Size = new System.Drawing.Size(351, 194);
             TabIndex = 12;
 

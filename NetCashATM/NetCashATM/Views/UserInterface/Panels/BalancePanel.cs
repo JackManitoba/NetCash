@@ -21,7 +21,7 @@ namespace NetCashATM.UserInterface.Panels
             this.Name = "BalancePanel";
             this.BackColor = System.Drawing.Color.White;
             this.Location = new System.Drawing.Point(109, 57);
-            this.Name = "panel1";
+           
             this.Size = new System.Drawing.Size(351, 194);
             this.TabIndex = 12;
 

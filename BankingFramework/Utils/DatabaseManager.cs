@@ -78,7 +78,37 @@ namespace BankingFramework.Utils
 
         internal void AddTransactionToDatabase(Transaction t)
         {
-            throw new NotImplementedException();
+            var dateAndTime = DateTime.Now;
+            
+            Debug.WriteLine(dateAndTime.ToString("dd/MM/yyyy"));
+                        using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+                            {
+                string _sql = @"INSERT INTO [dbo].[BankTransactions] VALUES (@origAccount,@targetAccount,@type,@amount,@date) ";
+                
+                var cmd = new SqlCommand(_sql, connection);
+                cmd.Parameters
+                                    .Add(new SqlParameter("@origAccount", SqlDbType.NVarChar))
+                                    .Value = t.SourceAccount();
+                cmd.Parameters
+                                    .Add(new SqlParameter("@targetAccount", SqlDbType.NVarChar))
+                                    .Value = t.TargetAccount();
+                cmd.Parameters
+                                     .Add(new SqlParameter("@type", SqlDbType.NVarChar))
+                                     .Value = t.GetType();
+                cmd.Parameters
+                                    .Add(new SqlParameter("@amount", SqlDbType.Money))
+                                    .Value = Convert.ToInt32(t.GetAmount());
+                cmd.Parameters
+                                    .Add(new SqlParameter("@date", SqlDbType.NVarChar))
+                                    .Value = dateAndTime.ToString("dd/MM/yyyy");
+                
+                connection.Open();
+                
+                cmd.ExecuteScalar();
+                
+                cmd.Dispose();
+                connection.Dispose();
+                            }
         }
 
 
