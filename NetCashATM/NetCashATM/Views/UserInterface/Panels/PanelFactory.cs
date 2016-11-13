@@ -14,17 +14,17 @@ namespace NetCashATM.UserInterface.Panels
             ATMPanel p = null;
             switch (identifier)
             {
-                case "BALANCE":
+                case "BalancePanel":
                     {
                         p = new BalancePanel();
                         break;
                     }
-                case "DEPOSIT":
+                case "DepositPanel":
                     {
                         p = new DepositPanel();
                         break;
                     }
-                case "MAIN":
+                case "MainPanel":
                     {
                         p = new MainPanel();
                         break;

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NetCashATM.UserInterface.Panels;
+﻿using NetCashATM.UserInterface.Panels;
 using BankingFramework.FacadeClasses;
 using System.Configuration;
 using BankingFramework.Interceptor_Package.Dispatchers;
@@ -19,23 +14,30 @@ namespace NetCashATM.Presenters
         public PINPresenter(PinPanel pinPanel)
         {
             _pinPanel = pinPanel;
-            NavigationRequestDispatcher.TheInstance().DispatchNavigationRequestInterceptors(new NavigationContextObject("PinPanel"));
-        }
-
-        public ATMPanel GetPinPanel()
-        {
             _atmFacade = new ATMFacade(ConfigurationManager.AppSettings["CardNumber"]);
-            NavigationRequestDispatcher.TheInstance().DispatchNavigationRequestInterceptors(new NavigationContextObject("PinPanel"));
-            return _pinPanel;
         }
 
-        public ATMPanel GetPinPanel(string pin)
+        public void GetPinPanel()
         {
-            if(_atmFacade.ValidateAccount(pin))
+            NavigationRequestDispatcher.TheInstance()
+                .DispatchNavigationRequestInterceptors(new NavigationContextObject("PinPanel"));
+        }
+
+        public void GetPinPanel(string pin)
+        {
+            if (_atmFacade.ValidateAccount(pin))
             {
-                return MainPanel();
+                NavigationRequestDispatcher.TheInstance()
+                    .DispatchNavigationRequestInterceptors(new NavigationContextObject("MainPanel"));
             }
-            return new PinRetryPanel;
+            else
+            {
+                for(int i = 0; i < 3; i++)
+                {
+                    NavigationRequestDispatcher.TheInstance()
+                        .DispatchNavigationRequestInterceptors(new NavigationContextObject("PinRetryPanel"));
+                }
+            }
         }
     }
 }

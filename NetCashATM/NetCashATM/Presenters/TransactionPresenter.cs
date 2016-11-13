@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ATMVERSION2.Presenters
+namespace NetCashATM.Presenters
 {
-    class MainMenuPresenter
+    public class TransactionPresenter
     {
+
     }
 }

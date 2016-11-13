@@ -33,7 +33,7 @@ namespace BankingFramework.Interceptor_Package.Dispatchers
 
             for (int i = 0; i < interceptors.Count; ++i)
             {
-                ClientRequestInterceptor ic = (ClientRequestInterceptor)interceptors[i];
+                Interceptor ic = interceptors[i];
 
                 // Dispatch callback hook method.
                 ic.baseFunction(context);

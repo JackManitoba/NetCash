@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NetCashATM.Presenters;
 
 namespace NetCashATM.UserInterface.Panels
 {
    public class DepositPanel : ATMPanel
     {
+        private DepositPresenter _depositPresenter;
         protected static TextBox _amountEntryBox;
         protected static Label _depositLabel;
         protected static Label _netCashLabel;
@@ -19,10 +21,16 @@ namespace NetCashATM.UserInterface.Panels
 
         public DepositPanel()
         {
+            CreateChildControls();
+            _depositPresenter = new DepositPresenter(this);
+        }
+
+        public override void CreateChildControls()
+        {
             this.Name = "DepositPanel";
             this.BackColor = System.Drawing.Color.White;
             this.Location = new System.Drawing.Point(109, 57);
-            
+
             this.Size = new System.Drawing.Size(351, 194);
             this.TabIndex = 12;
 
@@ -48,6 +56,7 @@ namespace NetCashATM.UserInterface.Panels
             _messageLabel.ForeColor = System.Drawing.Color.Red;
             _messageLabel.SetBounds(((this.Width / 2) - 70), ((this.Height / 2) - 70), 150, 40);
             this.Controls.Add(_messageLabel);
+
         }
 
         public override void Update(Subject e)
@@ -59,10 +68,16 @@ namespace NetCashATM.UserInterface.Panels
             _messageLabel.Update();
         }
 
+        public void SetErrorMessage(string message)
+        {
+
+            _messageLabel.Text = message;
+            _messageLabel.Update();
+        }
+
         public override void Cancel()
         {
-            NavData.SetNavigationPanelName("LOGOUT");
-            NotifyObservers();
+            _depositPresenter.LogOut();
         }
         public override void Clear()
         {
@@ -71,24 +86,9 @@ namespace NetCashATM.UserInterface.Panels
         }
         public override void Enter()
         {
-            if (_amountEntryBox.Text == "")
-            {
-                //do nothing
-            }
-            else
-            {
-                if (((Convert.ToInt32(_amountEntryBox.Text)) % 10) != 0)
-                {
-                    _messageLabel.Text = "THIS MACHINE DOES NOT ACCEPT ANY CURRECY LESS THAN €10";
-                    _messageLabel.Update();
-                }
-                else
-                {
-                    NavData.SetNavigationPanelName("MAIN");
-                    NotifyObservers();
-                }
-            }                
+            _depositPresenter.Deposit();
         }
+
         public override TextBox GetInput()
         {
             return _amountEntryBox;

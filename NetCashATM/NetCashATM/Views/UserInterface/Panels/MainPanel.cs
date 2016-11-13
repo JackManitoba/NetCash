@@ -1,4 +1,5 @@
 ﻿using NetCashATM.Interfaces;
+using NetCashATM.Presenters;
 using NetCashATM.UserInterface.Buttons;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace NetCashATM.UserInterface.Panels
 {
     class MainPanel : ATMPanel
     {
+        private MenuPresenter _menuPresenter;
+
         protected static Label _netCashLabel;
         protected static Label _withdrawalLabel;
         protected static Label _depositLabel;
@@ -19,14 +22,21 @@ namespace NetCashATM.UserInterface.Panels
         protected static Label _pinResetLabel;
         protected static Label _printReceiptLabel;
         protected static Label _exitLabel;
-        protected static Label _confirmLabel;
+        //protected static Label _confirmLabel;
 
         public MainPanel()
         {
+            CreateChildControls();
+            _menuPresenter = new MenuPresenter(this);
+        }
+
+        public override void CreateChildControls()
+        {
+
             this.Name = "MainPanel";
             this.BackColor = System.Drawing.Color.White;
             this.Location = new System.Drawing.Point(109, 57);
-           
+
             this.Size = new System.Drawing.Size(351, 194);
             this.TabIndex = 12;
 
@@ -35,11 +45,13 @@ namespace NetCashATM.UserInterface.Panels
             _netCashLabel.SetBounds(((this.Width / 2) - 30), ((this.Height / 2) - 30), 100, 40);
             this.Controls.Add(_netCashLabel);
 
+            /*
             _confirmLabel = new Label();
             _confirmLabel.Text = "";
             _confirmLabel.ForeColor = System.Drawing.Color.Blue;
-            _confirmLabel.SetBounds(((this.Width / 2) - 70), ((this.Height / 2)-70), 150, 40);
+            _confirmLabel.SetBounds(((this.Width / 2) - 70), ((this.Height / 2) - 70), 150, 40);
             this.Controls.Add(_confirmLabel);
+            */
 
             _withdrawalLabel = new Label();
             _withdrawalLabel.Text = "1 : WITHDRAWAL";
@@ -71,60 +83,57 @@ namespace NetCashATM.UserInterface.Panels
             _exitLabel.SetBounds((this.Width - 47), ((this.Height / 2) + 80), 100, 40);
             this.Controls.Add(_exitLabel);
         }
-          
-    
+
+
+
         public override void Update(Subject e)
         {
             ATMButton b = (ATMButton)e;
             if (b.Text == "1")
             {
-                _confirmLabel.Text = "WITHDRAWAL SELECTED, CONFIRM SELECTION? : ENTER";
-                //Change to withdrawalLabel Panel
-                NavData.SetNavigationPanelName("WITHDRAWAL");
+               // _confirmLabel.Text = "WITHDRAWAL SELECTED, CONFIRM SELECTION? : ENTER";
+                _menuPresenter.NavigateToSelected("WithdrawalPanel");
             }
             else if (b.Text == "2")
             {
-                _confirmLabel.Text = "BALANCE SELECTED, CONFIRM SELECTION? : ENTER";
-                //Change to balanceLabel Panel
-                NavData.SetNavigationPanelName("BALANCE");
+                //_confirmLabel.Text = "BALANCE SELECTED, CONFIRM SELECTION? : ENTER";
+                _menuPresenter.NavigateToSelected("BalancePanel");
             }
             else if (b.Text == "3")
             {
-                _confirmLabel.Text = "DEPOSIT SELECTED, CONFIRM SELECTION? : ENTER";
-                //Change to depositLabel Panel
-                NavData.SetNavigationPanelName("DEPOSIT");
+                //_confirmLabel.Text = "DEPOSIT SELECTED, CONFIRM SELECTION? : ENTER";
+                _menuPresenter.NavigateToSelected("DepositPanel");
             }
             else if (b.Text == "4")
             {
-                _confirmLabel.Text = "PIN RESET SELECTED, CONFIRM SELECTION? : ENTER";
-                //Change to Pin Reset Panel
-                NavData.SetNavigationPanelName("PINRESET");
+                //_confirmLabel.Text = "PIN RESET SELECTED, CONFIRM SELECTION? : ENTER";
+                _menuPresenter.NavigateToSelected("PinResetPanel");
             }
             else if (b.Text == "5")
             {
-                _confirmLabel.Text = "PRINT SELECTED, CONFIRM SELECTION? : ENTER";
-                //print receipt
-                NavData.SetNavigationPanelName("PRINT");
+               // _confirmLabel.Text = "PRINT SELECTED, CONFIRM SELECTION? : ENTER";
+                _menuPresenter.NavigateToSelected("PrintInfo");
             }
             else if (b.Text == "6")
             {
-                _confirmLabel.Text = "EXIT SELECTED, CONFIRM SELECTION? : ENTER";
-                //exitLabel
-                NavData.SetNavigationPanelName("LOGOUT");
+                //_confirmLabel.Text = "EXIT SELECTED, CONFIRM SELECTION? : ENTER";
+                _menuPresenter.NavigateToSelected("LogoutPanel");
             }
         }
 
         public override void Cancel()
         {
-            NavData.SetNavigationPanelName("LOGOUT");
-            NotifyObservers();
+            _menuPresenter.NavigateToSelected("LOGOUT");
+           // NotifyObservers();
         }
+
         public override void Clear()
         {
-            _confirmLabel.Text = "";
+            //_confirmLabel.Text = "";
             NavData.SetNavigationPanelName("");
         }
-        public override void Enter()
+
+    /*    public override void Enter()
         {
             if (NavData.GetNavigationPanelName() != "")
             {
@@ -136,5 +145,6 @@ namespace NetCashATM.UserInterface.Panels
                 _confirmLabel.Text = "PLEASE ENTER A SELECTION";
             }
         }
+        */
     }
 }

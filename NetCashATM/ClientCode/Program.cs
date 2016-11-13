@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using NetCashATM.ATMHardware;
 using BankingFramework.Interceptor_Package.Interceptors;
+using System.IO;
 
 namespace ClientCode
 {
@@ -48,13 +49,17 @@ namespace ClientCode
             _mainView.SetCurrentPanel(currentPanel);
         }
 
+        public static void SetDataPath()
+        {
+            var path = Path.GetFullPath(((AppDomain.CurrentDomain.BaseDirectory).Replace("\\NetCashATM\\ClientCode\\bin\\Debug", "")) + "\\NetCashWebSite\\App_Data");
+            AppDomain.CurrentDomain.SetData("DataDirectory", path);
+        }
         
         
         [STAThread]
         public static void Main()
         {
-            
-
+            SetDataPath();
 
             ClientRequestInterceptor myInterceptor = new ClientRequestInterceptor();
             ClientRequestDispatcher.TheInstance().RegisterClientInterceptor(myInterceptor);
@@ -64,7 +69,8 @@ namespace ClientCode
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             _mainView = new ATMMainView();
-            SetPanel(new PinPanel());
+            PinPanel pinPanel = new PinPanel();
+            SetPanel(pinPanel);
             Application.Run(_mainView);
             // mainView.Activate();
             //_mainView.RegisterObserver(new Program());

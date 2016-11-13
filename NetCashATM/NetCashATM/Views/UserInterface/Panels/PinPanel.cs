@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace NetCashATM.UserInterface.Panels
 {
-   public class PinPanel : Panel, ATMPanel , Subject 
+   public class PinPanel : ATMPanel , Subject, Observer
     {
         private PINPresenter _pinPresenter;
         private List<Subject> _subjectList;
@@ -25,14 +25,13 @@ namespace NetCashATM.UserInterface.Panels
 
         public PinPanel()
         {
-            _pinPresenter = new PINPresenter(this);
-            _subjectList = new List<Subject>();
-            _observerList = new List<Observer>();
-            NavData = new NavigationDataClass();
             CreateChildControls();
+            _pinPresenter = new PINPresenter(this);
+            //NavData = new NavigationDataClass();
+            
         }
 
-        public void CreateChildControls()
+        public override void CreateChildControls()
         {
             Name = "PinPanel";
             BackColor = System.Drawing.Color.White;
@@ -60,7 +59,7 @@ namespace NetCashATM.UserInterface.Panels
             _messageLabel.SetBounds(((this.Width / 2) - 70), ((this.Height / 2) - 70), 150, 40);
             Controls.Add(_messageLabel);
 
-            NavData.AddNavigaion("MAIN");
+          //  NavData.AddNavigaion("MAIN");
         }
 
 
@@ -68,35 +67,34 @@ namespace NetCashATM.UserInterface.Panels
 
         //COMMAND RELATED FUNCTIONS
 
-        public void Cancel()
+        public override void Cancel()
         {
             NavData.SetNavigationPanelName("LOGOUT");
             NotifyObservers();
         }
 
-        public void Clear()
+        public override void Clear()
         {
             _pinEntryBox.Clear();
             _pinEntryBox.Update();
         }
 
-        public new void Enter()
+        public override void Enter()
         {
-            NavData.SetNavigationPanelName("MAIN");
-            NotifyObservers();
+            _pinPresenter.GetPinPanel(_pinEntryBox.Text);
         }
 
 
         //PART OF OBSERVER DESIGN PATTERN -- SUBJECT PASSES ITSELF AS PARAMETER TO GET TEXT FROM AND UPDATES
 
-        public void Update(Subject e)
+        public override void Update(Subject e)
         {
             ATMButton b = (ATMButton)e;
             _pinEntryBox.Text += b.Text;
             _pinEntryBox.Update();
         }
 
-        public TextBox GetInput()
+        public override TextBox GetInput()
         {
             return _pinEntryBox;
         }
@@ -116,6 +114,7 @@ namespace NetCashATM.UserInterface.Panels
             }
         }
 
+        
         List<Subject> Observer.SubjectList
         {
             get
@@ -123,6 +122,7 @@ namespace NetCashATM.UserInterface.Panels
                 return _subjectList;
             }
         }
+        
 
         public void NotifyObservers()
         {

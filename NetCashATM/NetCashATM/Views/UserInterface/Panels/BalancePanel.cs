@@ -1,4 +1,5 @@
 ﻿using NetCashATM.Interfaces;
+using NetCashATM.Presenters;
 using NetCashATM.UserInterface.Buttons;
 using System;
 using System.Collections.Generic;
@@ -12,16 +13,23 @@ namespace NetCashATM.UserInterface.Panels
 
    public  class BalancePanel : ATMPanel
     {
+        private BalancePresenter _balancePresenter;
         private static Label _netCashLabel;
         private static Label _balanceLabel;
         private static Label _currentBalance;
 
         public BalancePanel()
         {
+            CreateChildControls();
+            _balancePresenter = new BalancePresenter(this);
+        }
+
+        public override void CreateChildControls()
+        {
             this.Name = "BalancePanel";
             this.BackColor = System.Drawing.Color.White;
             this.Location = new System.Drawing.Point(109, 57);
-           
+
             this.Size = new System.Drawing.Size(351, 194);
             this.TabIndex = 12;
 
@@ -54,20 +62,15 @@ namespace NetCashATM.UserInterface.Panels
 
         public override void Cancel()
         {
-            NavData.SetNavigationPanelName("LOGOUT");
-            NotifyObservers();
+            _balancePresenter.LogOut();
         }
         public override void Clear()
         {
-
-            NavData.SetNavigationPanelName("MAIN");
-            NotifyObservers();
+            _balancePresenter.GoToMain();
         }
         public override void Enter()
         {
-
-            NavData.SetNavigationPanelName("MAIN");
-            NotifyObservers();
+            _balancePresenter.GoToMain();
         }
     }
 }
