@@ -1,4 +1,5 @@
-﻿using NetCashATM.Interfaces;
+﻿using NetCashATM.HelperClasses;
+using NetCashATM.Interfaces;
 using NetCashATM.Presenters;
 using NetCashATM.UserInterface.Buttons;
 using System;
@@ -15,6 +16,10 @@ namespace NetCashATM.UserInterface.Panels
     {
         private MenuPresenter _menuPresenter;
 
+        private List<Subject> _subjectList;
+        private List<Observer> _observerList;
+        public NavigationDataClass NavData;
+
         protected static Label _netCashLabel;
         protected static Label _withdrawalLabel;
         protected static Label _depositLabel;
@@ -26,6 +31,7 @@ namespace NetCashATM.UserInterface.Panels
 
         public MainPanel()
         {
+            Debug.WriteLine("MainPanel.MainPanel()");
             CreateChildControls();
             _menuPresenter = new MenuPresenter(this);
         }
@@ -89,6 +95,7 @@ namespace NetCashATM.UserInterface.Panels
         public override void Update(Subject e)
         {
             ATMButton b = (ATMButton)e;
+            Debug.WriteLine("MainPanel.Update: " + b.Text);
             if (b.Text == "1")
             {
                // _confirmLabel.Text = "WITHDRAWAL SELECTED, CONFIRM SELECTION? : ENTER";
@@ -133,18 +140,56 @@ namespace NetCashATM.UserInterface.Panels
             NavData.SetNavigationPanelName("");
         }
 
-    /*    public override void Enter()
-        {
-            if (NavData.GetNavigationPanelName() != "")
+        /*    public override void Enter()
             {
-                Debug.WriteLine("Selection : " + NavData.GetNavigationPanelName());
-                NotifyObservers();
+                if (NavData.GetNavigationPanelName() != "")
+                {
+                    Debug.WriteLine("Selection : " + NavData.GetNavigationPanelName());
+                    NotifyObservers();
+                }
+                else
+                {
+                    _confirmLabel.Text = "PLEASE ENTER A SELECTION";
+                }
             }
-            else
+            */
+
+
+
+        public void NotifyObservers()
+        {
+            Debug.WriteLine("MainPanel.NotifyObservers SHOULD NOT BE CALLED");
+            foreach (Observer e in _observerList)
             {
-                _confirmLabel.Text = "PLEASE ENTER A SELECTION";
+                e.Update(this);
             }
         }
-        */
+
+        public void RegisterObserver(Observer e)
+        {
+            Debug.WriteLine("MainPanel.RegisterObserver SHOULD NOT BE CALLED");
+            _observerList.Add(e);
+        }
+
+        public void UnregisterObserver(Observer e)
+        {
+            Debug.WriteLine("MainPanel.UnregisterObserver SHOULD NOT BE CALLED");
+            _observerList.Remove(e);
+        }
+
+        public void Action()
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
+
+
+
+
+
+
     }
 }

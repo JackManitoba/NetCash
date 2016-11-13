@@ -3,6 +3,7 @@ using BankingFramework.Interceptor_Package.ContextObjects;
 using BankingFramework.Interceptor_Package.Dispatchers;
 using NetCashATM.UserInterface.Panels;
 using System.Configuration;
+using System.Diagnostics;
 
 namespace NetCashATM.Presenters
 {
@@ -10,9 +11,12 @@ namespace NetCashATM.Presenters
     {
         private BalancePanel _balancePanel;
         private ATMFacade _atmFacade;
+        private LoginPresenter _loginPresenter;
 
         public BalancePresenter(BalancePanel balancePanel)
         {
+
+            Debug.WriteLine("BalancePresenter.BalancePresenter()");
             _balancePanel = balancePanel;
 
             _atmFacade = new ATMFacade(ConfigurationManager.AppSettings["CardNumber"]);
@@ -21,6 +25,8 @@ namespace NetCashATM.Presenters
  
         public void GoToMain()
         {
+
+            Debug.WriteLine("BalancePresenter.GoToMain()");
             NavigationRequestDispatcher.TheInstance()
                 .DispatchNavigationRequestInterceptors(new NavigationContextObject("MainPanel"));
         }

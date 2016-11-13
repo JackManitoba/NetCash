@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace NetCashATM.UserInterface.Panels
 {
-   public class PinPanel : ATMPanel , Subject, Observer
+   public class PinPanel : ATMPanel 
     {
-        private PINPresenter _pinPresenter;
+        private LoginPresenter _loginPresenter;
         private List<Subject> _subjectList;
         private List<Observer> _observerList;
         public NavigationDataClass NavData;
@@ -25,8 +25,9 @@ namespace NetCashATM.UserInterface.Panels
 
         public PinPanel()
         {
+            Debug.WriteLine("PinPanel.PinPanel()");
             CreateChildControls();
-            _pinPresenter = new PINPresenter(this);
+            _loginPresenter = new LoginPresenter(this);
             //NavData = new NavigationDataClass();
             
         }
@@ -81,7 +82,7 @@ namespace NetCashATM.UserInterface.Panels
 
         public override void Enter()
         {
-            _pinPresenter.GetPinPanel(_pinEntryBox.Text);
+            _loginPresenter.Login(_pinEntryBox.Text);
         }
 
 
@@ -89,6 +90,7 @@ namespace NetCashATM.UserInterface.Panels
 
         public override void Update(Subject e)
         {
+            Debug.WriteLine("PinPanel.Update");
             ATMButton b = (ATMButton)e;
             _pinEntryBox.Text += b.Text;
             _pinEntryBox.Update();
@@ -101,31 +103,19 @@ namespace NetCashATM.UserInterface.Panels
 
         public void DisplayMessage(string message)
         {
+
+            Debug.WriteLine("PinPanel.DisplayMessage");
             _messageLabel.Text = message;
             Debug.WriteLine(_messageLabel.Text);
             _messageLabel.Update();
         }
 
-        List<Observer> Subject.ObserverList
-        {
-            get
-            {
-                return _observerList;
-            }
-        }
-
-        
-        List<Subject> Observer.SubjectList
-        {
-            get
-            {
-                return _subjectList;
-            }
-        }
         
 
         public void NotifyObservers()
         {
+
+            Debug.WriteLine("PinPanel.NotifyObservers SHOULD NOT BE CALLED");
             foreach (Observer e in _observerList)
             {
                 e.Update(this);
@@ -134,11 +124,13 @@ namespace NetCashATM.UserInterface.Panels
 
         public void RegisterObserver(Observer e)
         {
+            Debug.WriteLine("PinPanel.RegisterObserver SHOULD NOT BE CALLED");
             _observerList.Add(e);
         }
 
         public void UnregisterObserver(Observer e)
         {
+            Debug.WriteLine("PinPanel.UnregisterObserver SHOULD NOT BE CALLED");
             _observerList.Remove(e);
         }
 

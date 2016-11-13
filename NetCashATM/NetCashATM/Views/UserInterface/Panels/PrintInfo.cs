@@ -1,4 +1,5 @@
-﻿using NetCashATM.UserInterface.Panels;
+﻿using NetCashATM.Presenters;
+using NetCashATM.UserInterface.Panels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,41 +15,44 @@ namespace NetCashATM.Views.UserInterface.Panels
 {
     public class PrintInfo : ATMPanel
     {
-        public Label Message;
-        public string Filename;
+        private PrintInfoPresenter _printInfoPresenter;
+        private Label _messageLabel;
 
         public PrintInfo()
         {
+            CreateChildControls();
+            _printInfoPresenter = new PrintInfoPresenter(this);
 
+        }
+
+        public override void CreateChildControls()
+        {
             BackColor = System.Drawing.Color.White;
             Location = new System.Drawing.Point(109, 57);
 
             Size = new System.Drawing.Size(351, 194);
             Name = "PrintInfo";
 
-            Message = new Label();
-            Message.Text = "Printing";
-            Message.SetBounds(((Width / 2) - 50), (Height / 2 + 10), 150, 40);
-            Controls.Add(Message);
+            _messageLabel = new Label();
+            _messageLabel.Text = "Printing";
+            _messageLabel.SetBounds(((Width / 2) - 50), (Height / 2 + 10), 150, 40);
+            Controls.Add(_messageLabel);
         }
 
         public override void Enter()
         {
-            NavData.SetNavigationPanelName("MAIN");
-
-            NotifyObservers();
+            _printInfoPresenter.GoToMainMenu();
         }
 
-        public void SetFileName(string accountNumber)
+        public void SetMessage(string message)
         {
-            var path = (AppDomain.CurrentDomain.BaseDirectory);
-            int position = path.IndexOf("NetCash");
-            var substring = path.Substring(0, position);
-            path = substring + "NetCash\\logs\\TransactionsLog" + accountNumber.Trim() + ".txt";
+            _messageLabel.Text = message;
+            _messageLabel.Update();
+        }
 
-            Filename = @path;
-            Process.Start("notepad.exe", Filename);
-            Message.Text = "Printing Complete, press enter to continue";
+        public void SetFileName()
+        {
+            _printInfoPresenter.PrintStatement();
         }
 
     }

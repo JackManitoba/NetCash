@@ -26,6 +26,11 @@ namespace BankingFramework.AccountManager
             return DatabaseManager.GetInstance().GetATMAccountPin(this.AccountNumber);
         }
 
+        public bool IsCardCancelled()
+        {
+            return DatabaseManager.GetInstance().IsCardCancelled(this.CardNumber);
+        }
+
         public bool IsValid(string s)
         {
             string currentPin = GetPin();

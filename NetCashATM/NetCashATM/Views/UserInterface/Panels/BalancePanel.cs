@@ -3,6 +3,7 @@ using NetCashATM.Presenters;
 using NetCashATM.UserInterface.Buttons;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace NetCashATM.UserInterface.Panels
 
         public BalancePanel()
         {
+            Debug.WriteLine("BalancePanel.BalancePanel()");
             CreateChildControls();
             _balancePresenter = new BalancePresenter(this);
         }
@@ -51,11 +53,15 @@ namespace NetCashATM.UserInterface.Panels
 
         public override void Update(Subject e)
         {
-            ATMButton b = (ATMButton)e;         
+            ATMButton b = (ATMButton)e;
+
+            Debug.WriteLine("BalancePanel.Update" + b.Text);
         }
 
         public void ShowBalance(string accountBalance)
         {
+
+            Debug.WriteLine("BalancePanel.ShowBalance: " + accountBalance);
             _currentBalance.Text = "€ " + accountBalance;
             _currentBalance.Update();
         }

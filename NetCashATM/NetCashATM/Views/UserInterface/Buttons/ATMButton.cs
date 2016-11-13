@@ -1,6 +1,7 @@
 ﻿using NetCashATM.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,14 +29,20 @@ namespace NetCashATM.UserInterface.Buttons
         //NOTIFIES ALL OBSERVERS(ATM PANELS) OF AND PASSESS ITSELF AS A PARAMETER 
         public void NotifyObservers()
         {
-            foreach (Observer i in _observerList)
+            Debug.WriteLine("NotifyObservers: " + "_observerList count: " + _observerList.Count);
+
+            for(int i = 0; i < _observerList.Count; i++)
             {
-                i.Update(this);
+
+                Debug.WriteLine("NotifyObservers: " + i.ToString());
+                _observerList[i].Update(this);
             }
+
         }
 
         public void RegisterObserver(Observer e)
         {
+            Debug.WriteLine("Register Observer(ATMButton):" + e.ToString());
             _observerList.Add(e);
         }
 
@@ -44,6 +51,8 @@ namespace NetCashATM.UserInterface.Buttons
 
         public void UnregisterObserver(Observer e)
         {
+
+            Debug.WriteLine("Unregister Observer(ATMButton):" + e.ToString());
             _observerList.Remove(e);
         }
 

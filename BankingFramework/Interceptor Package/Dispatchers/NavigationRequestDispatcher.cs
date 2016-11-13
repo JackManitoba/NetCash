@@ -18,7 +18,10 @@ namespace BankingFramework.Interceptor_Package.Dispatchers
 
         public NavigationRequestDispatcher()
         {
+            Debug.WriteLine("NavigationRequestDispatcher.NavigationRequestDispatcher()");
             _interceptorList = new List<Interceptor>();
+
+            Debug.WriteLine("NavigationRequestDispatcher._interceptorList: " + _interceptorList);
         }
 
         public void DispatchNavigationRequestInterceptors(NavigationContextObject context)
@@ -33,6 +36,7 @@ namespace BankingFramework.Interceptor_Package.Dispatchers
 
             for (int i = 0; i < interceptors.Count; ++i)
             {
+                Debug.WriteLine("NavigationRequestDispatcher.DispatchNavigationRequestInterceptors(): " + interceptors[i].ToString());
                 Interceptor ic = interceptors[i];
 
                 // Dispatch callback hook method.
@@ -59,13 +63,16 @@ namespace BankingFramework.Interceptor_Package.Dispatchers
         }
 
         public void RegisterClientInterceptor(Interceptor i)
-        {   
+        {
+            Debug.WriteLine("NavigationRequestDispatcher.RegisterClientInterceptor: " + i.ToString());
             //adding clientInterceptor
             _interceptorList.Add(i);
         }
 
         public void UnregisterClientInterceptor(Interceptor i)
-        {   
+        {
+
+            Debug.WriteLine("NavigationRequestDispatcher.UnregisterClientInterceptor: " + i.ToString());
             //removing clientInterceptor
             _interceptorList.Remove(i);
         }

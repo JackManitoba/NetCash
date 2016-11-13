@@ -1,6 +1,7 @@
 ﻿using BankingFramework.Interceptor_Package.ContextObjects;
 using BankingFramework.Interceptor_Package.Dispatchers;
 using NetCashATM.UserInterface.Panels;
+using System.Diagnostics;
 
 namespace NetCashATM.Presenters
 {
@@ -10,11 +11,14 @@ namespace NetCashATM.Presenters
 
         public MenuPresenter(MainPanel menuPanel)
         {
+            Debug.WriteLine("MenuPrsenter.MenuPresenter()");
             _menuPanel = menuPanel;
         }
         
         public void NavigateToSelected(string selected)
         {
+
+            Debug.WriteLine("MenuPrsenter.NavigateToSelected(): " + selected);
             NavigationRequestDispatcher.TheInstance()
                 .DispatchNavigationRequestInterceptors(new NavigationContextObject(selected));
         }

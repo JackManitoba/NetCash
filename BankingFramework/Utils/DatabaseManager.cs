@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using BankingFramework.BankTransactions;
+using System.IO;
 
 namespace BankingFramework.Utils
 {
@@ -50,6 +51,28 @@ namespace BankingFramework.Utils
             return returnValue;
         }
 
+        public bool IsCardCancelled(string cardNumber)
+        {
+            bool Cancelled = true;
+
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"SELECT [Cancelled] From [dbo].[Users] WHERE [CardNumber] = @cn ";
+                var cmd = new SqlCommand(_sql, connection);
+
+                cmd.Parameters
+                    .Add(new SqlParameter("@cn", SqlDbType.NVarChar))
+                    .Value = cardNumber;
+
+                connection.Open();
+                Cancelled = Convert.ToBoolean(cmd.ExecuteScalar());
+                cmd.Dispose();
+                connection.Dispose();
+            }
+
+            return Cancelled;
+
+        }
 
         public void UpdateATMCashAmount(string note, int amount)
         {
@@ -83,23 +106,28 @@ namespace BankingFramework.Utils
             Debug.WriteLine(dateAndTime.ToString("dd/MM/yyyy"));
                         using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
                             {
-                string _sql = @"INSERT INTO [dbo].[BankTransactions] VALUES (@origAccount,@targetAccount,@type,@amount,@date) ";
+                string _sql = @"INSERT INTO [dbo].[BankTransactions](Id, OriginatingAccount, RecipientAccount, Type, Amount, Date) VALUES (@id, @oa, @ra, @t, @a, @d)";
                 
                 var cmd = new SqlCommand(_sql, connection);
+
                 cmd.Parameters
-                                    .Add(new SqlParameter("@origAccount", SqlDbType.NVarChar))
+                    .Add(new SqlParameter("@id", SqlDbType.UniqueIdentifier))
+                    .Value = Guid.NewGuid();
+
+                cmd.Parameters
+                                    .Add(new SqlParameter("@oa", SqlDbType.NVarChar))
                                     .Value = t.SourceAccount();
                 cmd.Parameters
-                                    .Add(new SqlParameter("@targetAccount", SqlDbType.NVarChar))
+                                    .Add(new SqlParameter("@ra", SqlDbType.NVarChar))
                                     .Value = t.TargetAccount();
                 cmd.Parameters
-                                     .Add(new SqlParameter("@type", SqlDbType.NVarChar))
+                                     .Add(new SqlParameter("@t", SqlDbType.NVarChar))
                                      .Value = t.GetType();
                 cmd.Parameters
-                                    .Add(new SqlParameter("@amount", SqlDbType.Money))
+                                    .Add(new SqlParameter("@a", SqlDbType.Money))
                                     .Value = Convert.ToInt32(t.GetAmount());
                 cmd.Parameters
-                                    .Add(new SqlParameter("@date", SqlDbType.NVarChar))
+                                    .Add(new SqlParameter("@d", SqlDbType.Date))
                                     .Value = dateAndTime.ToString("dd/MM/yyyy");
                 
                 connection.Open();

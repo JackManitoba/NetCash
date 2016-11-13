@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace NetCashATM.UserInterface.Panels
 {
@@ -45,17 +46,22 @@ namespace NetCashATM.UserInterface.Panels
         {
             foreach (Observer e in _observerList)
             {
+                Debug.WriteLine("ATMPanel.NotifyObservers SHOULD NOT BE CALLED");
                 e.Update(this);
             }
         }
 
         public void RegisterObserver(Observer e)
         {
+
+            Debug.WriteLine("ATMPanel.RegisterObserver SHOULD NOT BE CALLED");
             _observerList.Add(e);
         }
 
         public void UnregisterObserver(Observer e)
         {
+
+            Debug.WriteLine("ATMPanel.UnregisterObserver SHOULD NOT BE CALLED");
             _observerList.Remove(e);
         }
 

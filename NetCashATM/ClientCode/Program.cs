@@ -1,5 +1,4 @@
 ﻿
-using NetCashATM.Controllers;
 using NetCashATM.Interfaces;
 using NetCashATM.UserInterface.Panels;
 using NetCashATM.Views;
@@ -17,14 +16,12 @@ using System.IO;
 namespace ClientCode
 {
 
-    class Program 
+    class Program
     {
 
         private static ATMMainView _mainView;
-        static ATMController controller;
-        static ATMAccount account;
 
-
+        public int VerifiedSession = 0;
 
         class NavigationRequestInterceptor : Interceptor
         {
@@ -32,10 +29,11 @@ namespace ClientCode
 
             public void baseFunction(ContextObject e)
             {
+                Debug.WriteLine("Program.NavigationRequestInterceptor.BaseFunction: " + e.GetShortDescription());
                 _mainView.SetCurrentPanel(_panelFactory.GetPanel(e.GetShortDescription()));
             }
         }
-            public int VerifiedSession = 0;
+
         public List<Subject> SubjectList
         {
             get
@@ -54,8 +52,8 @@ namespace ClientCode
             var path = Path.GetFullPath(((AppDomain.CurrentDomain.BaseDirectory).Replace("\\NetCashATM\\ClientCode\\bin\\Debug", "")) + "\\NetCashWebSite\\App_Data");
             AppDomain.CurrentDomain.SetData("DataDirectory", path);
         }
-        
-        
+
+
         [STAThread]
         public static void Main()
         {
@@ -72,36 +70,6 @@ namespace ClientCode
             PinPanel pinPanel = new PinPanel();
             SetPanel(pinPanel);
             Application.Run(_mainView);
-            // mainView.Activate();
-            //_mainView.RegisterObserver(new Program());
-
-            try
-            {
-                Application.Run(_mainView);
-            }
-
-            catch (Exception e) { Debug.WriteLine("Application Exited"); }
-
         }
-
-        public void Update()
-        {
-        }
-
-        public static string InsertCard(string cardLocation)
-        {
-            CardReader cardReader = new CardReader(cardLocation);
-            return cardReader.GetCardNumber();
-        }
-
-        public void Update(Subject e)
-        {
-            controller.HandleChange(e);
-        }
-
-            public void baseFunction(ContextObject e)
-            {
-                throw new NotImplementedException();
-            }
-        }
+    }
 }

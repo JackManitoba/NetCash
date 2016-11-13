@@ -1,4 +1,5 @@
 ﻿using NetCashATM.Interfaces;
+using NetCashATM.Presenters;
 using NetCashATM.UserInterface.Buttons;
 using System;
 using System.Collections.Generic;
@@ -16,13 +17,21 @@ namespace NetCashATM.UserInterface.Panels
         protected static Label _withdrawalLabel;
         protected static Label _netCashLabel;
         protected static Label _messageLabel;
+        protected static WithdrawalPresenter _withdrawalPresenter;
 
         public WithdrawalPanel()
+        {
+            CreateChildControls();
+            _withdrawalPresenter = new WithdrawalPresenter(this);
+           
+        }
+
+        public  override void CreateChildControls()
         {
             Name = "WithdrawalPanel";
             BackColor = System.Drawing.Color.White;
             Location = new System.Drawing.Point(109, 57);
-          
+
             Size = new System.Drawing.Size(351, 194);
             TabIndex = 12;
 
@@ -48,6 +57,13 @@ namespace NetCashATM.UserInterface.Panels
             _messageLabel.ForeColor = System.Drawing.Color.Red;
             _messageLabel.SetBounds(((this.Width / 2) - 70), ((this.Height / 2) - 70), 150, 40);
             this.Controls.Add(_messageLabel);
+
+        }
+        public void SetErrorMessage(string message)
+        {
+
+            _messageLabel.Text = message;
+            _messageLabel.Update();
         }
 
         public override void Update(Subject e)
@@ -61,8 +77,8 @@ namespace NetCashATM.UserInterface.Panels
 
         public override void Cancel()
         {
-            NavData.SetNavigationPanelName("LOGOUT");
-            NotifyObservers();
+            _withdrawalPresenter.LogOut();
+        
         }
 
         public override void Clear()
@@ -73,23 +89,8 @@ namespace NetCashATM.UserInterface.Panels
 
         public override void Enter()
         {
-            if (_amountEntryBox.Text == "")
-            {
-                //do nothing
-            }
-            else
-            {
-                if (((Convert.ToInt32(_amountEntryBox.Text)) % 10) != 0)
-                {
-                    _messageLabel.Text = "THIS MACHINE DOES NOT CARRY ANY CURRECY LESS THAN €10";
-                    _messageLabel.Update();
-                }
-                else
-                {
-                    NavData.SetNavigationPanelName("LOGOUT");
-                    NotifyObservers();
-                }
-            }
+            _withdrawalPresenter.Withdraw();
+            
         }
         public override TextBox GetInput()
         {

@@ -29,27 +29,27 @@ namespace NetCashATM.UserInterface.Panels
                         p = new MainPanel();
                         break;
                     }
-                case "PRINT":
+                case "PrintInfo":
                     {
                         p = new PrintInfo();
                         break;
                     }
-                case "PIN":
+                case "PinPanel":
                     {
                         p = new PinPanel();
                         break;
                     }
-                case "PINRESET":
+                case "PinResetPanel":
                     {
                         p = new PinResetPanel();
                         break;
                     }
-                case "WITHDRAWAL":
+                case "WithdrawalPanel":
                     {
                         p = new WithdrawalPanel();
                         break;
                     }
-                case "LOGOUT":
+                case "LogoutPanel":
                     {
                         p = new LogoutPanel();
                         break;

@@ -10,7 +10,7 @@ using NetCashATM.Interfaces;
 
 namespace NetCashATM.Views
 {
-    public class ATMMainView : Form , Interfaces.View , Observer, Subject
+    public class ATMMainView : Form , Interfaces.View
     {
         public ATMMainView() {
             ObserversList = new List<Observer>();
@@ -82,9 +82,12 @@ namespace NetCashATM.Views
         //USED TO NOTIFY AN OBSERVER ONCE A SUBJECT HAS BEEN ACTED UPON
         private void button_Click(object sender, EventArgs e)
         {
+            Debug.WriteLine("(Before Parse) NOTIFY OBSERVER button_Click: " + sender.ToString());
             ATMButton b = (ATMButton)sender;
+            Debug.WriteLine("(After Parse) NOTIFY OBSERVER button_Click: " + b.Text);
             b.NotifyObservers();
         }
+
         private void Enter_Button_Click(object sender, EventArgs e)
         {
             ATMButton b = (ATMButton)sender;
@@ -102,16 +105,17 @@ namespace NetCashATM.Views
         }
         public void SetCurrentPanel(ATMPanel p)
         {
-          
-               
-                unRegisterButtonsWithPanel();
-                this.Controls.Remove(_currentPanel);
-            
-            
+                        
+            UnRegisterButtonsWithPanel();
+
+            if(_currentPanel != null) Debug.WriteLine("SetCurrentPanel.Remove: " + _currentPanel.Name + "");
+
+            this.Controls.Remove(_currentPanel);
             this._currentPanel = p;
+            Debug.WriteLine("SetCurrentPanel.Add: " + _currentPanel.Name + "");
             this.Controls.Add(_currentPanel);
             RegisterButtonsWithPanel();
-            this._currentPanel.RegisterObserver(this);            
+                      
         }
         public void  RegisterButtonsWithPanel()
         {
@@ -120,15 +124,20 @@ namespace NetCashATM.Views
             EnterCommand = new EnterCommand(this._currentPanel);
             for (int i = 0; i < 10; i++)
             {
+                Debug.WriteLine("RegisterButtonsWithPanel: " + "Current Panel: " + _currentPanel.Name + ", " + "Current Button: " + _keypadButtons[i]);
                 _helperClass.registerObserverToSubject(this._currentPanel, this._keypadButtons[i]);                
             }
         }
 
-        public void unRegisterButtonsWithPanel()
+        public void UnRegisterButtonsWithPanel()
         {
             for (int i = 0; i < 10; i++)
             {
-                _helperClass.UnregisterObserverToSubject(this._currentPanel, this._keypadButtons[i]);
+                if (_currentPanel != null)
+                {
+                    Debug.WriteLine("UnRegisterButtonsWithPanel: " + "Current Panel: " + _currentPanel.Name + ", " + "Current Button: " + _keypadButtons[i]);
+                    _helperClass.UnregisterObserverToSubject(this._currentPanel, this._keypadButtons[i]);
+                }
             }
         }
 
@@ -136,31 +145,10 @@ namespace NetCashATM.Views
 
         public NavigationDataClass getNavigationClass() { return this._currentPanel.NavData; }
 
-        public void Update()
-        {
-            throw new NotImplementedException();
-        }
+      
 
-        public void Update(Subject e)
-        {
-            NotifyObservers();
-        }
 
-        public void NotifyObservers()
-        {
-            foreach (Observer o in ObserversList)
-            { o.Update(this); }
-        }
-
-        public void RegisterObserver(Observer e)
-        {
-            this.ObserversList.Add(e);
-        }
-
-        public void UnregisterObserver(Observer e)
-        {
-            this.ObserversList.Remove(e);
-        }
+       
 
         #endregion
         private List<ATMButton> _keypadButtons;
@@ -179,20 +167,6 @@ namespace NetCashATM.Views
         List<Observer> ObserversList;
         List<Subject> SubjectsList;
 
-        public List<Subject> SubjectList
-        {
-            get
-            {
-                return SubjectsList;
-            }
-        }
-
-        public List<Observer> ObserverList
-        {
-            get
-            {
-                return ObserversList;
-            }
-        }
+ 
     }
 }

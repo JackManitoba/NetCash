@@ -8,27 +8,27 @@ namespace BankingFramework.FacadeClasses
 {
     public class ATMFacade
     {
-        private ATMAccount ATMAccount;
+        private ATMAccount _atmAccount;
 
         public ATMFacade(string cardnumber)
         {
-            ATMAccount = new ATMAccount(ATMAccount.GetAccountByCardNumber(cardnumber));
-            ATMAccount.CardNumber = cardnumber;
+            _atmAccount = new ATMAccount(ATMAccount.GetAccountByCardNumber(cardnumber));
+            _atmAccount.CardNumber = cardnumber;
         }
 
         public void UpdateAccountPinNumber(string newPin)
         {
-            ATMAccount.UpdatePin(newPin);
+            _atmAccount.UpdatePin(newPin);
         }
 
         public string GetAccountBalance()
         {
-            return ATMAccount.Balance.ToString();
+            return _atmAccount.Balance.ToString();
         }
 
         public bool ValidateAccount(string text)
         {
-            return ATMAccount.IsValid(text);
+            return _atmAccount.IsValid(text);
 
         }
 
@@ -39,42 +39,47 @@ namespace BankingFramework.FacadeClasses
 
         public void PerformWithdraw(double amount)
         {
-            Transaction withdrawal = new Withdrawal(ATMAccount, "WITHDRAWAL", amount);
+            Transaction withdrawal = new Withdrawal(_atmAccount, "WITHDRAWAL", amount);
 
             if (withdrawal.AreFundsAvailable())
             {
                 withdrawal.PerformTransaction();
-                ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(ATMAccount, withdrawal.GetType(), withdrawal.GetAmount()));
+                ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(_atmAccount, withdrawal.GetType(), withdrawal.GetAmount()));
             }
         }
 
         public void PerformDeposit(double amount)
         {
-            Transaction deposit = new Deposit(ATMAccount, "DEPOSIT", amount);        
+            Transaction deposit = new Deposit(_atmAccount, "DEPOSIT", amount);        
             deposit.PerformTransaction();
 
-            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(this.ATMAccount, deposit.GetType(), deposit.GetAmount()));
+            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(_atmAccount, deposit.GetType(), deposit.GetAmount()));
         }
 
         public bool AreFundsAvailable(double amount)
         {
-            return ATMAccount.AreFundsAvailable(amount);         
+            return _atmAccount.AreFundsAvailable(amount);         
         }
 
         public string ReturnAccountBalance()
         {
-            ATMAccount.UpdateAccountBalance();
-            return ATMAccount.Balance.ToString();
+            _atmAccount.UpdateAccountBalance();
+            return _atmAccount.Balance.ToString();
         }
 
         public string GetAccountNumber()
         {
-            return ATMAccount.AccountNumber;
+            return _atmAccount.AccountNumber;
         }
 
         public static string GetAccountByCardNumber(string currentCardNumber)
         {
             return ATMAccount.GetAccountByCardNumber(currentCardNumber);
+        }
+
+        public bool IsCardCancelled()
+        {
+            return _atmAccount.IsCardCancelled();
         }
     }
 }
