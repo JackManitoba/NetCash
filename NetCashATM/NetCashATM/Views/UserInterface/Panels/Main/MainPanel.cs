@@ -28,7 +28,7 @@ namespace NetCashATM.UserInterface.Panels
         {
             Debug.WriteLine("MainPanel.MainPanel()");
             CreateChildControls();
-            _menuPresenter = new MenuPresenter(this);
+            _menuPresenter = new MenuPresenter();
         }
 
         public override void CreateChildControls()
@@ -115,7 +115,7 @@ namespace NetCashATM.UserInterface.Panels
 
         public override void Cancel()
         {
-            _menuPresenter.NavigateToSelected("LOGOUT");
+            _menuPresenter.NavigateToSelected("LogoutPanel");
            // NotifyObservers();
         }
 
@@ -123,19 +123,11 @@ namespace NetCashATM.UserInterface.Panels
         {
         }
 
-        /*    public override void Enter()
+           public override void Enter()
             {
-                if (NavData.GetNavigationPanelName() != "")
-                {
-                    Debug.WriteLine("Selection : " + NavData.GetNavigationPanelName());
-                    NotifyObservers();
-                }
-                else
-                {
-                    _confirmLabel.Text = "PLEASE ENTER A SELECTION";
-                }
+              
             }
-            */
+            
 
 
 

@@ -1,27 +1,9 @@
-Account: 12345678 Description: Transfer to 12345555 Amount: € 100 11/11/2016 15:04:21
-Account: 12345678 Description: Transfer to 12345555 Amount: € 5 12/11/2016 03:03:33
-Account: 12345678 Description: WITHDRAWAL Amount: € 100 11/12/2016 12:22:49 PM
-Account: 12345678 Description: DEPOSIT Amount: € 100 11/12/2016 12:23:10 PM
-Account: 12345678 Description: WITHDRAWAL Amount: € 200 11/12/2016 1:03:19 PM
-Account: 12345678 Description: DEPOSIT Amount: € 200 11/12/2016 1:04:32 PM
-Account: 12345678 Description: WITHDRAWAL Amount: € 100 11/12/2016 1:04:43 PM
-Account: 12345678 Description: DEPOSIT Amount: € 300 11/12/2016 1:10:17 PM
-Account: 12345678 Description: WITHDRAWAL Amount: € 20 11/12/2016 1:14:34 PM
-Account: 12345678 Description: DEPOSIT Amount: € 10 13/11/2016 20:21:43
-Account: 12345678 Description: DEPOSIT Amount: € 10 13/11/2016 20:24:31
-Account: 12345678 Description: DEPOSIT Amount: € 3000 13/11/2016 20:24:55
-Account: 12345678 Description: WITHDRAWAL Amount: € 200 13/11/2016 21:03:56
-Account: 12345678 Description: WITHDRAWAL Amount: € 3000 13/11/2016 21:04:06
-Account: 12345678 Description: WITHDRAWAL Amount: € 200 13/11/2016 21:10:27
-Account: 12345678 Description:  Withdrawal  Amount: € 600 11/14/2016 5:24:12 PM
-Account: 12345678 Description:  Withdrawal  Amount: € 600 11/14/2016 5:33:27 PM
-Account: 12345678 Description:  Withdrawal  Amount: € 600 11/14/2016 5:39:13 PM
-Account: 12345678 Description:  Withdrawal  Amount: € 250 11/14/2016 5:41:59 PM
-Account: 12345678 Description:  Deposit  Amount: € 2000 11/14/2016 5:43:15 PM
-Account: 12345678 Description:  Withdrawal  Amount: € 200 11/14/2016 6:09:41 PM
-Account: 12345678 Description:  Transfer to 12345555 Amount: € 5 14/11/2016 18:32:36
-Account: 12345678 Description:  Transfer to 12345555 Amount: € 5 14/11/2016 18:32:53
-Account: 12345678 Description:  Transfer to 12345555 Amount: € 213 14/11/2016 18:33:01
-Account: 12345678 Description:  Transfer to 12345555 Amount: € 5 14/11/2016 18:39:36
-Account: 12345678 Description:  Transfer to 12345555 Amount: € 13 14/11/2016 18:39:44
-Account: 12345678 Description:  Transfer to 12345555 Amount: € 45 14/11/2016 18:39:51
+Outgoing||Incoming||Type	||Amount||Date		||Balance
+------------------------------------------------------------------
+12345678||12345555||Transfer	||13	||14/11/2016	||1994	||
+12345678||12345555||Transfer	||45	||14/11/2016	||2039	||
+12345678||12345555||Transfer	||5	||14/11/2016	||1981	||
+	||12345678||Deposit	||300	||14/11/2016	||1564	||
+12345678||	  ||Withrawal	||600	||14/11/2016	||1064	||
+	||12345678||Deposit	||30	||14/11/2016	||1594	||
+	||12345678||Deposit	||200	||14/11/2016	||1264	||

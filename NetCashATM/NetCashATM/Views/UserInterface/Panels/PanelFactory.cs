@@ -32,9 +32,34 @@
                         p = new PinPanel();
                         break;
                     }
+                case "WithdrawalPanelError1":
+                {
+                        p = new WithdrawalPanelATMError();
+                        break;
+                }
+                case "WithdrawalPanelError2":
+                    {
+                        p = new WithrawalPanelATMFundsAvailableError();
+                        break;
+                    }
                 case "PinResetPanel":
                     {
                         p = new PinResetPanel();
+                        break;
+                    }
+                case "CardCancelledPanel":
+                    {
+                        p = new CardCancelledPanel();
+                        break;
+                    }
+                case "DepositErrorPanel":
+                    {
+                        p = new DepositErrorPanel();
+                        break;
+                    }
+                case "PinRetryPanel":
+                    {
+                        p = new PinRetryPanel();
                         break;
                     }
                 case "WithdrawalPanel":

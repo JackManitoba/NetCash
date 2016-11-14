@@ -2,7 +2,6 @@
 using BankingFramework.InterceptorPackage.ContextObjects;
 using BankingFramework.InterceptorPackage.Dispatchers;
 using BankingFramework.Statements;
-using NetCashATM.UserInterface.Panels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -13,12 +12,12 @@ namespace NetCashATM.Presenters
 {
     public class  PrintInfoPresenter
     {
-        private PrintInfo _printInfo;
+       
         private ATMFacade _atmFacade;
 
-        public PrintInfoPresenter(PrintInfo printInfo)
+        public PrintInfoPresenter()
         {
-            _printInfo = printInfo;
+           
             _atmFacade = new ATMFacade(ConfigurationManager.AppSettings["CardNumber"]);
             PrintStatement();
         }
@@ -53,7 +52,7 @@ namespace NetCashATM.Presenters
 
 
             Process.Start("notepad.exe", Filename);
-            _printInfo.SetMessage("Printing Complete, press enter to continue");
+           
         }
 
         private string generateStatementText(List<List<string>> transactionlist)

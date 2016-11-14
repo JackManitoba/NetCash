@@ -81,33 +81,48 @@
     <Compile Include="Views\UserInterface\Panels\ATMPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Views\UserInterface\Panels\BalancePanel.cs">
+    <Compile Include="Views\UserInterface\Panels\Balance\BalancePanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Views\UserInterface\Panels\DepositPanel.cs">
+    <Compile Include="Views\UserInterface\Panels\Login\CardCancelledPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Views\UserInterface\Panels\LogoutPanel.cs">
+    <Compile Include="Views\UserInterface\Panels\Deposit\DepositErrorPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Views\UserInterface\Panels\MainPanel.cs">
+    <Compile Include="Views\UserInterface\Panels\Deposit\DepositPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\UserInterface\Panels\Login\LogoutPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\UserInterface\Panels\Main\MainPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Views\UserInterface\Panels\PanelFactory.cs" />
-    <Compile Include="Views\UserInterface\Panels\PinPanel.cs">
+    <Compile Include="Views\UserInterface\Panels\Login\PinPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Views\UserInterface\Panels\PinResetPanel.cs">
+    <Compile Include="Views\UserInterface\Panels\Login\PinResetPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Views\UserInterface\Panels\PrintInfo.cs">
+    <Compile Include="Views\UserInterface\Panels\Login\PinRetryPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Views\UserInterface\Panels\WithdrawalPanel.cs">
+    <Compile Include="Views\UserInterface\Panels\PrintInfo\PrintInfo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\UserInterface\Panels\Withdrawal\WithdrawalPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Views\ATMMainView.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\UserInterface\Panels\Withdrawal\WithdrawalPanelATMError.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\UserInterface\Panels\Withdrawal\WithrawalPanelATMFundsAvailableError.cs">
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

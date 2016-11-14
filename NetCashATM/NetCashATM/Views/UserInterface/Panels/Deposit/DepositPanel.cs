@@ -1,39 +1,37 @@
-﻿using NetCashATM.Observers;
-using NetCashATM.Presenters;
-using NetCashATM.UserInterface.Buttons;
-using System.Diagnostics;
+﻿using NetCashATM.UserInterface.Buttons;
 using System.Windows.Forms;
+using NetCashATM.Presenters;
+using NetCashATM.Observers;
 
 namespace NetCashATM.UserInterface.Panels
 {
-   public class WithdrawalPanel : ATMPanel
+   public class DepositPanel : ATMPanel
     {
+        private DepositPresenter _depositPresenter;
         protected static TextBox _amountEntryBox;
-        protected static Label _withdrawalLabel;
+        protected static Label _depositLabel;
         protected static Label _netCashLabel;
         protected static Label _messageLabel;
-        protected static WithdrawalPresenter _withdrawalPresenter;
 
-        public WithdrawalPanel()
+        public DepositPanel()
         {
             CreateChildControls();
-            _withdrawalPresenter = new WithdrawalPresenter(this);
-           
+            _depositPresenter = new DepositPresenter();
         }
 
-        public  override void CreateChildControls()
+        public override void CreateChildControls()
         {
-            Name = "WithdrawalPanel";
-            BackColor = System.Drawing.Color.White;
-            Location = new System.Drawing.Point(109, 57);
+            this.Name = "DepositPanel";
+            this.BackColor = System.Drawing.Color.White;
+            this.Location = new System.Drawing.Point(109, 57);
 
-            Size = new System.Drawing.Size(351, 194);
-            TabIndex = 12;
+            this.Size = new System.Drawing.Size(351, 194);
+            this.TabIndex = 12;
 
-            _withdrawalLabel = new Label();
-            _withdrawalLabel.Text = "WITHDRAWAL";
-            _withdrawalLabel.SetBounds(((this.Width / 2) - 40), (this.Height / 2), 100, 30);
-            this.Controls.Add(_withdrawalLabel);
+            _depositLabel = new Label();
+            _depositLabel.Text = "DEPOSIT";
+            _depositLabel.SetBounds(((this.Width / 2) - 25), (this.Height / 2), 100, 30);
+            this.Controls.Add(_depositLabel);
 
             _amountEntryBox = new System.Windows.Forms.TextBox();
             _amountEntryBox.Name = "ENTER AMOUNT";
@@ -54,12 +52,6 @@ namespace NetCashATM.UserInterface.Panels
             this.Controls.Add(_messageLabel);
 
         }
-        public void SetErrorMessage(string message)
-        {
-
-            _messageLabel.Text = message;
-            _messageLabel.Update();
-        }
 
         public override void Update(Subject e)
         {
@@ -70,33 +62,31 @@ namespace NetCashATM.UserInterface.Panels
             _messageLabel.Update();
         }
 
-        public override void Cancel()
+        public void SetErrorMessage(string message)
         {
-            _withdrawalPresenter.LogOut();
-        
+
+            _messageLabel.Text = message;
+            _messageLabel.Update();
         }
 
+        public override void Cancel()
+        {
+            _depositPresenter.LogOut();
+        }
         public override void Clear()
         {
             _amountEntryBox.Clear();
             _amountEntryBox.Update();
         }
-
         public override void Enter()
         {
-            _withdrawalPresenter.Withdraw();
-            
+            _depositPresenter.Deposit(_amountEntryBox.Text);
         }
+
         public override TextBox GetInput()
         {
             return _amountEntryBox;
         }
-
-        public void DisplayMessage(string message)
-        {
-            _messageLabel.Text = message;
-            Debug.WriteLine(_messageLabel.Text);
-            _messageLabel.Update();
-        }
     }
 }
+
