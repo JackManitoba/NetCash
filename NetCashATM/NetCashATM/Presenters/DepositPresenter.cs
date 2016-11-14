@@ -2,7 +2,7 @@
 using BankingFramework.InterceptorPackage.ContextObjects;
 using BankingFramework.InterceptorPackage.Dispatchers;
 using NetCashATM.ATMHardware;
-using NetCashATM.UserInterface.Panels;
+
 using System;
 using System.Configuration;
 
@@ -10,30 +10,31 @@ namespace NetCashATM.Presenters
 {
     public class DepositPresenter
     {
-        private DepositPanel _DepositPanel;
+       
         private ATMFacade _atmFacade;
         private ATMCashManager _cashManager = new ATMCashManager();
 
-        public DepositPresenter(DepositPanel depositPanel)
+        public DepositPresenter()
         {
-            _DepositPanel = depositPanel;
+           
 
             _atmFacade  = new ATMFacade(ConfigurationManager.AppSettings["CardNumber"]);
         }
 
-        public void Deposit()
+        public void Deposit(string amount)
         {
-            if (_DepositPanel.GetInput().Text != "")
+            if (amount != "")
             { 
-                if (((Convert.ToInt32(_DepositPanel.GetInput().Text)) % 10) != 0)
+                if (((Convert.ToInt32(amount)) % 10) != 0)
                 {
-                    _DepositPanel.SetErrorMessage("THIS MACHINE DOES NOT ACCEPT ANY CURRECY LESS THAN €10");
+                    NavigationRequestDispatcher.TheInstance()
+                .DispatchNavigationRequestInterceptors(new NavigationContextObject("DepositErrorPanel"));
                 }
                 else
                 {
-                    double amount = double.Parse(_DepositPanel.GetInput().Text);
-                    _atmFacade.PerformDeposit(amount);
-                    _cashManager.UpdateAmountDeposit(amount);
+                    double depositAmount = double.Parse(amount);
+                    _atmFacade.PerformDeposit(depositAmount);
+                    _cashManager.UpdateAmountDeposit(depositAmount);
 
                     NavigationRequestDispatcher.TheInstance()
                         .DispatchNavigationRequestInterceptors(new NavigationContextObject("MainPanel"));

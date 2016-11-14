@@ -1,4 +1,4 @@
-﻿using NetCashATM.UserInterface.Panels;
+﻿
 using BankingFramework.FacadeClasses;
 using System.Configuration;
 using System.Diagnostics;
@@ -9,43 +9,60 @@ namespace NetCashATM.Presenters
 {
     public class LoginPresenter
     {
-        private PinPanel _pinPanel;
+        private static int _remainingAttempts = 3;
         private ATMFacade _atmFacade;
 
-        public LoginPresenter(PinPanel pinPanel)
+        public LoginPresenter()
         {
+            
             Debug.WriteLine("PinPresenter.PinPresenter()");
-            _pinPanel = pinPanel;
+            
             _atmFacade = new ATMFacade(ConfigurationManager.AppSettings["CardNumber"]);
         }
 
         public void Login(string pin)
         {
+            
             if (!_atmFacade.IsCardCancelled())
             {
                 if (_atmFacade.ValidateAccount(pin))
                 {
                     Debug.WriteLine("PinPanel.GetPinPanel");
+                    _remainingAttempts = 3;
                     NavigationRequestDispatcher.TheInstance()
                         .DispatchNavigationRequestInterceptors(new NavigationContextObject("MainPanel"));
                 }
                 else
                 {
-                    for (int i = 0; i < 3; i++)
+                    if (_remainingAttempts != 0)
                     {
-                        int remainingAttempts = 3 - i;
-                        _pinPanel.DisplayMessage("INCORRECT PIN. ATTEMPTS REMAINING: " + remainingAttempts);
+                        _remainingAttempts--;
+                        NavigationRequestDispatcher.TheInstance()
+                       .DispatchNavigationRequestInterceptors(new NavigationContextObject("PinRetryPanel"));
                     }
+                    else
+                    {
 
-                    _pinPanel.DisplayMessage("YOUR CARD HAS BEEN CANCELLED");
-                    _atmFacade.CancelCard(ConfigurationManager.AppSettings["CardNumber"]);
+                        _atmFacade.CancelCard(ConfigurationManager.AppSettings["CardNumber"]);
+                        NavigationRequestDispatcher.TheInstance()
+                        .DispatchNavigationRequestInterceptors(new NavigationContextObject("CardCancelledPanel"));
+                    }
                 }
             }
             else
             {
-                _pinPanel.DisplayMessage("THIS CARD HAS BEEN CANCELLED");
+                NavigationRequestDispatcher.TheInstance()
+                            .DispatchNavigationRequestInterceptors(new NavigationContextObject("CardCancelledPanel"));
             }
         }
+       
+        
+            
+            
+            
+            
+            
+        
 
         public void Logout()
         {

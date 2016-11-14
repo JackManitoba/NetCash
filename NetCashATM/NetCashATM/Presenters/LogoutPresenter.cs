@@ -1,16 +1,15 @@
 ﻿using BankingFramework.InterceptorPackage.ContextObjects;
 using BankingFramework.InterceptorPackage.Dispatchers;
-using NetCashATM.UserInterface.Panels;
 
 namespace NetCashATM.Presenters
 {
     public class LogoutPresenter
     {
-        private LogoutPanel _logoutPanel;
+        
 
-        public LogoutPresenter(LogoutPanel logoutPanel)
+        public LogoutPresenter()
         {
-            _logoutPanel = logoutPanel;
+            
         }
 
         public void Logout()

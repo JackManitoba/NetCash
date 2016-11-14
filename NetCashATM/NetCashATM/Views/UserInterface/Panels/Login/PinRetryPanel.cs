@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace NetCashATM.UserInterface.Panels
 {
-   public class PinPanel : ATMPanel 
+    public class PinRetryPanel : ATMPanel
     {
         private LoginPresenter _loginPresenter;
         private List<Subject> _subjectList;
@@ -17,14 +17,15 @@ namespace NetCashATM.UserInterface.Panels
         protected static TextBox _pinEntryBox;
         protected static Label _messageLabel;
         protected static Label _netCashLabel;
+       
 
-        public PinPanel()
+        public PinRetryPanel()
         {
             Debug.WriteLine("PinPanel.PinPanel()");
             CreateChildControls();
-            _loginPresenter = new LoginPresenter(this);
+            _loginPresenter = new LoginPresenter();
             //NavData = new NavigationDataClass();
-            
+
         }
 
         public override void CreateChildControls()
@@ -32,7 +33,7 @@ namespace NetCashATM.UserInterface.Panels
             Name = "PinPanel";
             BackColor = System.Drawing.Color.White;
             Location = new System.Drawing.Point(109, 57);
-            
+
             Size = new System.Drawing.Size(351, 194);
             TabIndex = 12;
 
@@ -50,12 +51,12 @@ namespace NetCashATM.UserInterface.Panels
             Controls.Add(_netCashLabel);
 
             _messageLabel = new Label();
-            _messageLabel.Text = "";
+            _messageLabel.Text = "INCORRECT PIN, PLEASE TRY AGAIN";
             _messageLabel.ForeColor = System.Drawing.Color.Red;
             _messageLabel.SetBounds(((this.Width / 2) - 70), ((this.Height / 2) - 70), 150, 40);
             Controls.Add(_messageLabel);
 
-          //  NavData.AddNavigaion("MAIN");
+            //  NavData.AddNavigaion("MAIN");
         }
 
 
@@ -103,7 +104,7 @@ namespace NetCashATM.UserInterface.Panels
             _messageLabel.Update();
         }
 
-        
+
 
         public void NotifyObservers()
         {

@@ -18,7 +18,9 @@ namespace NetCashATM.UserInterface.Panels
         {
             Debug.WriteLine("BalancePanel.BalancePanel()");
             CreateChildControls();
-            _balancePresenter = new BalancePresenter(this);
+            _balancePresenter = new BalancePresenter();
+            ShowBalance();
+
         }
 
         public override void CreateChildControls()
@@ -41,7 +43,7 @@ namespace NetCashATM.UserInterface.Panels
             this.Controls.Add(_balanceLabel);
 
             _currentBalance = new Label();
-            _currentBalance.Text = "€ XXXXXX.XX";//Check database
+            _currentBalance.Text = "";//Check database
             _currentBalance.SetBounds(((this.Width / 2) - 30), (this.Height / 2 + 50), 100, 40);
             this.Controls.Add(_currentBalance);
         }
@@ -53,11 +55,11 @@ namespace NetCashATM.UserInterface.Panels
             Debug.WriteLine("BalancePanel.Update" + b.Text);
         }
 
-        public void ShowBalance(string accountBalance)
+        public void ShowBalance()
         {
 
-            Debug.WriteLine("BalancePanel.ShowBalance: " + accountBalance);
-            _currentBalance.Text = "€ " + accountBalance;
+           
+            _currentBalance.Text = "€ " + _balancePresenter.retrieveBalance();
             _currentBalance.Update();
         }
 

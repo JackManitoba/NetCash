@@ -1,25 +1,26 @@
 ﻿using BankingFramework.FacadeClasses;
 using BankingFramework.InterceptorPackage.ContextObjects;
 using BankingFramework.InterceptorPackage.Dispatchers;
-using NetCashATM.UserInterface.Panels;
+
 using System.Configuration;
 
 namespace NetCashATM.Presenters
 {
     class PinResetPresenter
     {
-        private PinResetPanel _pinResetPanel;
+       
         private ATMFacade _atmFacade;
 
-        public PinResetPresenter(PinResetPanel pinResetPanel)
+        public PinResetPresenter()
         {
-            _pinResetPanel = pinResetPanel;
-            _atmFacade = new ATMFacade(ConfigurationManager.AppSettings["CardNumber"]);
+            
+         
         }
 
-        public void ResetPin()
+        public void ResetPin(string newPin)
         {
-            string newPin = _pinResetPanel.GetInput().Text;
+            _atmFacade = new ATMFacade(ConfigurationManager.AppSettings["CardNumber"]);
+            
 
             if(newPin.Length == 4)
             {

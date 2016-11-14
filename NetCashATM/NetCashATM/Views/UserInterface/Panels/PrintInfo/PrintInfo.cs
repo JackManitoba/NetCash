@@ -11,7 +11,7 @@ namespace NetCashATM.UserInterface.Panels
         public PrintInfo()
         {
             CreateChildControls();
-            _printInfoPresenter = new PrintInfoPresenter(this);
+            _printInfoPresenter = new PrintInfoPresenter();
 
         }
 

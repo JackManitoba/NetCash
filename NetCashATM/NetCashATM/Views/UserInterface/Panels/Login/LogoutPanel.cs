@@ -14,7 +14,7 @@ namespace NetCashATM.UserInterface.Panels
         public LogoutPanel()
         {
             CreateChildControls();
-            _logoutPresenter = new LogoutPresenter(this);
+            _logoutPresenter = new LogoutPresenter();
         }
 
         public override void CreateChildControls()

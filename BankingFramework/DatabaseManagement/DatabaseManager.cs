@@ -121,7 +121,7 @@ namespace BankingFramework.DatabaseManagement
             var dateAndTime = DateTime.Now;
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
-                string _sql = @"INSERT INTO [dbo].[BankTransactions](Id, OriginatingAccount, RecipientAccount, RecipientAccountBalance, OriginatingAccountBalance, Type, Amount, Date) VALUES (@id, @oa, @ra, @oab, @rab, @t, @a, @d)";
+                string _sql = @"INSERT INTO [dbo].[BankTransactions](Id, OutgoingAccount, IncomingAccount, Type, Amount, Date, OutgoingAccountBalance, IncomingAccountBalance) VALUES (@id, @oa, @ra, @t, @a, @d, @oab, @rab )";
 
                 var cmd = new SqlCommand(_sql, connection);
 
