@@ -281,6 +281,7 @@
     <Content Include="Views\Insurance_Staff\ReviewQuote.cshtml" />
     <Content Include="Views\Insurance_Staff\ReviewInsuranceFailure.cshtml" />
     <Content Include="Views\Insurance\InsuranceFailure.cshtml" />
+    <Content Include="Views\Statement\DisplayStatement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -295,9 +296,7 @@
       <Name>Helpers</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Statement\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

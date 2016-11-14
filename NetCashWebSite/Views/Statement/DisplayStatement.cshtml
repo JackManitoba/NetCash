@@ -1,0 +1,39 @@
+﻿@model List<List<string>>
+@{
+    ViewBag.Title = "DisplayStatement";
+}
+
+@section article{
+
+<h2>Your Statement</h2>
+    
+    <div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Outgoing Account #</th>
+                <th>Incoming Account #</th>
+                <th>Transaction Type</th>
+                <th>Amount</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (List<string> transaction in Model)
+            {
+                <tr>
+                    <td>@transaction[4]</td>
+                    <td>@transaction[0]</td>
+                    <td>@transaction[1]</td>
+                    <td>@transaction[2]</td>
+                    <td>@transaction[3]</td>
+                    <td>@transaction[5]</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+    }
+

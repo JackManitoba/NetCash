@@ -264,7 +264,7 @@ namespace BankingFramework.DatabaseManagement
 
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
-                string _sql = @"SELECT * From [dbo].[BankTransactions] WHERE [DebitAccount] = @a OR [CreditAccount] = @a ORDER BY [Date]";
+                string _sql = @"SELECT * From [dbo].[BankTransactions] WHERE [OutgoingAccount] = @a OR [IncomingAccount] = @a ORDER BY [Date]";
                 var cmd = new SqlCommand(_sql, connection);
 
                 cmd.Parameters
@@ -276,13 +276,13 @@ namespace BankingFramework.DatabaseManagement
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    int DebitAccount = reader.GetOrdinal("DebitAccount");
-                    int CreditAccount = reader.GetOrdinal("CreditAccount");
+                    int DebitAccount = reader.GetOrdinal("OutgoingAccount");
+                    int CreditAccount = reader.GetOrdinal("IncomingAccount");
                     int Type = reader.GetOrdinal("Type");
                     int Amount = reader.GetOrdinal("Amount");
                     int Date = reader.GetOrdinal("Date");
-                    int DebitBalance = reader.GetOrdinal("DebitBalance");
-                    int CreditBalance = reader.GetOrdinal("CreditBalance");
+                    int DebitBalance = reader.GetOrdinal("OutgoingAccountBalance");
+                    int CreditBalance = reader.GetOrdinal("IncomingAccountBalance");
 
                     while (reader.Read())
                     {
@@ -290,14 +290,22 @@ namespace BankingFramework.DatabaseManagement
                         transaction.Add(reader.GetString(DebitAccount));
                         transaction.Add(reader.GetString(CreditAccount));
                         transaction.Add(reader.GetString(Type));
-                        transaction.Add(Convert.ToString(reader.GetInt32(Amount)));
+                        transaction.Add(Convert.ToString(reader.GetDouble(Amount)));
 
-                        string date = Convert.ToString(reader.GetSqlDateTime(Date));
+                        string date = reader.GetString(Date);
                         date = date.Substring(0, 10);
                         transaction.Add(date);
 
-                        transaction.Add(Convert.ToString(reader.GetInt32(DebitBalance)));
-                        transaction.Add(Convert.ToString(reader.GetInt32(CreditBalance)));
+                        if(accountNumber == reader.GetString(DebitAccount))
+                        {
+
+                            transaction.Add(Convert.ToString(reader.GetDouble(DebitBalance)));
+                        }
+                        else
+                        {
+
+                            transaction.Add(Convert.ToString(reader.GetDouble(CreditBalance)));
+                        }
 
                         transactionList.Add(transaction);
                     }
