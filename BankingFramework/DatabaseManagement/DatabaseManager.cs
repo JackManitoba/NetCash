@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using BankingFramework.InterceptorPackage.Dispatchers;
 using BankingFramework.InterceptorPackage.ContextObjects;
+using System.Collections.Generic;
 
 namespace BankingFramework.DatabaseManagement
 {
@@ -25,9 +26,9 @@ namespace BankingFramework.DatabaseManagement
         private DatabaseManager() { }
 
 
-        public int RetrieveDenominationAmounts(string current)
+        public double RetrieveDenominationAmounts(string current)
         {
-            int returnValue;
+            double returnValue;
 
             ClientRequestDispatcher.TheInstance()
                                    .DispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest("DatabaseManager, retrieveDenominationAmounts()", "Attempt to read ATMCash database"));
@@ -42,7 +43,7 @@ namespace BankingFramework.DatabaseManagement
                     .Value = current;
 
                 connection.Open();
-                returnValue = Convert.ToInt32(cmd.ExecuteScalar().ToString());
+                returnValue = Convert.ToDouble(cmd.ExecuteScalar().ToString());
                 cmd.Dispose();
                 connection.Dispose();
             }
@@ -72,7 +73,7 @@ namespace BankingFramework.DatabaseManagement
 
         }
 
-        public void UpdateATMCashAmount(string note, int amount)
+        public void UpdateATMCashAmount(string note, double amount)
         {
             ClientRequestDispatcher.TheInstance()
                                    .DispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest("DatabaseManager, updateATMPinNumber()", "Attempt to read ATMUsers database"));
@@ -86,7 +87,7 @@ namespace BankingFramework.DatabaseManagement
                     .Add(new SqlParameter("@a", SqlDbType.NVarChar))
                     .Value = note;
                 cmd.Parameters
-                   .Add(new SqlParameter("@b", SqlDbType.Int))
+                   .Add(new SqlParameter("@b", SqlDbType.Float))
                    .Value = amount;
 
                 connection.Open();
@@ -98,21 +99,20 @@ namespace BankingFramework.DatabaseManagement
 
         internal void AddWithdrawalToDatabase(string originatingAccount, double amount)
         {
-            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(originatingAccount, " Withdrawal ", Convert.ToInt32(amount)));
+            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(originatingAccount, " Withdrawal ", amount));
             writeTransactionToDatabase(originatingAccount,""," Withrawal ", amount);
         }
 
         internal void AddDepositToDatabase(string originatingAccount, double amount)
         {
-            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(originatingAccount, " Deposit ", Convert.ToInt32(amount)));
+            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(originatingAccount, " Deposit ", amount));
             writeTransactionToDatabase("", originatingAccount, " Deposit ", amount);
         }
-
        
         internal void AddTransferToDatabase(string originatingAccount, string RecipientAccount, string type, double amount)
         {
-             ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(originatingAccount, " Transfer to " + RecipientAccount, Convert.ToInt32(amount)));
-             ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(RecipientAccount, "Transfer from " + originatingAccount, Convert.ToInt32(amount)));
+             ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(originatingAccount, " Transfer to " + RecipientAccount, amount));
+             ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(RecipientAccount, "Transfer from " + originatingAccount, amount));
              writeTransactionToDatabase(originatingAccount, RecipientAccount, " Transfer ", amount);
         }
 
@@ -121,7 +121,7 @@ namespace BankingFramework.DatabaseManagement
             var dateAndTime = DateTime.Now;
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
-                string _sql = @"INSERT INTO [dbo].[BankTransactions](Id, OriginatingAccount, RecipientAccount, Type, Amount, Date) VALUES (@id, @oa, @ra, @t, @a, @d)";
+                string _sql = @"INSERT INTO [dbo].[BankTransactions](Id, OriginatingAccount, RecipientAccountBalance, OriginatingAccountBalance, RecipientAccount, Type, Amount, Date) VALUES (@id, @oa, @ra, @oab, @rab, @t, @a, @d)";
 
                 var cmd = new SqlCommand(_sql, connection);
 
@@ -136,11 +136,17 @@ namespace BankingFramework.DatabaseManagement
                                     .Add(new SqlParameter("@ra", SqlDbType.NVarChar))
                                     .Value = RecipientAccount;
                 cmd.Parameters
+                                   .Add(new SqlParameter("@oab", SqlDbType.Float))
+                                   .Value = GetAccountBalance(originatingAccount);
+                cmd.Parameters
+                                    .Add(new SqlParameter("@rab", SqlDbType.Float))
+                                    .Value = GetAccountBalance(originatingAccount);
+                cmd.Parameters
                                      .Add(new SqlParameter("@t", SqlDbType.NVarChar))
                                      .Value = type;
                 cmd.Parameters
-                                    .Add(new SqlParameter("@a", SqlDbType.Money))
-                                    .Value = Convert.ToInt32(amount);
+                                    .Add(new SqlParameter("@a", SqlDbType.Float))
+                                    .Value = amount;
                 cmd.Parameters
                                     .Add(new SqlParameter("@d", SqlDbType.NVarChar))//JACK SEE THIS
                                     .Value = dateAndTime.ToString("dd/MM/yyyy");
@@ -251,6 +257,56 @@ namespace BankingFramework.DatabaseManagement
                 connection.Dispose();
             }
             return pin;
+        }
+
+        public List<List<string>> PopulateStatement(string accountNumber)
+        {
+
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"SELECT * From [dbo].[BankTransactions] WHERE [DebitAccount] = @a OR [CreditAccount] = @a ORDER BY [Date]";
+                var cmd = new SqlCommand(_sql, connection);
+
+                cmd.Parameters
+                    .Add(new SqlParameter("@a", SqlDbType.NVarChar))
+                                .Value = accountNumber;
+
+                List<List<string>> transactionList = new List<List<string>>();
+                connection.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    int DebitAccount = reader.GetOrdinal("DebitAccount");
+                    int CreditAccount = reader.GetOrdinal("CreditAccount");
+                    int Type = reader.GetOrdinal("Type");
+                    int Amount = reader.GetOrdinal("Amount");
+                    int Date = reader.GetOrdinal("Date");
+                    int DebitBalance = reader.GetOrdinal("DebitBalance");
+                    int CreditBalance = reader.GetOrdinal("CreditBalance");
+
+                    while (reader.Read())
+                    {
+                        List<string> transaction = new List<string>();
+                        transaction.Add(reader.GetString(DebitAccount));
+                        transaction.Add(reader.GetString(CreditAccount));
+                        transaction.Add(reader.GetString(Type));
+                        transaction.Add(Convert.ToString(reader.GetInt32(Amount)));
+
+                        string date = Convert.ToString(reader.GetSqlDateTime(Date));
+                        date = date.Substring(0, 10);
+                        transaction.Add(date);
+
+                        transaction.Add(Convert.ToString(reader.GetInt32(DebitBalance)));
+                        transaction.Add(Convert.ToString(reader.GetInt32(CreditBalance)));
+
+                        transactionList.Add(transaction);
+                    }
+                }
+                cmd.Dispose();
+                connection.Dispose();
+
+                return transactionList;
+            }
         }
     }
 }

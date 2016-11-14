@@ -7,9 +7,9 @@ namespace BankingFramework.InterceptorPackage.ContextObjects
     {
         private string _account;
         private string _description;
-        private int _transactionAmount;
+        private double _transactionAmount;
 
-        public TransactionInfo(string accountNumber, string description, int amount)
+        public TransactionInfo(string accountNumber, string description, double amount)
         {
             _account = accountNumber;
             _description = description;
