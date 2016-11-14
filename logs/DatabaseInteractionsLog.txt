@@ -717,3 +717,37 @@ DataBaseReadRequest Object DatabaseManager, getAccountByATMCardNumber() method A
 DataBaseReadRequest Object DatabaseManager, getAccountBalance() method Attempt to read Account database11/14/2016 5:43:30 PM
 DataBaseReadRequest Object DatabaseManager, getATMAccountPin() method Attempt to read ATMUsers database11/14/2016 5:43:30 PM
 DataBaseReadRequest Object DatabaseManager, getAccountBalance() method Attempt to read Account database11/14/2016 5:43:30 PM
+DataBaseReadRequest Object DatabaseManager, getAccountByATMCardNumber() method Attempt to read ATMUsers database11/14/2016 6:08:50 PM
+DataBaseReadRequest Object DatabaseManager, getAccountBalance() method Attempt to read Account database11/14/2016 6:08:50 PM
+DataBaseReadRequest Object DatabaseManager, getATMAccountPin() method Attempt to read ATMUsers database11/14/2016 6:08:50 PM
+DataBaseReadRequest Object DatabaseManager, getATMAccountPin() method Attempt to read ATMUsers database11/14/2016 6:08:53 PM
+DataBaseReadRequest Object DatabaseManager, getAccountByATMCardNumber() method Attempt to read ATMUsers database11/14/2016 6:08:55 PM
+DataBaseReadRequest Object DatabaseManager, getAccountBalance() method Attempt to read Account database11/14/2016 6:08:55 PM
+DataBaseReadRequest Object DatabaseManager, getATMAccountPin() method Attempt to read ATMUsers database11/14/2016 6:08:55 PM
+DataBaseReadRequest Object DatabaseManager, getAccountBalance() method Attempt to read Account database11/14/2016 6:08:55 PM
+DataBaseReadRequest Object DatabaseManager, getAccountByATMCardNumber() method Attempt to read ATMUsers database11/14/2016 6:08:58 PM
+DataBaseReadRequest Object DatabaseManager, getAccountBalance() method Attempt to read Account database11/14/2016 6:08:58 PM
+DataBaseReadRequest Object DatabaseManager, getATMAccountPin() method Attempt to read ATMUsers database11/14/2016 6:08:58 PM
+DataBaseWriteRequest Object DatabaseManager, retrieveDenominationAmounts() Attempt to read ATMCash database11/14/2016 6:09:02 PM
+DataBaseWriteRequest Object DatabaseManager, retrieveDenominationAmounts() Attempt to read ATMCash database11/14/2016 6:09:02 PM
+DataBaseWriteRequest Object DatabaseManager, retrieveDenominationAmounts() Attempt to read ATMCash database11/14/2016 6:09:02 PM
+DataBaseWriteRequest Object DatabaseManager, retrieveDenominationAmounts() Attempt to read ATMCash database11/14/2016 6:09:02 PM
+DataBaseWriteRequest Object DatabaseManager, retrieveDenominationAmounts() Attempt to read ATMCash database11/14/2016 6:09:02 PM
+DataBaseWriteRequest Object DatabaseManager, retrieveDenominationAmounts() Attempt to read ATMCash database11/14/2016 6:09:02 PM
+DataBaseReadRequest Object DatabaseManager, getAccountBalance() method Attempt to read Account database11/14/2016 6:09:09 PM
+DataBaseWriteRequest Object DatabaseManager, retrieveDenominationAmounts() Attempt to read ATMCash database11/14/2016 6:09:09 PM
+DataBaseWriteRequest Object DatabaseManager, retrieveDenominationAmounts() Attempt to read ATMCash database11/14/2016 6:09:09 PM
+DataBaseWriteRequest Object DatabaseManager, retrieveDenominationAmounts() Attempt to read ATMCash database11/14/2016 6:09:09 PM
+DataBaseWriteRequest Object DatabaseManager, retrieveDenominationAmounts() Attempt to read ATMCash database11/14/2016 6:09:09 PM
+DataBaseWriteRequest Object DatabaseManager, retrieveDenominationAmounts() Attempt to read ATMCash database11/14/2016 6:09:09 PM
+DataBaseWriteRequest Object DatabaseManager, retrieveDenominationAmounts() Attempt to read ATMCash database11/14/2016 6:09:09 PM
+DataBaseReadRequest Object DatabaseManager, getAccountBalance() method Attempt to read Account database11/14/2016 6:09:11 PM
+DataBaseWriteRequest Object DatabaseManager, updateATMPinNumber() Attempt to read ATMUsers database11/14/2016 6:09:45 PM
+DataBaseWriteRequest Object DatabaseManager, updateATMPinNumber() Attempt to read ATMUsers database11/14/2016 6:09:46 PM
+DataBaseWriteRequest Object DatabaseManager, updateATMPinNumber() Attempt to read ATMUsers database11/14/2016 6:09:46 PM
+DataBaseWriteRequest Object DatabaseManager, updateATMPinNumber() Attempt to read ATMUsers database11/14/2016 6:09:46 PM
+DataBaseWriteRequest Object DatabaseManager, updateATMPinNumber() Attempt to read ATMUsers database11/14/2016 6:09:46 PM
+DataBaseWriteRequest Object DatabaseManager, updateATMPinNumber() Attempt to read ATMUsers database11/14/2016 6:09:46 PM
+DataBaseReadRequest Object DatabaseManager, getAccountByATMCardNumber() method Attempt to read ATMUsers database11/14/2016 6:09:48 PM
+DataBaseReadRequest Object DatabaseManager, getAccountBalance() method Attempt to read Account database11/14/2016 6:09:48 PM
+DataBaseReadRequest Object DatabaseManager, getATMAccountPin() method Attempt to read ATMUsers database11/14/2016 6:09:48 PM

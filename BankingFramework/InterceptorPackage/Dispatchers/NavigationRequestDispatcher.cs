@@ -36,7 +36,7 @@ namespace BankingFramework.InterceptorPackage.Dispatchers
                 Interceptor ic = interceptors[i];
 
                 // Dispatch callback hook method.
-                ic.baseFunction(context);
+                ic.consumeService(context);
             }
         }
 
