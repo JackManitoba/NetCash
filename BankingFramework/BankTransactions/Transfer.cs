@@ -40,12 +40,12 @@ namespace BankingFramework.BankTransactions
 
         public void PerformTransaction()
         {
-            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(_outgoingTransferAccount, "Transfer to "+_incomingTransferAccount.AccountNumber, Convert.ToInt32(TransferAmount)));
+            //ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(_outgoingTransferAccount, "Transfer to "+_incomingTransferAccount.AccountNumber, Convert.ToInt32(TransferAmount)));
             _incomingTransferAccount.IncreaseBalance(TransferAmount);
 
-            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(_incomingTransferAccount, "Transfer from " + _outgoingTransferAccount.AccountNumber, Convert.ToInt32(TransferAmount)));
+           // ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(_incomingTransferAccount, "Transfer from " + _outgoingTransferAccount.AccountNumber, Convert.ToInt32(TransferAmount)));
             _outgoingTransferAccount.DecreaseBalance(TransferAmount);
-            DatabaseManager.GetInstance().AddTransactionToDatabase(_outgoingTransferAccount.AccountNumber, _incomingTransferAccount.AccountNumber, GetType(), TransferAmount);
+            DatabaseManager.GetInstance().AddTransferToDatabase(_outgoingTransferAccount.AccountNumber, _incomingTransferAccount.AccountNumber, GetType(), TransferAmount);
         }
 
         public bool AreFundsAvailable()

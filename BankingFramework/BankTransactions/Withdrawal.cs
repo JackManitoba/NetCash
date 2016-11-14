@@ -32,7 +32,7 @@ namespace BankingFramework.BankTransactions
         public void PerformTransaction()
         {
             _withdrawalAccount.DecreaseBalance(_withdrawalAmount);
-            DatabaseManager.GetInstance().AddTransactionToDatabase(_withdrawalAccount.AccountNumber, "", GetType(), _withdrawalAmount);
+            DatabaseManager.GetInstance().AddWithdrawalToDatabase(_withdrawalAccount.AccountNumber, _withdrawalAmount);
         }
 
         public bool AreFundsAvailable()

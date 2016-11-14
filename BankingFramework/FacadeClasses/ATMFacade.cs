@@ -43,7 +43,7 @@ namespace BankingFramework.FacadeClasses
             if (withdrawal.AreFundsAvailable())
             {
                 withdrawal.PerformTransaction();
-                ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(_atmAccount, withdrawal.GetType(), withdrawal.GetAmount()));
+                
             }
         }
 
@@ -52,8 +52,7 @@ namespace BankingFramework.FacadeClasses
             Transaction deposit = new Deposit(_atmAccount, "DEPOSIT", amount);        
             deposit.PerformTransaction();
 
-            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(_atmAccount, deposit.GetType(), deposit.GetAmount()));
-        }
+           }
 
         public bool AreFundsAvailable(double amount)
         {
