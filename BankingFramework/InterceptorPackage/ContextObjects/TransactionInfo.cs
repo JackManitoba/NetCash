@@ -5,26 +5,22 @@ namespace BankingFramework.InterceptorPackage.ContextObjects
 {
    public  class TransactionInfo : ContextObject
     {
-        private Account _account;
+        private string _account;
         private string _description;
         private int _transactionAmount;
 
-        public TransactionInfo(Account account, string description, int amount)
+        public TransactionInfo(string accountNumber, string description, int amount)
         {
-            _account = account;
+            _account = accountNumber;
             _description = description;
             _transactionAmount = amount;
         }
 
         public string GetAccountNumber()
         {
-            return _account.AccountNumber;
+            return _account;
         }
 
-        public string GetAccountBalance()
-        {
-            return _account.Balance.ToString();
-        }
 
         public string GetDescription()
         {

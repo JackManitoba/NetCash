@@ -32,7 +32,7 @@ namespace BankingFramework.BankTransactions
         public void PerformTransaction()
         {
             _depositAccount.IncreaseBalance(_depositAmount);
-            DatabaseManager.GetInstance().AddTransactionToDatabase("", _depositAccount.AccountNumber, GetType(), _depositAmount);
+            DatabaseManager.GetInstance().AddDepositToDatabase(_depositAccount.AccountNumber, _depositAmount);
         }
 
         public bool AreFundsAvailable()

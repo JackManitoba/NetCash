@@ -25,7 +25,7 @@ namespace BankingFramework.AccountManager
         public override void UpdateAmount(double amount)
         {
             Balance += amount;
-            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest("OverdrawnState class, updateAmount() method", "Attempt to write to Account database"));
+            
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"UPDATE [dbo].[Account] Set [Balance]=@b WHERE [AccountNumber] = @a ";

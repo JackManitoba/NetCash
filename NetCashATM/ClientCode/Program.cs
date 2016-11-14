@@ -27,6 +27,7 @@ namespace ClientCode
 
             public void baseFunction(ContextObject e)
             {
+
                 Debug.WriteLine("Program.NavigationRequestInterceptor.BaseFunction: " + e.GetShortDescription());
                 _mainView.SetCurrentPanel(_panelFactory.GetPanel(e.GetShortDescription()));
             }

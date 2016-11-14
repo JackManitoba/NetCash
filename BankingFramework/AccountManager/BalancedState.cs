@@ -24,7 +24,7 @@ namespace BankingFramework.AccountManager
 
         public override void UpdateAmount(double _amount)
         {
-            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest("BalancedState Class, updateAmount() method", "Attempt to write to Account database"));
+           
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"UPDATE [dbo].[Account] Set [Balance]=@b WHERE [AccountNumber] = @a ";

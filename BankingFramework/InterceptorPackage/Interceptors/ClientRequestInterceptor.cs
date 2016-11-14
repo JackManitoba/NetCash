@@ -26,6 +26,7 @@ namespace BankingFramework.InterceptorPackage.Interceptors
 
         internal void OnTransactionAttempted(TransactionInfo context)
         {
+            
             _logger.LogAccountTransactions(context);         
         }
     }

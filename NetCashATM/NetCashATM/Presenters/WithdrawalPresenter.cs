@@ -41,6 +41,7 @@ namespace NetCashATM.Presenters
 
                         LogOut();
                     }
+                    else
                     _WithdrawalPanel.SetErrorMessage("THE WITHDRAWAL WAS UNSUCCESSFUL");
 
                 }

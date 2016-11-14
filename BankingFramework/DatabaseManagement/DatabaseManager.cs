@@ -96,16 +96,33 @@ namespace BankingFramework.DatabaseManagement
             }
         }
 
+        internal void AddWithdrawalToDatabase(string originatingAccount, double amount)
+        {
+            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(originatingAccount, " Withdrawal ", Convert.ToInt32(amount)));
+            writeTransactionToDatabase(originatingAccount,""," Withrawal ", amount);
+        }
 
-        internal void AddTransactionToDatabase(string originatingAccount, string RecipientAccount, string type, double amount)
+        internal void AddDepositToDatabase(string originatingAccount, double amount)
+        {
+            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(originatingAccount, " Deposit ", Convert.ToInt32(amount)));
+            writeTransactionToDatabase("", originatingAccount, " Deposit ", amount);
+        }
+
+       
+        internal void AddTransferToDatabase(string originatingAccount, string RecipientAccount, string type, double amount)
+        {
+             ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(originatingAccount, " Transfer to " + RecipientAccount, Convert.ToInt32(amount)));
+             ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(RecipientAccount, "Transfer from " + originatingAccount, Convert.ToInt32(amount)));
+             writeTransactionToDatabase(originatingAccount, RecipientAccount, " Transfer ", amount);
+        }
+
+        private void writeTransactionToDatabase(string originatingAccount, string RecipientAccount, string type, double amount)
         {
             var dateAndTime = DateTime.Now;
-            
-            Debug.WriteLine(dateAndTime.ToString("dd/MM/yyyy"));
-                        using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
-                            {
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
                 string _sql = @"INSERT INTO [dbo].[BankTransactions](Id, OriginatingAccount, RecipientAccount, Type, Amount, Date) VALUES (@id, @oa, @ra, @t, @a, @d)";
-                
+
                 var cmd = new SqlCommand(_sql, connection);
 
                 cmd.Parameters
@@ -125,16 +142,16 @@ namespace BankingFramework.DatabaseManagement
                                     .Add(new SqlParameter("@a", SqlDbType.Money))
                                     .Value = Convert.ToInt32(amount);
                 cmd.Parameters
-                                    .Add(new SqlParameter("@d", SqlDbType.Date))
+                                    .Add(new SqlParameter("@d", SqlDbType.NVarChar))//JACK SEE THIS
                                     .Value = dateAndTime.ToString("dd/MM/yyyy");
                 
                 connection.Open();
-                
+
                 cmd.ExecuteScalar();
-                
+
                 cmd.Dispose();
                 connection.Dispose();
-                            }
+            }
         }
 
 
