@@ -14,7 +14,7 @@ using BankingFramework.InterceptorPackage.Dispatchers;
 namespace ClientCode
 {
 
-    class Program
+    class ATMDriver
     {
 
         private static ATMMainView _mainView;

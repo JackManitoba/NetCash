@@ -37,7 +37,7 @@ namespace BankingFramework.InterceptorPackage.ContextObjects
         public void service()
         {
             Logger l = new Logger();
-            l.LogDatabaseInteractions(this);
+            l.LogDatabaseInteractions(this.GetVerboseDescription());
         }
 
       

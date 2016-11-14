@@ -30,8 +30,8 @@ namespace NetCashATM.ATMHardware
 
         private int SetEachDenomination(string current)
         {
-            int returnedValue = DatabaseManager.GetInstance().RetrieveDenominationAmounts(current);
-            return returnedValue;
+            double returnedValue = DatabaseManager.GetInstance().RetrieveDenominationAmounts(current);
+            return Convert.ToInt32(returnedValue);
         }
 
         public bool IsWithdrawable(double attemptedWithdrawal)

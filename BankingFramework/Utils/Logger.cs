@@ -6,7 +6,7 @@ namespace BankingFramework.Utils
 {
     public class Logger
     {   
-        internal void LogDatabaseInteractions(ContextObject context)
+        internal void LogDatabaseInteractions(string contextInfo)
         {
             //file2.WriteLine(DateTime.Now.ToString("HH:mm:ss tt")+context.getObj());
             var path = (AppDomain.CurrentDomain.BaseDirectory);
@@ -17,34 +17,34 @@ namespace BankingFramework.Utils
 
             if (!File.Exists(path))
             {
-                string createText = context.GetVerboseDescription() + Environment.NewLine;
+                string createText = contextInfo + Environment.NewLine;
                 File.WriteAllText(path, createText);
             }
             else
             {
-                string appendText = context.GetVerboseDescription() + Environment.NewLine;
+                string appendText = contextInfo + Environment.NewLine;
                 File.AppendAllText(path, appendText);
             }
         }
 
-        internal void LogAccountTransactions(ContextObject context)
+        internal void LogAccountTransactions(string accountNumber, string contextInfo)
         {
-            TransactionInfo transactionInfo = (TransactionInfo)context;
+           
 
             var path = (AppDomain.CurrentDomain.BaseDirectory);
             int position = path.IndexOf("NetCash");
             var substring = path.Substring(0, position);
             path = substring + "NetCash\\logs\\TransactionsLog";
 
-            path = path + transactionInfo.GetAccountNumber().Trim() + ".txt";
+            path = path + accountNumber.Trim() + ".txt";
             if (!File.Exists(path))
             {
-                string createText = context.GetVerboseDescription() + Environment.NewLine;
+                string createText = contextInfo + Environment.NewLine;
                 File.WriteAllText(path, createText);
             }
             else
             {
-                string appendText = context.GetVerboseDescription() + Environment.NewLine;
+                string appendText = contextInfo + Environment.NewLine;
                 File.AppendAllText(path, appendText);
             }
         }
