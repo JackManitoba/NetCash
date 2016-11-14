@@ -1,4 +1,5 @@
 ﻿using BankingFramework.AccountManager;
+using BankingFramework.Utils;
 using System;
 
 namespace BankingFramework.InterceptorPackage.ContextObjects
@@ -45,6 +46,12 @@ namespace BankingFramework.InterceptorPackage.ContextObjects
         public string GetVerboseDescription()
         {
             return "Account: " + GetAccountNumber() + " Description: " + _description + " Amount: € " + GetAmount() + " " + DateTime.Now;
+        }
+
+        public void service()
+        {
+            Logger l = new Logger();
+            l.LogAccountTransactions(this);
         }
     }
 }

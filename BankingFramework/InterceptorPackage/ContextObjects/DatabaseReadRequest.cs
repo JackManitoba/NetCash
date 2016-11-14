@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankingFramework.Utils;
+using System;
 
 
 namespace BankingFramework.InterceptorPackage.ContextObjects
@@ -33,5 +34,12 @@ namespace BankingFramework.InterceptorPackage.ContextObjects
             return GetObj() + " " + _source + " " + _description + DateTime.Now;
         }
 
+        public void service()
+        {
+            Logger l = new Logger();
+            l.LogDatabaseInteractions(this);
+        }
+
+      
     }
 }

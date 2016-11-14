@@ -32,7 +32,7 @@ namespace BankingFramework.InterceptorPackage.Dispatchers
                 ClientRequestInterceptor ic = (ClientRequestInterceptor)interceptors[i];
 
                 // Dispatch callback hook method.
-                ic.OnDatabaseReadRequest(context);
+                ic.consumeService(context);
             }
         }
 
@@ -51,7 +51,7 @@ namespace BankingFramework.InterceptorPackage.Dispatchers
                 ClientRequestInterceptor ic = (ClientRequestInterceptor)interceptors[i];
 
                 // Dispatch callback hook method.
-                ic.OnDatabaseWriteRequest(context);
+                ic.consumeService(context);
             }
         }
 
@@ -70,7 +70,7 @@ namespace BankingFramework.InterceptorPackage.Dispatchers
                 ClientRequestInterceptor ic = (ClientRequestInterceptor)interceptors[i];
 
                 // Dispatch callback hook method.
-                ic.OnTransactionAttempted(context);
+                ic.consumeService(context);
             }
         }
 

@@ -25,7 +25,7 @@ namespace ClientCode
         {
             PanelFactory _panelFactory = new PanelFactory();
 
-            public void baseFunction(ContextObject e)
+            public void consumeService(ContextObject e)
             {
 
                 Debug.WriteLine("Program.NavigationRequestInterceptor.BaseFunction: " + e.GetShortDescription());

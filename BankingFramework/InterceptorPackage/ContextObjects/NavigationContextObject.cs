@@ -24,5 +24,10 @@ namespace BankingFramework.InterceptorPackage.ContextObjects
         {
             return this.navigationPanelName;
         }
+
+        public void service()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
