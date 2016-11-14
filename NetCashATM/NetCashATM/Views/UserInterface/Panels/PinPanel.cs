@@ -1,13 +1,9 @@
-﻿using NetCashATM.Presenters;
-using NetCashATM.HelperClasses;
-using NetCashATM.Interfaces;
+﻿using NetCashATM.Observers;
+using NetCashATM.Presenters;
 using NetCashATM.UserInterface.Buttons;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NetCashATM.UserInterface.Panels
@@ -17,7 +13,6 @@ namespace NetCashATM.UserInterface.Panels
         private LoginPresenter _loginPresenter;
         private List<Subject> _subjectList;
         private List<Observer> _observerList;
-        public NavigationDataClass NavData;
 
         protected static TextBox _pinEntryBox;
         protected static Label _messageLabel;
@@ -70,8 +65,6 @@ namespace NetCashATM.UserInterface.Panels
 
         public override void Cancel()
         {
-            NavData.SetNavigationPanelName("LOGOUT");
-            NotifyObservers();
         }
 
         public override void Clear()

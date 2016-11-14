@@ -1,6 +1,6 @@
 ﻿using BankingFramework.FacadeClasses;
-using BankingFramework.Interceptor_Package.ContextObjects;
-using BankingFramework.Interceptor_Package.Dispatchers;
+using BankingFramework.InterceptorPackage.ContextObjects;
+using BankingFramework.InterceptorPackage.Dispatchers;
 using NetCashATM.UserInterface.Panels;
 using System.Configuration;
 using System.Diagnostics;
@@ -11,11 +11,9 @@ namespace NetCashATM.Presenters
     {
         private BalancePanel _balancePanel;
         private ATMFacade _atmFacade;
-        private LoginPresenter _loginPresenter;
 
         public BalancePresenter(BalancePanel balancePanel)
         {
-
             Debug.WriteLine("BalancePresenter.BalancePresenter()");
             _balancePanel = balancePanel;
 

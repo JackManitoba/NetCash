@@ -1,13 +1,7 @@
-﻿using NetCashATM.Interfaces;
-using NetCashATM.UserInterface.Buttons;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NetCashATM.UserInterface.Buttons;
 using System.Windows.Forms;
 using NetCashATM.Presenters;
+using NetCashATM.Observers;
 
 namespace NetCashATM.UserInterface.Panels
 {

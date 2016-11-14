@@ -7,8 +7,8 @@
     <ProjectGuid>{3614D893-2999-44C2-881A-A37ABA2C753C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ATMVERSION2</RootNamespace>
-    <AssemblyName>ATMVERSION2</AssemblyName>
+    <RootNamespace>NetCashATM</RootNamespace>
+    <AssemblyName>NetCashATM</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -45,28 +45,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ATMHardware\ATMCashManager.cs" />
-    <Compile Include="ConcreteCommands\CancelCommand.cs" />
-    <Compile Include="ConcreteCommands\ClearCommand.cs" />
-    <Compile Include="ConcreteCommands\EnterCommand.cs" />
+    <Compile Include="Commands\CancelCommand.cs" />
+    <Compile Include="Commands\ClearCommand.cs" />
+    <Compile Include="Commands\EnterCommand.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="HelperClasses\RegistrationHelper.cs" />
-    <Compile Include="Interfaces\Reciever.cs" />
-    <Compile Include="Interfaces\Command.cs" />
-    <Compile Include="Interfaces\Invoker.cs" />
-    <Compile Include="Interfaces\Observer.cs" />
-    <Compile Include="Interfaces\Subject.cs" />
-    <Compile Include="Interfaces\View.cs" />
+    <Compile Include="Observer\RegistrationHelper.cs" />
+    <Compile Include="Commands\Reciever.cs" />
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\Invoker.cs" />
+    <Compile Include="Observer\Observer.cs" />
+    <Compile Include="Observer\Subject.cs" />
     <Compile Include="Presenters\BalancePresenter.cs" />
     <Compile Include="Presenters\LogoutPresenter.cs" />
     <Compile Include="Presenters\DepositPresenter.cs" />
     <Compile Include="Presenters\MenuPresenter.cs" />
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\PinResetPresenter.cs" />
-    <Compile Include="Presenters\PINRetryPresenter.cs" />
     <Compile Include="Presenters\PrintInfoPresenter.cs" />
     <Compile Include="Presenters\WithdrawalPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="HelperClasses\NavigationDataClass.cs" />
     <Compile Include="Views\UserInterface\Buttons\ATMButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -114,13 +111,8 @@
       <Project>{478C3A72-B9D6-46F1-A0C5-DE7E3A06F332}</Project>
       <Name>Helpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetCashWebSite\NetCashWebSite.csproj">
-      <Project>{59B7E155-88E1-4370-A651-E6616D7FCC29}</Project>
-      <Name>NetCash</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,10 +1,5 @@
 ﻿using System;
-
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Diagnostics;
-using BankingFramework.Utils;
+using BankingFramework.DatabaseManagement;
 
 namespace NetCashATM.ATMHardware
 {
@@ -23,6 +18,7 @@ namespace NetCashATM.ATMHardware
             string[] notes = { "10Euro", "20Euro", "50Euro", "100Euro", "200Euro", "500Euro" };
             double[] noteValues = { 10, 20, 50, 100, 200, 500 };
             int i = 0;
+
             while (i < notes.Length)
             {
                 int noteCount = SetEachDenomination(notes[i]);
@@ -94,6 +90,7 @@ namespace NetCashATM.ATMHardware
             updatecashDeposit(updateAmount);
             int i = 0;
             string[] denominations = { "10Euro", "20Euro", "50Euro", "100Euro", "200Euro", "500Euro" };
+
             while (i < _noteCounts.Length)
             {
                 updateCashAmounts(denominations[i], _noteCounts[i]);

@@ -1,4 +1,4 @@
-﻿using NetCashATM.Interfaces;
+﻿using NetCashATM.Observers;
 using NetCashATM.Presenters;
 using NetCashATM.UserInterface.Buttons;
 using System.Windows.Forms;

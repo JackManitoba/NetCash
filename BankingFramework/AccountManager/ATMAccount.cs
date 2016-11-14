@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System;
+using BankingFramework.DatabaseManagement;
 
 namespace BankingFramework.AccountManager
 {

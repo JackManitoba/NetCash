@@ -1,14 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Diagnostics;
-using System.IO;
-using BankingFramework.Interceptor_Package.Dispatchers;
-using BankingFramework.Interceptor_Package;
-using BankingFramework.Utils;
-using BankingFramework.BankTransactions;
+using BankingFramework.DatabaseManagement;
 
 namespace BankingFramework.AccountManager
 {
@@ -57,10 +49,10 @@ namespace BankingFramework.AccountManager
             return DatabaseManager.GetInstance().GetAccountBalance(AccountNumber);
         }
 
-        public void UpdateAmount(Transaction t)
+     /*   public void UpdateAmount(Transaction t)
         {
             State.UpdateAmount(t.GetAmount());
-            DatabaseManager.GetInstance().AddTransactionToDatabase(t);
+            //DatabaseManager.GetInstance().AddTransactionToDatabase(t);
             Balance =  GetBalance();     
         }
 
@@ -69,6 +61,7 @@ namespace BankingFramework.AccountManager
             State.UpdateAmount(amount);
             Balance = GetBalance();     
         }
+        */
 
         public bool AreFundsAvailable(double amount)
         {

@@ -1,18 +1,14 @@
 ﻿using BankingFramework.FacadeClasses;
-using BankingFramework.Interceptor_Package.ContextObjects;
-using BankingFramework.Interceptor_Package.Dispatchers;
+using BankingFramework.InterceptorPackage.ContextObjects;
+using BankingFramework.InterceptorPackage.Dispatchers;
 using NetCashATM.ATMHardware;
 using NetCashATM.UserInterface.Panels;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NetCashATM.Presenters
 {
-  public  class WithdrawalPresenter
+    public  class WithdrawalPresenter
     {
         private WithdrawalPanel _WithdrawalPanel;
         private ATMFacade _atmFacade;

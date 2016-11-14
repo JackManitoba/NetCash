@@ -1,12 +1,12 @@
 ﻿using BankingFramework.AccountManager;
-using BankingFramework.Interceptor_Package;
-using BankingFramework.Interceptor_Package.Dispatchers;
-using BankingFramework.Utils;
+using BankingFramework.DatabaseManagement;
+using BankingFramework.InterceptorPackage.ContextObjects;
+using BankingFramework.InterceptorPackage.Dispatchers;
 using System;
 
 namespace BankingFramework.BankTransactions
 {
-   public class Transfer : Transaction
+    public class Transfer : Transaction
     {
         private  Account _incomingTransferAccount;
         private  Account _outgoingTransferAccount;
@@ -26,10 +26,9 @@ namespace BankingFramework.BankTransactions
 
             _incomingTransferAccount = new Account(targetAccountNumber);
             _outgoingTransferAccount = new Account(accountNumber);
-
         }
 
-        public string GetType()
+        public new string GetType()
         {
             return "Transfer";
         }
@@ -46,22 +45,12 @@ namespace BankingFramework.BankTransactions
 
             ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(_incomingTransferAccount, "Transfer from " + _outgoingTransferAccount.AccountNumber, Convert.ToInt32(TransferAmount)));
             _outgoingTransferAccount.DecreaseBalance(TransferAmount);
-            DatabaseManager.GetInstance().AddTransactionToDatabase(this);
+            DatabaseManager.GetInstance().AddTransactionToDatabase(_outgoingTransferAccount.AccountNumber, _incomingTransferAccount.AccountNumber, GetType(), TransferAmount);
         }
 
         public bool AreFundsAvailable()
         {
             return _outgoingTransferAccount.AreFundsAvailable(TransferAmount);
-        }
-
-        public string SourceAccount()
-        {
-            return this._incomingTransferAccount.AccountNumber;
-        }
-
-        public string TargetAccount()
-        {
-            return this._outgoingTransferAccount.AccountNumber;
         }
     }
 }

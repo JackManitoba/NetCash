@@ -7,8 +7,8 @@
     <ProjectGuid>{478C3A72-B9D6-46F1-A0C5-DE7E3A06F332}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClassLibrary1</RootNamespace>
-    <AssemblyName>ClassLibrary1</AssemblyName>
+    <RootNamespace>BankingFramework</RootNamespace>
+    <AssemblyName>BankingFramework</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -54,19 +54,19 @@
     <Compile Include="BankTransactions\Transfer.cs" />
     <Compile Include="FacadeClasses\ATMFacade.cs" />
     <Compile Include="FacadeClasses\WebSiteFacade.cs" />
-    <Compile Include="Interceptor Package\ContextObjects\ConcreteContextObject.cs" />
-    <Compile Include="Interceptor Package\ContextObjects\ContextObject.cs" />
-    <Compile Include="Interceptor Package\ContextObjects\DatabaseReadRequest.cs" />
-    <Compile Include="Interceptor Package\ContextObjects\DatabaseWriteRequest.cs" />
-    <Compile Include="Interceptor Package\ContextObjects\NavigationContextObject.cs" />
-    <Compile Include="Interceptor Package\ContextObjects\TransactionInfo.cs" />
-    <Compile Include="Interceptor Package\Dispatchers\ClientRequestDispatcher.cs" />
-    <Compile Include="Interceptor Package\Dispatchers\Dispatcher.cs" />
-    <Compile Include="Interceptor Package\Dispatchers\NavigationRequestDispatcher.cs" />
-    <Compile Include="Interceptor Package\Interceptors\ClientRequestInterceptor.cs" />
-    <Compile Include="Interceptor Package\Interceptors\Interceptor.cs" />
+    <Compile Include="InterceptorPackage\ContextObjects\ConcreteContextObject.cs" />
+    <Compile Include="InterceptorPackage\ContextObjects\ContextObject.cs" />
+    <Compile Include="InterceptorPackage\ContextObjects\DatabaseReadRequest.cs" />
+    <Compile Include="InterceptorPackage\ContextObjects\DatabaseWriteRequest.cs" />
+    <Compile Include="InterceptorPackage\ContextObjects\NavigationContextObject.cs" />
+    <Compile Include="InterceptorPackage\ContextObjects\TransactionInfo.cs" />
+    <Compile Include="InterceptorPackage\Dispatchers\ClientRequestDispatcher.cs" />
+    <Compile Include="InterceptorPackage\Dispatchers\Dispatcher.cs" />
+    <Compile Include="InterceptorPackage\Dispatchers\NavigationRequestDispatcher.cs" />
+    <Compile Include="InterceptorPackage\Interceptors\ClientRequestInterceptor.cs" />
+    <Compile Include="InterceptorPackage\Interceptors\Interceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\DatabaseManager.cs" />
+    <Compile Include="DatabaseManagement\DatabaseManager.cs" />
     <Compile Include="Utils\Logger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

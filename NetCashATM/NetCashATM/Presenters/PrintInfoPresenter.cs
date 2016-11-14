@@ -1,14 +1,10 @@
 ﻿using BankingFramework.FacadeClasses;
-using BankingFramework.Interceptor_Package.ContextObjects;
-using BankingFramework.Interceptor_Package.Dispatchers;
-using NetCashATM.Views.UserInterface.Panels;
+using BankingFramework.InterceptorPackage.ContextObjects;
+using BankingFramework.InterceptorPackage.Dispatchers;
+using NetCashATM.UserInterface.Panels;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NetCashATM.Presenters
 {

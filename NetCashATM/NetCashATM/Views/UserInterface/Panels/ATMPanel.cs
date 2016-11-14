@@ -1,12 +1,9 @@
-﻿using NetCashATM.Interfaces;
-using NetCashATM.HelperClasses;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using NetCashATM.Observers;
+using NetCashATM.Commands;
 
 namespace NetCashATM.UserInterface.Panels
 {
@@ -16,14 +13,12 @@ namespace NetCashATM.UserInterface.Panels
         //ATMPANEL IS ACTING AS AN OBSERVER OF KEYPAD BUTTONS(SUBJECTS) -- WILL MAKE THIS CLASS IMPLEMENT OBSERVER INTERFACE 
         private List<Subject> _subjectList;
         private List<Observer> _observerList;
-        public NavigationDataClass NavData;
         public string Name;
 
         public ATMPanel()
         {
             _subjectList = new List<Subject>();
             _observerList = new List<Observer>();
-            NavData = new NavigationDataClass();
         }
 
         List<Observer> Subject.ObserverList

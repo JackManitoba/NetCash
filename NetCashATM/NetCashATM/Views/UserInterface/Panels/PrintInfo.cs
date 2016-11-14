@@ -1,17 +1,7 @@
 ﻿using NetCashATM.Presenters;
-using NetCashATM.UserInterface.Panels;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace NetCashATM.Views.UserInterface.Panels
+namespace NetCashATM.UserInterface.Panels
 {
     public class PrintInfo : ATMPanel
     {

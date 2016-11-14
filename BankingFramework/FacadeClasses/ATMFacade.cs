@@ -1,8 +1,7 @@
 ﻿using BankingFramework.AccountManager;
 using BankingFramework.BankTransactions;
-using BankingFramework.CardManager;
-using BankingFramework.Interceptor_Package;
-using BankingFramework.Interceptor_Package.Dispatchers;
+using BankingFramework.InterceptorPackage.ContextObjects;
+using BankingFramework.InterceptorPackage.Dispatchers;
 
 namespace BankingFramework.FacadeClasses
 {

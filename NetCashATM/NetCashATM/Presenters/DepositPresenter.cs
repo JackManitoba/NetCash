@@ -1,6 +1,6 @@
 ﻿using BankingFramework.FacadeClasses;
-using BankingFramework.Interceptor_Package.ContextObjects;
-using BankingFramework.Interceptor_Package.Dispatchers;
+using BankingFramework.InterceptorPackage.ContextObjects;
+using BankingFramework.InterceptorPackage.Dispatchers;
 using NetCashATM.ATMHardware;
 using NetCashATM.UserInterface.Panels;
 using System;

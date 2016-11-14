@@ -1,13 +1,9 @@
-﻿using NetCashATM.HelperClasses;
-using NetCashATM.Interfaces;
+﻿using NetCashATM.Observers;
 using NetCashATM.Presenters;
 using NetCashATM.UserInterface.Buttons;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NetCashATM.UserInterface.Panels
@@ -18,7 +14,6 @@ namespace NetCashATM.UserInterface.Panels
 
         private List<Subject> _subjectList;
         private List<Observer> _observerList;
-        public NavigationDataClass NavData;
 
         protected static Label _netCashLabel;
         protected static Label _withdrawalLabel;
@@ -51,14 +46,6 @@ namespace NetCashATM.UserInterface.Panels
             _netCashLabel.SetBounds(((this.Width / 2) - 30), ((this.Height / 2) - 30), 100, 40);
             this.Controls.Add(_netCashLabel);
 
-            /*
-            _confirmLabel = new Label();
-            _confirmLabel.Text = "";
-            _confirmLabel.ForeColor = System.Drawing.Color.Blue;
-            _confirmLabel.SetBounds(((this.Width / 2) - 70), ((this.Height / 2) - 70), 150, 40);
-            this.Controls.Add(_confirmLabel);
-            */
-
             _withdrawalLabel = new Label();
             _withdrawalLabel.Text = "1 : WITHDRAWAL";
             _withdrawalLabel.SetBounds(0, (this.Height / 2), 100, 40);
@@ -89,8 +76,6 @@ namespace NetCashATM.UserInterface.Panels
             _exitLabel.SetBounds((this.Width - 47), ((this.Height / 2) + 80), 100, 40);
             this.Controls.Add(_exitLabel);
         }
-
-
 
         public override void Update(Subject e)
         {
@@ -136,8 +121,6 @@ namespace NetCashATM.UserInterface.Panels
 
         public override void Clear()
         {
-            //_confirmLabel.Text = "";
-            NavData.SetNavigationPanelName("");
         }
 
         /*    public override void Enter()

@@ -1,17 +1,15 @@
 ﻿
-using NetCashATM.Interfaces;
 using NetCashATM.UserInterface.Panels;
 using NetCashATM.Views;
-using BankingFramework.AccountManager;
-using BankingFramework.Interceptor_Package;
-using BankingFramework.Interceptor_Package.Dispatchers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
-using NetCashATM.ATMHardware;
-using BankingFramework.Interceptor_Package.Interceptors;
 using System.IO;
+using NetCashATM.Observers;
+using BankingFramework.InterceptorPackage.ContextObjects;
+using BankingFramework.InterceptorPackage.Interceptors;
+using BankingFramework.InterceptorPackage.Dispatchers;
 
 namespace ClientCode
 {

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-
-using BankingFramework.Interceptor_Package.Dispatchers;
-using BankingFramework.Interceptor_Package;
+using BankingFramework.InterceptorPackage.Dispatchers;
+using BankingFramework.InterceptorPackage.ContextObjects;
 
 namespace BankingFramework.AccountManager
 {

@@ -1,16 +1,15 @@
-﻿using NetCashATM.ConcreteCommands;
-using NetCashATM.HelperClasses;
+﻿using NetCashATM.Commands;
 using NetCashATM.UserInterface.Buttons;
 using NetCashATM.UserInterface.Panels;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Diagnostics;
-using NetCashATM.Interfaces;
+using NetCashATM.Observers;
 
 namespace NetCashATM.Views
 {
-    public class ATMMainView : Form , Interfaces.View
+    public class ATMMainView : Form 
     {
         public ATMMainView() {
             ObserversList = new List<Observer>();
@@ -136,19 +135,12 @@ namespace NetCashATM.Views
                 if (_currentPanel != null)
                 {
                     Debug.WriteLine("UnRegisterButtonsWithPanel: " + "Current Panel: " + _currentPanel.Name + ", " + "Current Button: " + _keypadButtons[i]);
-                    _helperClass.UnregisterObserverToSubject(this._currentPanel, this._keypadButtons[i]);
+                    _helperClass.UnregisterObserverToSubject(_currentPanel, this._keypadButtons[i]);
                 }
             }
         }
 
         public ATMPanel GetCurrentPanel() { return this._currentPanel; }
-
-        public NavigationDataClass getNavigationClass() { return this._currentPanel.NavData; }
-
-      
-
-
-       
 
         #endregion
         private List<ATMButton> _keypadButtons;

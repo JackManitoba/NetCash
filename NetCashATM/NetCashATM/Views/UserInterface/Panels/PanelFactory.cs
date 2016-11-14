@@ -1,13 +1,6 @@
-﻿using NetCashATM.Views.UserInterface.Panels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NetCashATM.UserInterface.Panels
+﻿namespace NetCashATM.UserInterface.Panels
 {
-  public class PanelFactory
+    public class PanelFactory
     {
         public ATMPanel GetPanel(string identifier)
         {

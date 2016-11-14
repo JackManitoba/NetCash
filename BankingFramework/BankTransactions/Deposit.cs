@@ -1,10 +1,6 @@
 ﻿using BankingFramework.AccountManager;
-using BankingFramework.Utils;
+using BankingFramework.DatabaseManagement;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BankingFramework.BankTransactions
 {
@@ -16,12 +12,8 @@ namespace BankingFramework.BankTransactions
 
         private string _description;
 
-        private string _cardNumber;
-
-        public Deposit() { }
-
         public Deposit(Account account, string description, double amount)
-        {     
+        {
             _description = description;
             _depositAmount = amount;
             _depositAccount = account;
@@ -32,30 +24,20 @@ namespace BankingFramework.BankTransactions
             return Convert.ToInt32(_depositAmount);
         }
 
-        public string GetType()
+        public new string GetType()
         {
             return "DEPOSIT";
         }
-        
+
         public void PerformTransaction()
         {
             _depositAccount.IncreaseBalance(_depositAmount);
-            DatabaseManager.GetInstance().AddTransactionToDatabase(this);
+            DatabaseManager.GetInstance().AddTransactionToDatabase("", _depositAccount.AccountNumber, GetType(), _depositAmount);
         }
 
         public bool AreFundsAvailable()
         {
             return _depositAccount.AreFundsAvailable(_depositAmount);
-        }
-
-        public string SourceAccount()
-        {
-            return "";
-        }
-
-        public string TargetAccount()
-        {
-            return this._depositAccount.AccountNumber;
         }
     }
 }

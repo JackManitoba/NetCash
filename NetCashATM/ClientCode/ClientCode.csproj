@@ -7,8 +7,8 @@
     <ProjectGuid>{BD2FFB7B-7748-47BC-9C49-77EFE5DC01F0}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsFormsApplication1</RootNamespace>
-    <AssemblyName>WindowsFormsApplication1</AssemblyName>
+    <RootNamespace>ClientCode</RootNamespace>
+    <AssemblyName>ClientCode</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -56,6 +56,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -74,10 +75,6 @@
     <ProjectReference Include="..\..\BankingFramework\BankingFramework.csproj">
       <Project>{478C3A72-B9D6-46F1-A0C5-DE7E3A06F332}</Project>
       <Name>Helpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\NetCashWebSite\NetCashWebSite.csproj">
-      <Project>{59B7E155-88E1-4370-A651-E6616D7FCC29}</Project>
-      <Name>NetCash</Name>
     </ProjectReference>
     <ProjectReference Include="..\NetCashATM\NetCashATM.csproj">
       <Project>{3614D893-2999-44C2-881A-A37ABA2C753C}</Project>
