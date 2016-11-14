@@ -1,2 +1,8 @@
 Account: 12345555 Description: Transfer to 12345678 Amount: € 100 11/11/2016 15:04:21
 Account: 12345555 Description: Transfer to 12345678 Amount: € 5 12/11/2016 03:03:33
+Account: 12345555 Description: Transfer from 12345678 Amount: € 5 14/11/2016 18:32:36
+Account: 12345555 Description: Transfer from 12345678 Amount: € 5 14/11/2016 18:32:53
+Account: 12345555 Description: Transfer from 12345678 Amount: € 213 14/11/2016 18:33:01
+Account: 12345555 Description: Transfer from 12345678 Amount: € 5 14/11/2016 18:39:36
+Account: 12345555 Description: Transfer from 12345678 Amount: € 13 14/11/2016 18:39:44
+Account: 12345555 Description: Transfer from 12345678 Amount: € 45 14/11/2016 18:39:51

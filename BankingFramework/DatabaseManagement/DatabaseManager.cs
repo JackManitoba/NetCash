@@ -116,12 +116,12 @@ namespace BankingFramework.DatabaseManagement
              writeTransactionToDatabase(originatingAccount, RecipientAccount, " Transfer ", amount);
         }
 
-        private void writeTransactionToDatabase(string originatingAccount, string RecipientAccount, string type, double amount)
+        private void writeTransactionToDatabase(string originatingAccountNumber, string recipientAccountNumber, string type, double amount)
         {
             var dateAndTime = DateTime.Now;
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
-                string _sql = @"INSERT INTO [dbo].[BankTransactions](Id, OriginatingAccount, RecipientAccountBalance, OriginatingAccountBalance, RecipientAccount, Type, Amount, Date) VALUES (@id, @oa, @ra, @oab, @rab, @t, @a, @d)";
+                string _sql = @"INSERT INTO [dbo].[BankTransactions](Id, OriginatingAccount, RecipientAccount, RecipientAccountBalance, OriginatingAccountBalance, Type, Amount, Date) VALUES (@id, @oa, @ra, @oab, @rab, @t, @a, @d)";
 
                 var cmd = new SqlCommand(_sql, connection);
 
@@ -131,16 +131,16 @@ namespace BankingFramework.DatabaseManagement
 
                 cmd.Parameters
                                     .Add(new SqlParameter("@oa", SqlDbType.NVarChar))
-                                    .Value = originatingAccount;
+                                    .Value = originatingAccountNumber;
                 cmd.Parameters
                                     .Add(new SqlParameter("@ra", SqlDbType.NVarChar))
-                                    .Value = RecipientAccount;
+                                    .Value = recipientAccountNumber;
                 cmd.Parameters
                                    .Add(new SqlParameter("@oab", SqlDbType.Float))
-                                   .Value = GetAccountBalance(originatingAccount);
+                                   .Value = GetAccountBalance(originatingAccountNumber);
                 cmd.Parameters
                                     .Add(new SqlParameter("@rab", SqlDbType.Float))
-                                    .Value = GetAccountBalance(originatingAccount);
+                                    .Value = GetAccountBalance(recipientAccountNumber);
                 cmd.Parameters
                                      .Add(new SqlParameter("@t", SqlDbType.NVarChar))
                                      .Value = type;

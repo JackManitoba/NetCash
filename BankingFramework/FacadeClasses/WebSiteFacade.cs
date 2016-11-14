@@ -1,5 +1,8 @@
-﻿using BankingFramework.AccountManager;
+﻿using System;
+using BankingFramework.AccountManager;
 using BankingFramework.BankTransactions;
+using System.Collections.Generic;
+using BankingFramework.Statements;
 
 namespace BankingFramework.FacadeClasses
 {
@@ -21,6 +24,13 @@ namespace BankingFramework.FacadeClasses
         {   
             Transaction transfer = new Transfer(_account.AccountNumber, targetAccountNumber, "TRANSFER", transferAmount);
             transfer.PerformTransaction();
+        }
+
+        public List<List<string>> GetStatement()
+        {
+            Statement statement = new Statement(_account.AccountNumber);
+
+            return statement.getListOfTransactions();
         }
     }
 }

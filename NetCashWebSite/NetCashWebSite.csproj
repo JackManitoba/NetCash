@@ -198,12 +198,14 @@
     <Compile Include="Controllers\LoanUserController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\LoanStaffController.cs" />
+    <Compile Include="Controllers\StatementController.cs" />
     <Compile Include="Controllers\TransferController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Models\Statement.cs" />
     <Compile Include="Models\Insurance\Car_Insurance.cs" />
     <Compile Include="Models\Insurance\Home_insurance.cs" />
     <Compile Include="Models\Insurance\IInsuranceStrategy.cs" />
@@ -293,7 +295,9 @@
       <Name>Helpers</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Statement\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
