@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "InsuranceCustomer";
-   // Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
 @section article {
@@ -29,6 +28,6 @@
                                "StringValue", "StringValue",
                                Model.LocationOptions.First().StringValue), new { @class = "form-control" })
                 </div>
-                <input type="submit" value="Confirm" />         
+                <input id="btnConfirm" type="submit" value="Confirm" />         
     }
 }

@@ -5,7 +5,7 @@
 }
 
 @section article{
-    <h1>Outstanding Insurance Query</h1>
+    <h2>Outstanding Insurance Query</h2>
 
     <div class="form-horizontal">
         <strong>
@@ -38,7 +38,7 @@
     @Html.Label(Model.DateOfApplication.ToString())
 </div>
 
-    <button class="btn btn-primary" onclick="location.href='@Url.Action("DiscussInsurance", "Insurance_Staff", Model)'">Mark as discussed</button>
+    <button id="btnMarkDiscussed" class="btn btn-primary" onclick="location.href='@Url.Action("DiscussInsurance", "InsuranceStaff", Model)'">Mark as discussed</button>
 
 
 }

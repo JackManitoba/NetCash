@@ -1,7 +1,7 @@
 ﻿@model NetCashWebSite.Models.Insurance.InsuranceQuery
 
 @{
-    ViewBag.Title = "Insurance_StaffQuery";
+    ViewBag.Title = "InsuranceStaffQuery";
 }
 
 @section article {
@@ -16,7 +16,7 @@
             @Html.ValidationMessageFor(l => l.AccountNumber)
         </div>
 
-        <input class="btn btn-primary" type="submit" value="Confirm" />
+        <input id="btnConfirm" class="btn btn-primary" type="submit" value="Confirm" />
     }
 }
 

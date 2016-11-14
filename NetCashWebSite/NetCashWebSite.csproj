@@ -257,7 +257,6 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Shared\_UserLayout.cshtml" />
     <Content Include="Views\Home\UserHomePage.cshtml" />
     <Content Include="Views\Transfer\Transfer.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
@@ -275,13 +274,14 @@
     <Content Include="Views\LoanStaff\DisplayLoan.cshtml" />
     <Content Include="Views\LoanStaff\LoanStaffQuery.cshtml" />
     <Content Include="Views\LoanStaff\DiscussLoan.cshtml" />
-    <Content Include="Views\Insurance_Staff\Insurance_StaffQuery.cshtml" />
-    <Content Include="Views\Insurance_Staff\DiscussInsurance.cshtml" />
+    <Content Include="Views\InsuranceStaff\InsuranceStaffQuery.cshtml" />
+    <Content Include="Views\InsuranceStaff\DiscussInsurance.cshtml" />
     <Content Include="Views\Loan\LoanFailure.cshtml" />
-    <Content Include="Views\Insurance_Staff\ReviewQuote.cshtml" />
-    <Content Include="Views\Insurance_Staff\ReviewInsuranceFailure.cshtml" />
+    <Content Include="Views\InsuranceStaff\ReviewQuote.cshtml" />
+    <Content Include="Views\InsuranceStaff\ReviewInsuranceFailure.cshtml" />
     <Content Include="Views\Insurance\InsuranceFailure.cshtml" />
     <Content Include="Views\Statement\DisplayStatement.cshtml" />
+    <Content Include="Views\Shared\_UserLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

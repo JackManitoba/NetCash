@@ -15,7 +15,7 @@ namespace NetCashATM.UserInterface.Panels
         public PinResetPanel()
         {
             CreateChildControls();
-            _pinResetPresenter = new PinResetPresenter(this);
+            _pinResetPresenter = new PinResetPresenter();
 
         }
 
@@ -65,7 +65,7 @@ namespace NetCashATM.UserInterface.Panels
 
         public override void Enter()
         {
-            _pinResetPresenter.ResetPin();
+            _pinResetPresenter.ResetPin(_pinEntryBox.Text);
         }
         public override TextBox GetInput()
         {
