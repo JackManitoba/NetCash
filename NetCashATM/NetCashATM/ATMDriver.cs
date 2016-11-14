@@ -2,11 +2,8 @@
 using NetCashATM.UserInterface.Panels;
 using NetCashATM.Views;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
-using System.IO;
-using NetCashATM.Observers;
 using BankingFramework.InterceptorPackage.ContextObjects;
 using BankingFramework.InterceptorPackage.Interceptors;
 using BankingFramework.InterceptorPackage.Dispatchers;
@@ -33,27 +30,9 @@ namespace ClientCode
             }
         }
 
-        public List<Subject> SubjectList
-        {
-            get
-            {
-                return SubjectList;
-            }
-        }
+   
 
-        public static void SetPanel(ATMPanel currentPanel)
-        {
-            _mainView.SetCurrentPanel(currentPanel);
-        }
-
-        public static void SetDataPath()
-        {
-            var path = (AppDomain.CurrentDomain.BaseDirectory);
-            int position = path.IndexOf("NetCash");
-            var substring = path.Substring(0,position);
-            path = substring + "NetCash\\NetCashWebSite\\App_Data";
-            AppDomain.CurrentDomain.SetData("DataDirectory", path);
-        }
+       
 
 
         [STAThread]
@@ -73,5 +52,25 @@ namespace ClientCode
             SetPanel(pinPanel);
             Application.Run(_mainView);
         }
+
+
+
+
+
+        public static void SetPanel(ATMPanel currentPanel)
+        {
+            _mainView.SetCurrentPanel(currentPanel);
+        }
+
+        public static void SetDataPath()
+        {
+            var path = (AppDomain.CurrentDomain.BaseDirectory);
+            int position = path.IndexOf("NetCash");
+            var substring = path.Substring(0, position);
+            path = substring + "NetCash\\NetCashWebSite\\App_Data";
+            AppDomain.CurrentDomain.SetData("DataDirectory", path);
+        }
+
+
     }
 }

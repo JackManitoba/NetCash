@@ -1,5 +1,4 @@
-﻿using BankingFramework.AccountManager;
-using BankingFramework.Utils;
+﻿using BankingFramework.Utils;
 using System;
 
 namespace BankingFramework.InterceptorPackage.ContextObjects
@@ -51,7 +50,7 @@ namespace BankingFramework.InterceptorPackage.ContextObjects
         public void service()
         {
             Logger l = new Logger();
-            l.LogAccountTransactions(this);
+            l.LogAccountTransactions(GetAccountNumber(),GetVerboseDescription());
         }
     }
 }
