@@ -7,7 +7,6 @@ namespace NetCashATM.Observers
         List<Observer> ObserverList { get; }
 
         void NotifyObservers();
-
         void RegisterObserver(Observer e);
         void UnregisterObserver(Observer e);
     }

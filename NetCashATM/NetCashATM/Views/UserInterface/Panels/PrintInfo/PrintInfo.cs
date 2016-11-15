@@ -12,7 +12,6 @@ namespace NetCashATM.UserInterface.Panels
         {
             CreateChildControls();
             _printInfoPresenter = new PrintInfoPresenter();
-
         }
 
         public override void CreateChildControls()
@@ -33,18 +32,6 @@ namespace NetCashATM.UserInterface.Panels
         {
             _printInfoPresenter.GoToMainMenu();
         }
-
-        public void SetMessage(string message)
-        {
-            _messageLabel.Text = message;
-            _messageLabel.Update();
-        }
-
-        public void SetFileName()
-        {
-            _printInfoPresenter.PrintStatement();
-        }
-
     }
 }
 

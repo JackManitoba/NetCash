@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NetCashATM.UserInterface.Buttons
 {
@@ -12,19 +8,20 @@ namespace NetCashATM.UserInterface.Buttons
 
         public NumberButton(string number)
         {
-            this.Name = "button" + number;
-            this.Text = number;
-            this.UseVisualStyleBackColor = true;
-            this.Size = new System.Drawing.Size(75, 45);
+            Name = "button" + number;
+            Text = number;
+            UseVisualStyleBackColor = true;
+            Size = new System.Drawing.Size(75, 45);
+
             if (number == "0")
             {
-                this.TabIndex = (13);
-                this.Location = new System.Drawing.Point(ButtonPositions[9, 0], ButtonPositions[9, 1]);
+                TabIndex = (13);
+                Location = new System.Drawing.Point(ButtonPositions[9, 0], ButtonPositions[9, 1]);
             }
             else
             {
-                this.TabIndex = (Int32.Parse(number) - 1);
-                this.Location = new System.Drawing.Point(ButtonPositions[(Int32.Parse(number) - 1), 0], ButtonPositions[(Int32.Parse(number) - 1), 1]);
+                TabIndex = (Int32.Parse(number) - 1);
+                Location = new System.Drawing.Point(ButtonPositions[(Int32.Parse(number) - 1), 0], ButtonPositions[(Int32.Parse(number) - 1), 1]);
             }
         }
     }

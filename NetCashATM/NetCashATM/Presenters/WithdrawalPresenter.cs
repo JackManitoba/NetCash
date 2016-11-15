@@ -8,29 +8,20 @@ using System.Configuration;
 namespace NetCashATM.Presenters
 {
     public  class WithdrawalPresenter
-    {
-       
+    {  
         private ATMFacade _atmFacade;
         private ATMCashManager _cashManager;
-
-        /*public WithdrawalPresenter(WithdrawalPanel depositPanel)
-        {
-          
-
-            _atmFacade = new ATMFacade(ConfigurationManager.AppSettings["CardNumber"]);
-        }
-        */
 
         public void Withdraw(string input)
         {   
             _atmFacade = new ATMFacade(ConfigurationManager.AppSettings["CardNumber"]);
+
             if (input != "")
             {
                 if (((Convert.ToInt32(input)) % 10) != 0)
                 {
                     NavigationRequestDispatcher.TheInstance()
-                .DispatchNavigationRequestInterceptors(new NavigationContextObject("WithdrawalPanelError1"));
-                    //_WithdrawalPanel.SetErrorMessage("THIS MACHINE DOES DISPENSE NOTES LESS THAN €10");
+                        .DispatchNavigationRequestInterceptors(new NavigationContextObject("WithdrawalPanelError1"));
                 }
                 else
                 {
@@ -47,8 +38,7 @@ namespace NetCashATM.Presenters
                     else
                     {
                         NavigationRequestDispatcher.TheInstance()
-                .DispatchNavigationRequestInterceptors(new NavigationContextObject("WithdrawalPanelError2"));
-                        // _WithdrawalPanel.SetErrorMessage("THE WITHDRAWAL WAS UNSUCCESSFUL");
+                            .DispatchNavigationRequestInterceptors(new NavigationContextObject("WithdrawalPanelError2"));
                     }
                 }
             }

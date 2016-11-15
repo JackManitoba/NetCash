@@ -1,4 +1,5 @@
-﻿namespace NetCashATM.Commands
+﻿
+namespace NetCashATM.Commands
 {
     public interface Reciever
     {

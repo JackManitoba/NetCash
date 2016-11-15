@@ -8,10 +8,10 @@ namespace NetCashATM.UserInterface.Panels
     public class DepositErrorPanel : ATMPanel
     {
         private DepositPresenter _depositPresenter;
-        protected static TextBox _amountEntryBox;
-        protected static Label _depositLabel;
-        protected static Label _netCashLabel;
-        protected static Label _messageLabel;
+        private static TextBox _amountEntryBox;
+        private static Label _depositLabel;
+        private static Label _netCashLabel;
+        private static Label _messageLabel;
 
         public DepositErrorPanel()
         {
@@ -62,17 +62,17 @@ namespace NetCashATM.UserInterface.Panels
             _messageLabel.Update();
         }
 
-      
-
         public override void Cancel()
         {
             _depositPresenter.LogOut();
         }
+
         public override void Clear()
         {
             _amountEntryBox.Clear();
             _amountEntryBox.Update();
         }
+
         public override void Enter()
         {
             _depositPresenter.Deposit(_amountEntryBox.Text);

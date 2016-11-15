@@ -52,7 +52,6 @@
     <Compile Include="Commands\CancelCommand.cs" />
     <Compile Include="Commands\ClearCommand.cs" />
     <Compile Include="Commands\EnterCommand.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Observer\RegistrationHelper.cs" />
     <Compile Include="Commands\Reciever.cs" />
     <Compile Include="Commands\Command.cs" />
@@ -131,9 +130,7 @@
       <Name>Helpers</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>

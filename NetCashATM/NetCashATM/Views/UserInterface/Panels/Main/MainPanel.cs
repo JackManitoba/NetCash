@@ -11,10 +11,7 @@ namespace NetCashATM.UserInterface.Panels
     class MainPanel : ATMPanel
     {
         private MenuPresenter _menuPresenter;
-
         private List<Subject> _subjectList;
-        private List<Observer> _observerList;
-
         protected static Label _netCashLabel;
         protected static Label _withdrawalLabel;
         protected static Label _depositLabel;
@@ -22,11 +19,9 @@ namespace NetCashATM.UserInterface.Panels
         protected static Label _pinResetLabel;
         protected static Label _printReceiptLabel;
         protected static Label _exitLabel;
-        //protected static Label _confirmLabel;
 
         public MainPanel()
         {
-            Debug.WriteLine("MainPanel.MainPanel()");
             CreateChildControls();
             _menuPresenter = new MenuPresenter();
         }
@@ -83,32 +78,26 @@ namespace NetCashATM.UserInterface.Panels
             Debug.WriteLine("MainPanel.Update: " + b.Text);
             if (b.Text == "1")
             {
-               // _confirmLabel.Text = "WITHDRAWAL SELECTED, CONFIRM SELECTION? : ENTER";
-                _menuPresenter.NavigateToSelected("WithdrawalPanel");
+               _menuPresenter.NavigateToSelected("WithdrawalPanel");
             }
             else if (b.Text == "2")
             {
-                //_confirmLabel.Text = "BALANCE SELECTED, CONFIRM SELECTION? : ENTER";
                 _menuPresenter.NavigateToSelected("BalancePanel");
             }
             else if (b.Text == "3")
             {
-                //_confirmLabel.Text = "DEPOSIT SELECTED, CONFIRM SELECTION? : ENTER";
                 _menuPresenter.NavigateToSelected("DepositPanel");
             }
             else if (b.Text == "4")
             {
-                //_confirmLabel.Text = "PIN RESET SELECTED, CONFIRM SELECTION? : ENTER";
                 _menuPresenter.NavigateToSelected("PinResetPanel");
             }
             else if (b.Text == "5")
             {
-               // _confirmLabel.Text = "PRINT SELECTED, CONFIRM SELECTION? : ENTER";
                 _menuPresenter.NavigateToSelected("PrintInfo");
             }
             else if (b.Text == "6")
             {
-                //_confirmLabel.Text = "EXIT SELECTED, CONFIRM SELECTION? : ENTER";
                 _menuPresenter.NavigateToSelected("LogoutPanel");
             }
         }
@@ -116,55 +105,14 @@ namespace NetCashATM.UserInterface.Panels
         public override void Cancel()
         {
             _menuPresenter.NavigateToSelected("LogoutPanel");
-           // NotifyObservers();
         }
 
         public override void Clear()
         {
         }
 
-           public override void Enter()
-            {
-              
-            }
-            
-
-
-
-        public void NotifyObservers()
+        public override void Enter()
         {
-            Debug.WriteLine("MainPanel.NotifyObservers SHOULD NOT BE CALLED");
-            foreach (Observer e in _observerList)
-            {
-                e.Update(this);
-            }
         }
-
-        public void RegisterObserver(Observer e)
-        {
-            Debug.WriteLine("MainPanel.RegisterObserver SHOULD NOT BE CALLED");
-            _observerList.Add(e);
-        }
-
-        public void UnregisterObserver(Observer e)
-        {
-            Debug.WriteLine("MainPanel.UnregisterObserver SHOULD NOT BE CALLED");
-            _observerList.Remove(e);
-        }
-
-        public void Action()
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-
-
-
-
-
-
-
     }
 }

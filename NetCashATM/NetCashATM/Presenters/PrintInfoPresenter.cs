@@ -1,7 +1,6 @@
 ﻿using BankingFramework.FacadeClasses;
 using BankingFramework.InterceptorPackage.ContextObjects;
 using BankingFramework.InterceptorPackage.Dispatchers;
-using BankingFramework.Statements;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,12 +11,10 @@ namespace NetCashATM.Presenters
 {
     public class  PrintInfoPresenter
     {
-       
         private ATMFacade _atmFacade;
 
         public PrintInfoPresenter()
-        {
-           
+        {    
             _atmFacade = new ATMFacade(ConfigurationManager.AppSettings["CardNumber"]);
             PrintStatement();
         }
@@ -28,8 +25,7 @@ namespace NetCashATM.Presenters
             int position = path.IndexOf("NetCash");
             var substring = path.Substring(0, position);
 
-            Statement s = new Statement(_atmFacade.GetAccountNumber());
-            List<List<string>> transactionlist = s.getListOfTransactions();
+            List<List<string>> transactionlist = _atmFacade.GetStatement();
             path = substring + "NetCash\\logs\\TransactionsLog" + _atmFacade.GetAccountNumber().Trim() + ".txt";
             
             string Filename = @path;
@@ -41,30 +37,22 @@ namespace NetCashATM.Presenters
             else
             {
                 string createText = generateStatementText(transactionlist); 
-
                 File.WriteAllText(path, createText);
             }
-            Debug.WriteLine(path);
-           
-          
 
-
-
-
-            Process.Start("notepad.exe", Filename);
-           
+            Process.Start("notepad.exe", Filename);         
         }
 
         private string generateStatementText(List<List<string>> transactionlist)
         {
             string createText = "";
-                 createText += "Outgoing||";
-                 createText += "Incoming||";
-                createText += "Type\t||";
-                 createText += "Amount||";
-                createText += "Date\t\t||";
-               createText += "Balance" + Environment.NewLine;
-           createText += "------------------------------------------------------------------" + Environment.NewLine;
+                   createText += "Outgoing||";
+                   createText += "Incoming||";
+                   createText += "Type\t||";
+                   createText += "Amount||";
+                   createText += "Date\t\t||";
+                   createText += "Balance" + Environment.NewLine;
+                   createText += "------------------------------------------------------------------" + Environment.NewLine;
             for (int i = 0; i < transactionlist.Count; i++)
             {
                 for (int j = 0; j < transactionlist[i].Count; j++)

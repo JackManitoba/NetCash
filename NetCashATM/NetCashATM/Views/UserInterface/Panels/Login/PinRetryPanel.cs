@@ -1,7 +1,6 @@
 ﻿using NetCashATM.Observers;
 using NetCashATM.Presenters;
 using NetCashATM.UserInterface.Buttons;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -12,20 +11,15 @@ namespace NetCashATM.UserInterface.Panels
     {
         private LoginPresenter _loginPresenter;
         private List<Subject> _subjectList;
-        private List<Observer> _observerList;
-
-        protected static TextBox _pinEntryBox;
-        protected static Label _messageLabel;
-        protected static Label _netCashLabel;
-       
+        private static TextBox _pinEntryBox;
+        private static Label _messageLabel;
+        private static Label _netCashLabel;     
 
         public PinRetryPanel()
         {
             Debug.WriteLine("PinPanel.PinPanel()");
             CreateChildControls();
             _loginPresenter = new LoginPresenter();
-            //NavData = new NavigationDataClass();
-
         }
 
         public override void CreateChildControls()
@@ -55,14 +49,7 @@ namespace NetCashATM.UserInterface.Panels
             _messageLabel.ForeColor = System.Drawing.Color.Red;
             _messageLabel.SetBounds(((this.Width / 2) - 70), ((this.Height / 2) - 70), 150, 40);
             Controls.Add(_messageLabel);
-
-            //  NavData.AddNavigaion("MAIN");
         }
-
-
-
-
-        //COMMAND RELATED FUNCTIONS
 
         public override void Cancel()
         {
@@ -78,10 +65,7 @@ namespace NetCashATM.UserInterface.Panels
         {
             _loginPresenter.Login(_pinEntryBox.Text);
         }
-
-
-        //PART OF OBSERVER DESIGN PATTERN -- SUBJECT PASSES ITSELF AS PARAMETER TO GET TEXT FROM AND UPDATES
-
+           
         public override void Update(Subject e)
         {
             Debug.WriteLine("PinPanel.Update");
@@ -93,44 +77,6 @@ namespace NetCashATM.UserInterface.Panels
         public override TextBox GetInput()
         {
             return _pinEntryBox;
-        }
-
-        public void DisplayMessage(string message)
-        {
-
-            Debug.WriteLine("PinPanel.DisplayMessage");
-            _messageLabel.Text = message;
-            Debug.WriteLine(_messageLabel.Text);
-            _messageLabel.Update();
-        }
-
-
-
-        public void NotifyObservers()
-        {
-
-            Debug.WriteLine("PinPanel.NotifyObservers SHOULD NOT BE CALLED");
-            foreach (Observer e in _observerList)
-            {
-                e.Update(this);
-            }
-        }
-
-        public void RegisterObserver(Observer e)
-        {
-            Debug.WriteLine("PinPanel.RegisterObserver SHOULD NOT BE CALLED");
-            _observerList.Add(e);
-        }
-
-        public void UnregisterObserver(Observer e)
-        {
-            Debug.WriteLine("PinPanel.UnregisterObserver SHOULD NOT BE CALLED");
-            _observerList.Remove(e);
-        }
-
-        public void Action()
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿
-using NetCashATM.UserInterface.Panels;
+﻿using NetCashATM.UserInterface.Panels;
 using NetCashATM.Views;
 using System;
-using System.Diagnostics;
 using System.Windows.Forms;
 using BankingFramework.InterceptorPackage.ContextObjects;
 using BankingFramework.InterceptorPackage.Interceptors;
@@ -10,38 +8,28 @@ using BankingFramework.InterceptorPackage.Dispatchers;
 
 namespace ClientCode
 {
-
     class Program
     {
-
         private static ATMMainView _mainView;
-
-        public int VerifiedSession = 0;
 
         class NavigationRequestInterceptor : Interceptor
         {
             PanelFactory _panelFactory = new PanelFactory();
 
-            public void consumeService(ContextObject e)
+            public void ConsumeService(ContextObject e)
             {
-
-                Debug.WriteLine("Program.NavigationRequestInterceptor.BaseFunction: " + e.GetShortDescription());
                 _mainView.SetCurrentPanel(_panelFactory.GetPanel(e.GetShortDescription()));
             }
         }
-
-   
-
-       
-
 
         [STAThread]
         public static void Main()
         {
             SetDataPath();
 
-            ClientRequestInterceptor myInterceptor = new ClientRequestInterceptor();
-            ClientRequestDispatcher.TheInstance().RegisterClientInterceptor(myInterceptor);
+            LoggingInfoInterceptor myInterceptor = new LoggingInfoInterceptor();
+            LoggingInfoDispatcher.TheInstance().RegisterClientInterceptor(myInterceptor);
+
             NavigationRequestInterceptor navInterceptor = new NavigationRequestInterceptor();
             NavigationRequestDispatcher.TheInstance().RegisterClientInterceptor(navInterceptor);
 
@@ -50,12 +38,9 @@ namespace ClientCode
             _mainView = new ATMMainView();
             PinPanel pinPanel = new PinPanel();
             SetPanel(pinPanel);
+
             Application.Run(_mainView);
         }
-
-
-
-
 
         public static void SetPanel(ATMPanel currentPanel)
         {
@@ -70,7 +55,5 @@ namespace ClientCode
             path = substring + "NetCash\\NetCashWebSite\\App_Data";
             AppDomain.CurrentDomain.SetData("DataDirectory", path);
         }
-
-
     }
 }

@@ -11,8 +11,8 @@ namespace NetCash
     {
         protected void Application_Start()
         {
-            ClientRequestInterceptor myInterceptor = new ClientRequestInterceptor();
-            ClientRequestDispatcher.TheInstance().RegisterClientInterceptor(myInterceptor);
+            LoggingInfoInterceptor myInterceptor = new LoggingInfoInterceptor();
+            LoggingInfoDispatcher.TheInstance().RegisterClientInterceptor(myInterceptor);
 
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);

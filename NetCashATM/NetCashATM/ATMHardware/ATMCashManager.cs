@@ -67,11 +67,6 @@ namespace NetCashATM.ATMHardware
             else return false;
         }
 
-        /// <summary>
-        /// CAN SOMEONE ELSE CLEAN THE FOLLOWING MESS UP? PLEASE AND THANKS.
-        /// </summary>
-        /// <param name="updateAmount"></param>
-
         public void UpdateAmountWithdrawal(double updateAmount)
         {
             updatecashWithdrawal(updateAmount);
@@ -107,24 +102,18 @@ namespace NetCashATM.ATMHardware
         {
             int attempted = Convert.ToInt32(doubleattempt);
             int[] notes = { 10, 20, 50, 100, 200, 500 };
-           
+
             for (int i = notes.Length - 1; i >= 0; i--)
             {
-               
-                if (notes[i] > attempted)
+                if (notes[i] <= attempted && _noteCounts[i] != 0)
                 {
-                }                
-                else if (notes[i] <= attempted)
-                {
-                    if (_noteCounts[i] != 0)
-                    {
-                        attempted -= notes[i];
-                        _noteCounts[i]--;
-                        if (attempted != 0) i++;
-                    }
+                    attempted -= notes[i];
+                    _noteCounts[i]--;
+                    if (attempted != 0) i++;
                 }
             }
-        }
+
+        }     
 
         private void updatecashDeposit(double doubleattempt)
         {
@@ -132,17 +121,12 @@ namespace NetCashATM.ATMHardware
             int[] notes = { 10, 20, 50, 100, 200, 500 };
            
             for (int i = notes.Length - 1; i >= 0; i--)
-            {
-                if (notes[i] > attempted)
+            {      
+                if (notes[i] <= attempted)
                 {
-                }
-               
-                else if (notes[i] <= attempted)
-                {
-                   attempted -= notes[i];
+                    attempted -= notes[i];
                     _noteCounts[i]++;
-                    if (attempted != 0)
-                        i++;
+                    if (attempted != 0) i++;
                 }
             }
         }

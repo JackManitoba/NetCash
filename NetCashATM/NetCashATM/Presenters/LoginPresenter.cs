@@ -1,7 +1,5 @@
-﻿
-using BankingFramework.FacadeClasses;
+﻿using BankingFramework.FacadeClasses;
 using System.Configuration;
-using System.Diagnostics;
 using BankingFramework.InterceptorPackage.Dispatchers;
 using BankingFramework.InterceptorPackage.ContextObjects;
 
@@ -14,20 +12,15 @@ namespace NetCashATM.Presenters
 
         public LoginPresenter()
         {
-            
-            Debug.WriteLine("PinPresenter.PinPresenter()");
-            
             _atmFacade = new ATMFacade(ConfigurationManager.AppSettings["CardNumber"]);
         }
 
         public void Login(string pin)
-        {
-            
+        { 
             if (!_atmFacade.IsCardCancelled())
             {
                 if (_atmFacade.ValidateAccount(pin))
                 {
-                    Debug.WriteLine("PinPanel.GetPinPanel");
                     _remainingAttempts = 3;
                     NavigationRequestDispatcher.TheInstance()
                         .DispatchNavigationRequestInterceptors(new NavigationContextObject("MainPanel"));
@@ -42,8 +35,8 @@ namespace NetCashATM.Presenters
                     }
                     else
                     {
-
                         _atmFacade.CancelCard(ConfigurationManager.AppSettings["CardNumber"]);
+
                         NavigationRequestDispatcher.TheInstance()
                         .DispatchNavigationRequestInterceptors(new NavigationContextObject("CardCancelledPanel"));
                     }
@@ -54,20 +47,6 @@ namespace NetCashATM.Presenters
                 NavigationRequestDispatcher.TheInstance()
                             .DispatchNavigationRequestInterceptors(new NavigationContextObject("CardCancelledPanel"));
             }
-        }
-       
-        
-            
-            
-            
-            
-            
-        
-
-        public void Logout()
-        {
-            NavigationRequestDispatcher.TheInstance()
-                .DispatchNavigationRequestInterceptors(new NavigationContextObject("LogoutPanel"));
         }
     }
 }

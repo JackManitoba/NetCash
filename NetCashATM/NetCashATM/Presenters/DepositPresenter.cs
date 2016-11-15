@@ -2,7 +2,6 @@
 using BankingFramework.InterceptorPackage.ContextObjects;
 using BankingFramework.InterceptorPackage.Dispatchers;
 using NetCashATM.ATMHardware;
-
 using System;
 using System.Configuration;
 
@@ -10,15 +9,12 @@ namespace NetCashATM.Presenters
 {
     public class DepositPresenter
     {
-       
         private ATMFacade _atmFacade;
         private ATMCashManager _cashManager = new ATMCashManager();
 
         public DepositPresenter()
         {
-           
-
-            _atmFacade  = new ATMFacade(ConfigurationManager.AppSettings["CardNumber"]);
+            _atmFacade = new ATMFacade(ConfigurationManager.AppSettings["CardNumber"]);
         }
 
         public void Deposit(string amount)
@@ -28,7 +24,7 @@ namespace NetCashATM.Presenters
                 if (((Convert.ToInt32(amount)) % 10) != 0)
                 {
                     NavigationRequestDispatcher.TheInstance()
-                .DispatchNavigationRequestInterceptors(new NavigationContextObject("DepositErrorPanel"));
+                        .DispatchNavigationRequestInterceptors(new NavigationContextObject("DepositErrorPanel"));
                 }
                 else
                 {

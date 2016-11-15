@@ -5,18 +5,17 @@ using System.Windows.Forms;
 
 namespace NetCashATM.UserInterface.Panels
 {
-   public class PinResetPanel : ATMPanel
+    public class PinResetPanel : ATMPanel
     {
         private PinResetPresenter _pinResetPresenter;
-        protected static TextBox _pinEntryBox;
-        protected static Label _pinResetLabel;
-        protected static Label _netCashLabel;
+        private static TextBox _pinEntryBox;
+        private static Label _pinResetLabel;
+        private static Label _netCashLabel;
 
         public PinResetPanel()
         {
             CreateChildControls();
             _pinResetPresenter = new PinResetPresenter();
-
         }
 
         public override void CreateChildControls()
@@ -52,6 +51,7 @@ namespace NetCashATM.UserInterface.Panels
             _pinEntryBox.Text += b.Text;
             _pinEntryBox.Update();
         }
+
         public override void Cancel()
         {
             _pinResetPresenter.GoToMainMenu();
@@ -67,6 +67,7 @@ namespace NetCashATM.UserInterface.Panels
         {
             _pinResetPresenter.ResetPin(_pinEntryBox.Text);
         }
+
         public override TextBox GetInput()
         {
             return _pinEntryBox;

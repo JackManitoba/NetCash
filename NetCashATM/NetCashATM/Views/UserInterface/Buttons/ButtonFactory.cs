@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace NetCashATM.UserInterface.Buttons
 {
-    class ButtonFactory
+    public class ButtonFactory
     {
-        public ButtonFactory() { Console.WriteLine("Button factory created"); }
-
         public ATMButton GetButton(string buttonName)
         {
             ATMButton atmButton = null;
@@ -63,6 +56,7 @@ namespace NetCashATM.UserInterface.Buttons
                         atmButton = new NumberButton(buttonName); break;
                     }
             }
+
             return atmButton;
         }
     }

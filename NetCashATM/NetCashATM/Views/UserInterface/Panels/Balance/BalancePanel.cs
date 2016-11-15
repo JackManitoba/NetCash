@@ -1,13 +1,11 @@
 ﻿using NetCashATM.Observers;
 using NetCashATM.Presenters;
 using NetCashATM.UserInterface.Buttons;
-using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace NetCashATM.UserInterface.Panels
 {
-
-   public  class BalancePanel : ATMPanel
+   public class BalancePanel : ATMPanel
     {
         private BalancePresenter _balancePresenter;
         private static Label _netCashLabel;
@@ -16,11 +14,9 @@ namespace NetCashATM.UserInterface.Panels
 
         public BalancePanel()
         {
-            Debug.WriteLine("BalancePanel.BalancePanel()");
             CreateChildControls();
             _balancePresenter = new BalancePresenter();
             ShowBalance();
-
         }
 
         public override void CreateChildControls()
@@ -51,14 +47,10 @@ namespace NetCashATM.UserInterface.Panels
         public override void Update(Subject e)
         {
             ATMButton b = (ATMButton)e;
-
-            Debug.WriteLine("BalancePanel.Update" + b.Text);
         }
 
         public void ShowBalance()
         {
-
-           
             _currentBalance.Text = "€ " + _balancePresenter.retrieveBalance();
             _currentBalance.Update();
         }

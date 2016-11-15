@@ -1,4 +1,5 @@
-﻿namespace NetCashATM.UserInterface.Panels
+﻿
+namespace NetCashATM.UserInterface.Panels
 {
     public class PanelFactory
     {
@@ -33,10 +34,10 @@
                         break;
                     }
                 case "WithdrawalPanelError1":
-                {
+                    {
                         p = new WithdrawalPanelATMError();
                         break;
-                }
+                    }
                 case "WithdrawalPanelError2":
                     {
                         p = new WithrawalPanelATMFundsAvailableError();
@@ -73,6 +74,7 @@
                         break;
                     }
             }
+
             return p;
         }
     }
