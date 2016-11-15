@@ -117,8 +117,6 @@ namespace BankingFramework.DatabaseManagement
 
         private void writeTransactionToDatabase(string originatingAccountNumber, string recipientAccountNumber, string type, double amount)
         {
-            var dateAndTime = DateTime.Now;
-
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"INSERT INTO [dbo].[BankTransactions](Id, OutgoingAccount, IncomingAccount, Type, Amount, Date, OutgoingAccountBalance, IncomingAccountBalance) VALUES (@id, @oa, @ra, @t, @a, @d, @oab, @rab )";
@@ -147,7 +145,7 @@ namespace BankingFramework.DatabaseManagement
                     .Value = amount;
                 cmd.Parameters
                     .Add(new SqlParameter("@d", SqlDbType.NVarChar))
-                    .Value = dateAndTime.ToString("dd/MM/yyyy");
+                    .Value = DateTime.Now.ToString("dd/MM/yyyy");
                 
                 connection.Open();
                 cmd.ExecuteScalar();
@@ -327,6 +325,258 @@ namespace BankingFramework.DatabaseManagement
                 cmd.Parameters
                     .Add(new SqlParameter("@b", SqlDbType.Float))
                     .Value = GetAccountBalance(accountNumber) + _amount;
+
+                connection.Open();
+                cmd.ExecuteScalar();
+                cmd.Dispose();
+                connection.Dispose();
+            }
+        }
+
+        public bool PendingApplicationExists(string accountNumber)
+        {
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"SELECT * FROM [dbo].[LoanApplications] WHERE [AccountNumber] = @an AND [Discussed] = 0 ";
+
+                var cmd = new SqlCommand(_sql, connection);
+
+                cmd.Parameters
+                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
+                    .Value = accountNumber;
+
+                connection.Open();
+
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    cmd.Dispose();
+                    connection.Dispose();
+                    return true;
+                }
+                else
+                {
+                    cmd.Dispose();
+                    connection.Dispose();
+                    return false;
+                }
+            }
+        }
+
+        public List<string> GetLoanDataByAccountNumber(string accountNumber)
+        {
+            List<string> loanApplication = new List<string>();
+
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"SELECT * FROM [dbo].[LoanApplications] " +
+                                  @"WHERE [AccountNumber] = @an AND [Discussed] = 0";              
+                var cmd = new SqlCommand(_sql, connection);
+
+                cmd.Parameters
+                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
+                    .Value = accountNumber;
+                connection.Open();
+
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    loanApplication.Add(reader.GetString(reader.GetOrdinal("LoanType")));
+                    loanApplication.Add(reader.GetString(reader.GetOrdinal("AmountRequired")));
+                    loanApplication.Add(reader.GetString(reader.GetOrdinal("RepaymentPeriod")));
+
+                    string date = reader.GetString(reader.GetOrdinal("DateOfApplication"));
+                    date = date.Substring(0, 10);
+                    loanApplication.Add(date);
+
+                    reader.Dispose();
+                    cmd.Dispose();
+                }
+                else
+                {
+                    reader.Dispose();
+                    cmd.Dispose();
+                }
+            }
+
+            return loanApplication;
+        }
+
+        public bool DoesPendingQueryExist(string accountNumber)
+        {
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"SELECT * FROM [dbo].[InsuranceQuery] " +
+                                  @"WHERE [AccountNumber] = @an AND [Discussed] = 0";
+                var cmd = new SqlCommand(_sql, connection);
+
+                cmd.Parameters
+                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
+                    .Value = accountNumber;
+                connection.Open();
+
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    reader.Dispose();
+                    cmd.Dispose();
+                    return true;
+                }
+                else
+                {
+                    reader.Dispose();
+                    cmd.Dispose();
+                    return false;
+                }
+            }
+        }
+
+        public void SubmitInsuranceQuery(string AccountNumber, string insuranceType, string ageBracket, string location)
+        {
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+
+                string _sql = @"INSERT INTO [dbo].[InsuranceQuery] (GUID, AccountNumber, Insurancetype, AgeBracket, Location, Date, Discussed) VALUES (@id, @an,@in, @ab, @lc, @dt, @d)";
+
+                var cmd = new SqlCommand(_sql, connection);
+
+                cmd.Parameters
+                    .Add(new SqlParameter("@id", SqlDbType.UniqueIdentifier))
+                    .Value = Guid.NewGuid();
+                cmd.Parameters
+                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
+                    .Value = AccountNumber.ToString();
+                cmd.Parameters
+                    .Add(new SqlParameter("@in", SqlDbType.NVarChar))
+                    .Value = insuranceType;
+                cmd.Parameters
+                    .Add(new SqlParameter("@ab", SqlDbType.NVarChar))
+                    .Value = ageBracket;
+                cmd.Parameters
+                    .Add(new SqlParameter("@lc", SqlDbType.NVarChar))
+                    .Value = location;
+                cmd.Parameters
+                     .Add(new SqlParameter("@dt", SqlDbType.NVarChar))
+                     .Value = DateTime.Now.ToString("dd/MM/yyyy");
+                cmd.Parameters
+                    .Add(new SqlParameter("@d", SqlDbType.Bit))
+                    .Value = 0;
+
+                connection.Open();
+                cmd.ExecuteScalar();
+                cmd.Dispose();
+                connection.Dispose();
+            }
+        }
+
+        public List<string> GetInsuranceByAccountNumber(string accountNumber)
+        {
+
+            List<string> insuranceQuery = new List<string>();
+
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"SELECT * FROM [dbo].[InsuranceQuery] " +
+                                  @"WHERE [AccountNumber] = @an";
+                
+                var cmd = new SqlCommand(_sql, connection);
+                cmd.Parameters
+                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
+                    .Value = accountNumber;
+                connection.Open();
+
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    insuranceQuery.Add(reader.GetString(reader.GetOrdinal("Insurancetype")));
+                    insuranceQuery.Add(reader.GetString(reader.GetOrdinal("AgeBracket")));
+                    insuranceQuery.Add(reader.GetString(reader.GetOrdinal("Location")));
+
+                    string date = reader.GetString(reader.GetOrdinal("Date"));
+                    date = date.Substring(0, 10);
+                    insuranceQuery.Add(date);
+
+                    reader.Dispose();
+                    cmd.Dispose();
+                }
+                else
+                {
+                    reader.Dispose();
+                    cmd.Dispose();
+                }
+            }
+            return insuranceQuery;
+        }
+
+        public void MarkInsuranceAsDiscussed(string accountNumber)
+        {
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"UPDATE [dbo].[InsuranceQuery] " + @"SET [Discussed] = 1 " +
+                                  @"WHERE [AccountNumber] = @an";
+
+                var cmd = new SqlCommand(_sql, connection);
+                cmd.Parameters
+                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
+                    .Value = accountNumber;
+                connection.Open();
+
+                var reader = cmd.ExecuteScalar();
+
+                cmd.Dispose();
+                connection.Close();
+            }
+        }
+
+        public void MarkLoanAsDiscussed(string accountNumber)
+        {
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"UPDATE [dbo].[LoanApplications] " + @"SET [Discussed] = 1 " +
+                                  @"WHERE [AccountNumber] = @an";
+
+                var cmd = new SqlCommand(_sql, connection);
+                cmd.Parameters
+                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
+                    .Value = accountNumber;
+                connection.Open();
+
+                var reader = cmd.ExecuteScalar();
+
+                cmd.Dispose();
+                connection.Close();
+            }
+        }
+
+        public void SubmitLoanApplication(string accountNumber, string loanType, string amountRequired, string repaymentPeriod)
+        {
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"INSERT INTO [dbo].[LoanApplications] (GUID, AccountNumber, LoanType, AmountRequired, RepaymentPeriod, DateOfApplication, Discussed) VALUES (@id, @an, @lt, @ar, @rp, @doa, @d) ";
+
+                var cmd = new SqlCommand(_sql, connection);
+
+                cmd.Parameters
+                    .Add(new SqlParameter("@id", SqlDbType.UniqueIdentifier))
+                    .Value = Guid.NewGuid();
+                cmd.Parameters
+                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
+                    .Value = accountNumber;
+                cmd.Parameters
+                    .Add(new SqlParameter("@lt", SqlDbType.NVarChar))
+                    .Value = loanType;
+                cmd.Parameters
+                    .Add(new SqlParameter("@ar", SqlDbType.NVarChar))
+                    .Value = amountRequired;
+                cmd.Parameters
+                    .Add(new SqlParameter("@rp", SqlDbType.NVarChar))
+                    .Value = repaymentPeriod;
+                cmd.Parameters
+                     .Add(new SqlParameter("@doa", SqlDbType.NVarChar))
+                     .Value = DateTime.Now.ToString("dd/MM/yyyy");
+                cmd.Parameters
+                   .Add(new SqlParameter("@d", SqlDbType.Bit))
+                   .Value = 0;
 
                 connection.Open();
                 cmd.ExecuteScalar();

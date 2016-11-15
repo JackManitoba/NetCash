@@ -1,5 +1,8 @@
 ﻿using System.Web.Mvc;
 using NetCashWebSite.Models;
+using BankingFramework.FacadeClasses;
+using System.Collections.Generic;
+using System;
 
 namespace NetCashWebSite.Controllers
 {
@@ -14,9 +17,19 @@ namespace NetCashWebSite.Controllers
         [HttpPost]
         public ActionResult LoanStaffQuery(Loan Loan)
         {
-            if(Loan.PendingApplicationExists())
+            WebSiteFacade webSiteFacade = new WebSiteFacade(Loan.AccountNumber);
+            
+            if(webSiteFacade.PendingApplicationExists())
             {
-                Loan.GetLoanDataByAccountNumber();
+                webSiteFacade.GetLoanDataByAccountNumber();
+
+                List<string> loanProperties = webSiteFacade.GetLoanDataByAccountNumber();
+
+                Loan.LoanChoice = loanProperties[0];
+                Loan.AmountRequired = loanProperties[1];
+                Loan.PeriodOfRepayment = loanProperties[2];
+                Loan.DateOfApplication = loanProperties[3];
+
                 return View("DisplayLoan", Loan);
             }
             else
@@ -27,7 +40,9 @@ namespace NetCashWebSite.Controllers
 
         public ActionResult DiscussLoan(Loan Loan)
         {
-            Loan.MarkLoanAsDiscussed();
+            WebSiteFacade webSiteFacade = new WebSiteFacade(Loan.AccountNumber);
+            webSiteFacade.MarkLoanAsDiscussed();
+
             return View();
         }
     }

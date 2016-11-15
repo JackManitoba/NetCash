@@ -1,16 +1,10 @@
 ﻿@model NetCashWebSite.Models.Loan
 
-@{
-    ViewBag.Title = "Loan";
-    //Layout = "/Views/Shared/_UserLayout.cshtml";
-}
-
 @section article {
-
+    <h2>Loan Application</h2>
     @using (Html.BeginForm())
     {
         @Html.ValidationSummary(true, "Application failed. Check your loan application details");
-
 
                 <div class="form-group">
                     @Html.LabelFor(l => l.LoanChoice, new { @id = "ddLoanType", @class = "control-label" })

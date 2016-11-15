@@ -20,8 +20,7 @@ namespace NetCashWebSite.Controllers
             else
             {
                 return View();
-            }
-            
+            }         
         }
         public ActionResult StaffHomepage()
         {

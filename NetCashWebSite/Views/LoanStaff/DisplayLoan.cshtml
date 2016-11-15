@@ -1,9 +1,5 @@
 ﻿@model NetCashWebSite.Models.Loan
 
-@{
-    ViewBag.Title = "LoanStaff";
-}
-
 @section article{
     <h2>Outstanding Loan Application</h2>
     
@@ -39,7 +35,6 @@
 </div>
 
     <button id="btnMarkDiscussed" class="btn btn-primary" onclick="location.href='@Url.Action("DiscussLoan", "LoanStaff", Model)'">Mark as discussed</button> 
-
-    
+ 
     }
 

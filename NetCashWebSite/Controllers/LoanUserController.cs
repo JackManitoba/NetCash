@@ -1,4 +1,5 @@
-﻿using NetCashWebSite.Models;
+﻿using BankingFramework.FacadeClasses;
+using NetCashWebSite.Models;
 using System.Web.Mvc;
 
 namespace NetCashWebSite.Controllers
@@ -14,13 +15,15 @@ namespace NetCashWebSite.Controllers
         [HttpPost]
         public ActionResult LoanApplication(Loan LoanApplication)
         {
-            if(LoanApplication.PendingApplicationExists(Session["AccountNumber"].ToString()))
+            WebSiteFacade webSiteFacade = new WebSiteFacade(Session["AccountNumber"].ToString());
+
+            if (webSiteFacade.PendingApplicationExists())
             {
                 return View("LoanFailure");
             }
             else
             {
-                LoanApplication.SubmitApplication(Session["AccountNumber"]);
+                webSiteFacade.SubmitLoanApplication(LoanApplication.LoanChoice, LoanApplication.AmountRequired, LoanApplication.PeriodOfRepayment);
                 return View("LoanResult");
             }
         }    

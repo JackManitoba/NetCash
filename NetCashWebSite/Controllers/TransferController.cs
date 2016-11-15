@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using BankingFramework.FacadeClasses;
 using NetCashWebSite.Models;
 
@@ -7,7 +6,6 @@ namespace NetCashWebSite.Controllers
 {
     public class TransferController : Controller
     {
-        // GET: Transfer
         public ActionResult Index()
         {
             return View();
@@ -33,7 +31,6 @@ namespace NetCashWebSite.Controllers
             }
             else Result = "You have insufficient funds for this transaction. You tried to transfer €" + transfer.TransferAmount;
 
-            Debug.WriteLine(Result);
             return View("TransferResult", (object)Result);
         }
     }

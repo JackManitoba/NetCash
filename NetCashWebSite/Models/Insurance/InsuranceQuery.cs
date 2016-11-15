@@ -1,63 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Diagnostics;
-using NetCashWebSite.Models.Insurance;
 
 namespace NetCashWebSite.Models.Insurance
 {
     public class InsuranceQuery
-    {
-        public string apply = " thank you ";
-        public double quote { get; set; }
+    { 
+        public double Quote { get; set; }
 
+        [Required(ErrorMessage = "Please specifiy an account number")]
+        [Display(Name = "Account Number: ")]
         public string AccountNumber { get; set; }
 
-        public DateTime DateOfApplication { get; set; }
-
-        public bool Discussed { get; set; }
+        [Display(Name = "Date of Application: ")]
+        public string DateOfApplication { get; set; }
 
         IInsuranceStrategy strategy { get; set; }
-
-        internal bool PendingQueryExists()
-        {
-            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
-            {
-                string _sql = @"SELECT * FROM [dbo].[InsuranceQuery] " +
-                                  @"WHERE [AccountNumber] = @an AND [Discussed] = 0";
-
-                Debug.WriteLine(AccountNumber);
-                var cmd = new SqlCommand(_sql, connection);
-                cmd.Parameters
-                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
-                    .Value = this.AccountNumber;
-                connection.Open();
-
-                var reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    reader.Dispose();
-                    cmd.Dispose();
-                    return true;
-                }
-                else
-                {
-                    reader.Dispose();
-                    cmd.Dispose();
-                    return false;
-                }
-            }
-        }
-
-        internal bool PendingQueryExists(object AccountNumber)
-        {
-            this.AccountNumber = AccountNumber.ToString();
-            return PendingQueryExists();
-        }
 
         public static List<InsuranceType> InsuranceTypeList = new List<InsuranceType>
             {
@@ -74,24 +36,29 @@ namespace NetCashWebSite.Models.Insurance
                 new AgeType {ageBracketIntValue = 3, StringValue = "65+" },
            };
 
+        public static List<LocationType> LocationTypeList = new List<LocationType>
+           {
+                new LocationType {LocationIntValue = 1, StringValue = "Connacht" },
+                new LocationType {LocationIntValue = 2, StringValue = "Munster" },
+                new LocationType {LocationIntValue = 3, StringValue = "Leinster" },
+                new LocationType {LocationIntValue = 4, StringValue = "Ulster" }
+           };
 
         public void CalculatePremium()
         {
-            quote = strategy.calculatequote(
+            Quote = strategy.calculatequote(
                 LocationTypeList.Find(locationType => String.Equals(locationType.StringValue, LocationChoice)).LocationIntValue,
                 AgeTypeList.Find(AgeType => String.Equals(AgeType.StringValue, AgeChoice)).ageBracketIntValue);
         }
 
         public class InsuranceType
         {
-
             public string StringValue { get; set; }
             public int TypeIntValue { get; set; }
         }
 
         public class AgeType
         {
-
             public string StringValue { get; set; }
             public int ageBracketIntValue { get; set; }
         }
@@ -102,7 +69,7 @@ namespace NetCashWebSite.Models.Insurance
             public string StringValue { get; set; }
         }
 
-        public class InsuranceCustomer
+        public class InsuranceQuote
         {
             public int InsuranceType { get; set; }
             public int ageBracket { get; set; }
@@ -134,22 +101,12 @@ namespace NetCashWebSite.Models.Insurance
         [Display(Name = "What type of insurance are you looking for?")]
         public string InsuranceTypeChoice { get; set; }
 
-
         public IEnumerable<InsuranceType> InsuranceTypeOptions = InsuranceTypeList;
         [Required]
         [Display(Name = "What is your current age bracket?")]
         public string AgeChoice { get; set; }
 
-        public IEnumerable<AgeType> ageBracketOptions = AgeTypeList;
-
-
-        public static List<LocationType> LocationTypeList = new List<LocationType>
-           {
-                new LocationType {LocationIntValue = 1, StringValue = "Connacht" },
-                new LocationType {LocationIntValue = 2, StringValue = "Munster" },
-                new LocationType {LocationIntValue = 3, StringValue = "Leinster" },
-                new LocationType {LocationIntValue = 4, StringValue = "Ulster" }
-           };
+        public IEnumerable<AgeType> ageBracketOptions = AgeTypeList;   
 
         [Required]
         [Display(Name = "In which province do you currently reside?")]
@@ -157,99 +114,5 @@ namespace NetCashWebSite.Models.Insurance
 
         public IEnumerable<LocationType> LocationOptions = LocationTypeList;
 
-
-
-        public void SubmitApplication(string AccountNumber)
-        {
-            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
-            {
-
-                string _sql = @"INSERT INTO [dbo].[InsuranceQuery] (GUID, AccountNumber, Insurancetype, AgeBracket, Location, Date, Discussed) VALUES (@id, @an,@in, @ab, @lc, @dt, @d)";
-
-                var cmd = new SqlCommand(_sql, connection);
-
-                cmd.Parameters
-                    .Add(new SqlParameter("@id", SqlDbType.UniqueIdentifier))
-                    .Value = Guid.NewGuid();
-                cmd.Parameters
-                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
-                    .Value = AccountNumber.ToString();
-                cmd.Parameters
-                    .Add(new SqlParameter("@in", SqlDbType.NVarChar))
-                    .Value = InsuranceTypeChoice;
-                cmd.Parameters
-                    .Add(new SqlParameter("@ab", SqlDbType.NVarChar))
-                    .Value = AgeChoice;
-                cmd.Parameters
-                    .Add(new SqlParameter("@lc", SqlDbType.NVarChar))
-                    .Value = LocationChoice;
-                cmd.Parameters
-                   .Add(new SqlParameter("@dt", SqlDbType.DateTime))
-                   .Value = DateTime.Now;
-                cmd.Parameters
-                   .Add(new SqlParameter("@d", SqlDbType.Bit))
-                   .Value = 0;
-
-                connection.Open();
-
-                cmd.ExecuteScalar();
-
-                cmd.Dispose();
-                connection.Dispose();
-            }
-        }
-
-        public void GetInsuranceByAccountNumber()
-        {
-            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
-            {
-                string _sql = @"SELECT * FROM [dbo].[InsuranceQuery] " +
-                                  @"WHERE [AccountNumber] = @an";
-
-                Debug.WriteLine(AccountNumber);
-                var cmd = new SqlCommand(_sql, connection);
-                cmd.Parameters
-                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
-                    .Value = this.AccountNumber;
-                connection.Open();
-
-                var reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    Debug.WriteLine("well");
-                    this.InsuranceTypeChoice = reader.GetString(reader.GetOrdinal("Insurancetype"));
-                    this.AgeChoice = reader.GetString(reader.GetOrdinal("AgeBracket"));
-                    this.LocationChoice = reader.GetString(reader.GetOrdinal("Location"));
-                    this.DateOfApplication = reader.GetDateTime(reader.GetOrdinal("Date"));
-                    reader.Dispose();
-                    cmd.Dispose();
-                }
-                else
-                {
-                    reader.Dispose();
-                    cmd.Dispose();
-                }
-            }
-        }
-
-        public void MarkInsuranceAsDiscussed()
-        {
-            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
-            {
-                string _sql = @"UPDATE [dbo].[InsuranceQuery] " + @"SET [Discussed] = 1 " +
-                                  @"WHERE [AccountNumber] = @an";
-
-                var cmd = new SqlCommand(_sql, connection);
-                cmd.Parameters
-                    .Add(new SqlParameter("@an", SqlDbType.NVarChar))
-                    .Value = this.AccountNumber;
-                connection.Open();
-
-                var reader = cmd.ExecuteScalar();
-
-                cmd.Dispose();
-                connection.Close();
-            }
-        }
     }
 }

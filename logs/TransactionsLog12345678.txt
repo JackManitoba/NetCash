@@ -7,3 +7,4 @@ Outgoing||Incoming||Type	||Amount||Date		||Balance
 12345678||	  ||Withrawal	||600	||14/11/2016	||1064	||
 	||12345678||Deposit	||30	||14/11/2016	||1594	||
 	||12345678||Deposit	||200	||14/11/2016	||1264	||
+Account: 12345678 Description:  Transfer to 12345555 Amount: € 5 15/11/2016 04:57:17

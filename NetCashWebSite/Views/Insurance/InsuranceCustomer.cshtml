@@ -1,11 +1,8 @@
 ﻿@model NetCashWebSite.Models.Insurance.InsuranceQuery
 
-@{
-    ViewBag.Title = "InsuranceCustomer";
-}
-
 @section article {
 
+    <h2>Insurance Query</h2>
     @using (Html.BeginForm())
     {
         @Html.ValidationSummary(true, "Application failed. Check your loan application details");

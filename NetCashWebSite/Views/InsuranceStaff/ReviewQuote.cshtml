@@ -1,9 +1,5 @@
 ﻿@model NetCashWebSite.Models.Insurance.InsuranceQuery
 
-@{
-    ViewBag.Title = "ReviewQuote";
-}
-
 @section article{
     <h2>Outstanding Insurance Query</h2>
 
@@ -39,7 +35,6 @@
 </div>
 
     <button id="btnMarkDiscussed" class="btn btn-primary" onclick="location.href='@Url.Action("DiscussInsurance", "InsuranceStaff", Model)'">Mark as discussed</button>
-
 
 }
 

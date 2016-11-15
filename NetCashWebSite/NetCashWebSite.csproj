@@ -204,8 +204,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Models\Statement.cs" />
     <Compile Include="Models\Insurance\Car_Insurance.cs" />
     <Compile Include="Models\Insurance\Home_insurance.cs" />
     <Compile Include="Models\Insurance\IInsuranceStrategy.cs" />

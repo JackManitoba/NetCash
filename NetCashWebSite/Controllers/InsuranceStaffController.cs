@@ -1,5 +1,8 @@
 ﻿using System.Web.Mvc;
 using NetCashWebSite.Models.Insurance;
+using BankingFramework.FacadeClasses;
+using System.Collections.Generic;
+using System;
 
 namespace NetCashWebSite.Controllers
 {
@@ -14,9 +17,17 @@ namespace NetCashWebSite.Controllers
         [HttpPost]
         public ActionResult InsuranceStaffQuery(InsuranceQuery insuranceQuery)
         {
-            if(insuranceQuery.PendingQueryExists())
+            WebSiteFacade webSiteFacade = new WebSiteFacade(insuranceQuery.AccountNumber);
+
+            if (webSiteFacade.PendingInsuranceQueryExists())
             {
-                insuranceQuery.GetInsuranceByAccountNumber();
+                List<string> insuranceProperties = webSiteFacade.GetInsuranceByAccountNumber();
+
+                insuranceQuery.InsuranceTypeChoice = insuranceProperties[0];
+                insuranceQuery.AgeChoice = insuranceProperties[1];
+                insuranceQuery.LocationChoice = insuranceProperties[2];
+                insuranceQuery.DateOfApplication = insuranceProperties[3];
+
                 return View("ReviewQuote", insuranceQuery);
             }
             else
@@ -27,7 +38,9 @@ namespace NetCashWebSite.Controllers
 
         public ActionResult DiscussInsurance(InsuranceQuery insuranceQuery)
         {
-            insuranceQuery.MarkInsuranceAsDiscussed();
+            WebSiteFacade webSiteFacade = new WebSiteFacade(insuranceQuery.AccountNumber);
+
+            webSiteFacade.MarkInsuranceAsDiscussed();
             return View();
         }
     }

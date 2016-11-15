@@ -1,4 +1,5 @@
-﻿using NetCashWebSite.Models.Insurance;
+﻿using BankingFramework.FacadeClasses;
+using NetCashWebSite.Models.Insurance;
 using System.Web.Mvc;
 
 namespace NetCashWebSite.Controllers
@@ -14,13 +15,15 @@ namespace NetCashWebSite.Controllers
         [HttpPost]
         public ActionResult InsuranceCustomer(InsuranceQuery insuranceQuery)
         {
-            if(insuranceQuery.PendingQueryExists(Session["AccountNumber"]))
+            WebSiteFacade webSiteFacade = new WebSiteFacade(Session["AccountNumber"].ToString());
+
+            if (webSiteFacade.PendingInsuranceQueryExists())
             {
                 return View("InsuranceFailure");               
             }
             else
             {
-                insuranceQuery.SubmitApplication(Session["AccountNumber"].ToString());
+                webSiteFacade.SubmitInsuranceQuery(insuranceQuery.InsuranceTypeChoice, insuranceQuery.AgeChoice, insuranceQuery.LocationChoice);
                 insuranceQuery.SetStrategy();
                 insuranceQuery.CalculatePremium();
                 return View("DisplayPremium", insuranceQuery);

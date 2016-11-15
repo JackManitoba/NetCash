@@ -1,17 +1,11 @@
 ﻿@model NetCashWebSite.Models.Staff
 
-@{
-    ViewBag.Title = "Login";
-   // Layout = "/Views/Shared/_StaffLayout.cshtml";
-}
-
 @section article {
 
 
     @using (Html.BeginForm())
     {
         @Html.ValidationSummary(true, "Login failed. Check your login details.");
-
 
         <h2>Staff Login</h2>
             <div class="form-group form-group">
