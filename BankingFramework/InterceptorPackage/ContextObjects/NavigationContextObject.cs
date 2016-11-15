@@ -8,26 +8,31 @@ namespace BankingFramework.InterceptorPackage.ContextObjects
 {
    public class NavigationContextObject : ContextObject
     {
-        string navigationPanelName;
-        public NavigationContextObject(string navpanel) { this.navigationPanelName = navpanel; }
+        private string _navigationPanelName;
+
+        public NavigationContextObject(string navPanelName)
+        {
+            _navigationPanelName = navPanelName;
+        }
+
         public string GetObj()
         {
-            return this.ToString();
+            return ToString();
         }
 
         public string GetShortDescription()
         {
-            return this.navigationPanelName;
+            return _navigationPanelName;
         }
 
         public string GetVerboseDescription()
         {
-            return this.navigationPanelName;
+            return this._navigationPanelName;
         }
 
-        public void service()
+        public void Service()
         {
-            throw new NotImplementedException();
+            //Not Implemented
         }
     }
 }

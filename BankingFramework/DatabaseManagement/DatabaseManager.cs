@@ -25,13 +25,12 @@ namespace BankingFramework.DatabaseManagement
 
         private DatabaseManager() { }
 
-
         public double RetrieveDenominationAmounts(string current)
         {
             double returnValue;
 
-            ClientRequestDispatcher.TheInstance()
-                                   .DispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest("DatabaseManager, retrieveDenominationAmounts()", "Attempt to read ATMCash database"));
+            LoggingInfoDispatcher.TheInstance()
+                                   .DispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteContextObject("DatabaseManager, retrieveDenominationAmounts()", "Attempt to read ATMCash database"));
 
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
@@ -47,6 +46,7 @@ namespace BankingFramework.DatabaseManagement
                 cmd.Dispose();
                 connection.Dispose();
             }
+
             return returnValue;
         }
 
@@ -70,13 +70,12 @@ namespace BankingFramework.DatabaseManagement
             }
 
             return Cancelled;
-
         }
 
         public void UpdateATMCashAmount(string note, double amount)
         {
-            ClientRequestDispatcher.TheInstance()
-                                   .DispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest("DatabaseManager, updateATMPinNumber()", "Attempt to read ATMUsers database"));
+            LoggingInfoDispatcher.TheInstance()
+                                   .DispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteContextObject("DatabaseManager, updateATMPinNumber()", "Attempt to read ATMUsers database"));
 
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
@@ -99,62 +98,59 @@ namespace BankingFramework.DatabaseManagement
 
         internal void AddWithdrawalToDatabase(string originatingAccount, double amount)
         {
-            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(originatingAccount, " Withdrawal ", amount));
+            LoggingInfoDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfoContextObject(originatingAccount, " Withdrawal ", amount));
             writeTransactionToDatabase(originatingAccount,""," Withrawal ", amount);
         }
 
         internal void AddDepositToDatabase(string originatingAccount, double amount)
         {
-            ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(originatingAccount, " Deposit ", amount));
+            LoggingInfoDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfoContextObject(originatingAccount, " Deposit ", amount));
             writeTransactionToDatabase("", originatingAccount, " Deposit ", amount);
         }
        
         internal void AddTransferToDatabase(string originatingAccount, string RecipientAccount, string type, double amount)
         {
-             ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(originatingAccount, " Transfer to " + RecipientAccount, amount));
-             ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(RecipientAccount, "Transfer from " + originatingAccount, amount));
+             LoggingInfoDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfoContextObject(originatingAccount, " Transfer to " + RecipientAccount, amount));
+             LoggingInfoDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfoContextObject(RecipientAccount, "Transfer from " + originatingAccount, amount));
              writeTransactionToDatabase(originatingAccount, RecipientAccount, " Transfer ", amount);
         }
 
         private void writeTransactionToDatabase(string originatingAccountNumber, string recipientAccountNumber, string type, double amount)
         {
             var dateAndTime = DateTime.Now;
+
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"INSERT INTO [dbo].[BankTransactions](Id, OutgoingAccount, IncomingAccount, Type, Amount, Date, OutgoingAccountBalance, IncomingAccountBalance) VALUES (@id, @oa, @ra, @t, @a, @d, @oab, @rab )";
-
                 var cmd = new SqlCommand(_sql, connection);
 
                 cmd.Parameters
                     .Add(new SqlParameter("@id", SqlDbType.UniqueIdentifier))
                     .Value = Guid.NewGuid();
-
                 cmd.Parameters
-                                    .Add(new SqlParameter("@oa", SqlDbType.NVarChar))
-                                    .Value = originatingAccountNumber;
+                    .Add(new SqlParameter("@oa", SqlDbType.NVarChar))
+                    .Value = originatingAccountNumber;
                 cmd.Parameters
-                                    .Add(new SqlParameter("@ra", SqlDbType.NVarChar))
-                                    .Value = recipientAccountNumber;
+                    .Add(new SqlParameter("@ra", SqlDbType.NVarChar))
+                    .Value = recipientAccountNumber;
                 cmd.Parameters
-                                   .Add(new SqlParameter("@oab", SqlDbType.Float))
-                                   .Value = GetAccountBalance(originatingAccountNumber);
+                    .Add(new SqlParameter("@oab", SqlDbType.Float))
+                    .Value = GetAccountBalance(originatingAccountNumber);
                 cmd.Parameters
-                                    .Add(new SqlParameter("@rab", SqlDbType.Float))
-                                    .Value = GetAccountBalance(recipientAccountNumber);
+                    .Add(new SqlParameter("@rab", SqlDbType.Float))
+                     .Value = GetAccountBalance(recipientAccountNumber);
                 cmd.Parameters
-                                     .Add(new SqlParameter("@t", SqlDbType.NVarChar))
-                                     .Value = type;
+                    .Add(new SqlParameter("@t", SqlDbType.NVarChar))
+                    .Value = type;
                 cmd.Parameters
-                                    .Add(new SqlParameter("@a", SqlDbType.Float))
-                                    .Value = amount;
+                    .Add(new SqlParameter("@a", SqlDbType.Float))
+                    .Value = amount;
                 cmd.Parameters
-                                    .Add(new SqlParameter("@d", SqlDbType.NVarChar))//JACK SEE THIS
-                                    .Value = dateAndTime.ToString("dd/MM/yyyy");
+                    .Add(new SqlParameter("@d", SqlDbType.NVarChar))
+                    .Value = dateAndTime.ToString("dd/MM/yyyy");
                 
                 connection.Open();
-
                 cmd.ExecuteScalar();
-
                 cmd.Dispose();
                 connection.Dispose();
             }
@@ -163,8 +159,8 @@ namespace BankingFramework.DatabaseManagement
 
         public void UpdateATMPinNumber(string accountNumber, string newPin)
         {
-            ClientRequestDispatcher.TheInstance()
-                                   .DispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteRequest("DatabaseManager, updateATMPinNumber()", "Attempt to read ATMUsers database"));
+            LoggingInfoDispatcher.TheInstance()
+                                   .DispatchClientRequestInterceptorWriteDatabaseRequest(new DatabaseWriteContextObject("DatabaseManager, updateATMPinNumber()", "Attempt to read ATMUsers database"));
 
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
@@ -190,8 +186,8 @@ namespace BankingFramework.DatabaseManagement
         {
             string accountNumber;
 
-            ClientRequestDispatcher.TheInstance()
-                                   .DispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("DatabaseManager, getAccountByATMCardNumber() method", "Attempt to read ATMUsers database"));
+            LoggingInfoDispatcher.TheInstance()
+                                   .DispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadContextObject("DatabaseManager, getAccountByATMCardNumber() method", "Attempt to read ATMUsers database"));
 
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
@@ -207,16 +203,18 @@ namespace BankingFramework.DatabaseManagement
                 cmd.Dispose();
                 connection.Dispose();
             }
-            Debug.WriteLine("Account number returned was: " + accountNumber);
+
             return accountNumber;
         }
 
 
-        public double GetAccountBalance(string AccountNumber)
+        public double GetAccountBalance(string accountNumber)
         {
             double balance;
-            ClientRequestDispatcher.TheInstance()
-                                   .DispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("DatabaseManager, getAccountBalance() method", "Attempt to read Account database"));
+
+            LoggingInfoDispatcher.TheInstance()
+                                   .DispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadContextObject("DatabaseManager, getAccountBalance() method", "Attempt to read Account database"));
+
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 string _sql = @"SELECT [Balance] From [dbo].[Account] WHERE [AccountNumber] = @a ";
@@ -224,23 +222,23 @@ namespace BankingFramework.DatabaseManagement
 
                 cmd.Parameters
                     .Add(new SqlParameter("@a", SqlDbType.NVarChar))
-                    .Value = AccountNumber;
+                    .Value = accountNumber;
 
                 connection.Open();
                 balance = Convert.ToDouble(cmd.ExecuteScalar());
                 cmd.Dispose();
                 connection.Dispose();
             }
+
             return balance;
         }
 
-
-        public string GetATMAccountPin(string AccountNumber)
+        public string GetATMAccountPin(string accountNumber)
         {
             string pin;
 
-            ClientRequestDispatcher.TheInstance()
-                                   .DispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadRequest("DatabaseManager, getATMAccountPin() method", "Attempt to read ATMUsers database"));
+            LoggingInfoDispatcher.TheInstance()
+                                   .DispatchClientRequestInterceptorReadDatabaseRequest(new DataBaseReadContextObject("DatabaseManager, getATMAccountPin() method", "Attempt to read ATMUsers database"));
 
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
@@ -249,13 +247,14 @@ namespace BankingFramework.DatabaseManagement
 
                 cmd.Parameters
                     .Add(new SqlParameter("@a", SqlDbType.NVarChar))
-                    .Value = AccountNumber;
+                    .Value = accountNumber;
 
                 connection.Open();
                 pin = Convert.ToString(cmd.ExecuteScalar());
                 cmd.Dispose();
                 connection.Dispose();
             }
+
             return pin;
         }
 
@@ -298,22 +297,41 @@ namespace BankingFramework.DatabaseManagement
 
                         if(accountNumber == reader.GetString(DebitAccount))
                         {
-
                             transaction.Add(Convert.ToString(reader.GetDouble(DebitBalance)));
                         }
                         else
                         {
-
                             transaction.Add(Convert.ToString(reader.GetDouble(CreditBalance)));
                         }
 
                         transactionList.Add(transaction);
                     }
                 }
+
                 cmd.Dispose();
                 connection.Dispose();
-
                 return transactionList;
+            }
+        }
+
+        public void UpdateBalance(string accountNumber, double _amount)
+        {
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                string _sql = @"UPDATE [dbo].[Account] Set [Balance]=@b WHERE [AccountNumber] = @a ";
+                var cmd = new SqlCommand(_sql, connection);
+
+                cmd.Parameters
+                    .Add(new SqlParameter("@a", SqlDbType.NVarChar))
+                    .Value = accountNumber;
+                cmd.Parameters
+                    .Add(new SqlParameter("@b", SqlDbType.Float))
+                    .Value = GetAccountBalance(accountNumber) + _amount;
+
+                connection.Open();
+                cmd.ExecuteScalar();
+                cmd.Dispose();
+                connection.Dispose();
             }
         }
     }

@@ -4,7 +4,7 @@ namespace BankingFramework.BankTransactions
    public interface Transaction
     {
         string GetType();
-        int GetAmount();
+        double GetAmount();
 
         void PerformTransaction();
         bool AreFundsAvailable();

@@ -15,13 +15,12 @@ namespace BankingFramework.BankTransactions
     
             _description = description;
             _withdrawalAmount = amount;
-            string accountNumber = account.AccountNumber;
             _withdrawalAccount = account;
         }
 
-        public int GetAmount()
+        public double GetAmount()
         {
-            return Convert.ToInt32(_withdrawalAmount);
+            return _withdrawalAmount;
         }
 
         public new string GetType()
@@ -32,7 +31,7 @@ namespace BankingFramework.BankTransactions
         public void PerformTransaction()
         {
             _withdrawalAccount.DecreaseBalance(_withdrawalAmount);
-            DatabaseManager.GetInstance().AddWithdrawalToDatabase(_withdrawalAccount.AccountNumber, _withdrawalAmount);
+            DatabaseManager.GetInstance().AddWithdrawalToDatabase(_withdrawalAccount.GetAccountNumber(), _withdrawalAmount);
         }
 
         public bool AreFundsAvailable()

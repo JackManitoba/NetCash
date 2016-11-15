@@ -8,66 +8,53 @@ namespace BankingFramework.AccountManager
     {
         public State State;
 
-        [Required]
-        [Display(Name = "Account Number")]
-        public string AccountNumber { get; set; }
+        private string _accountNumber;
+        private double _balance;
 
-        public double Balance { get; set; }
-
-        public Account(string accountnumber)
+        public Account(string accountNumber)
         {
-            AccountNumber = accountnumber;        
-            Balance = GetBalance();
+            _accountNumber = accountNumber;        
+            _balance = GetBalance();
             State = GetState();
         }
 
         public void IncreaseBalance(double transferAmount)
         {
-            State.UpdateAmount(Convert.ToInt32(transferAmount));
+            State.UpdateAmount(transferAmount);
         }
 
         public void DecreaseBalance(double transferAmount)
         {
-            State.UpdateAmount(-Convert.ToInt32(transferAmount));
+            State.UpdateAmount(-transferAmount);
             State.PayInterest(transferAmount);
         }
 
-        private State GetState()
+        public State GetState()
         {
-            if (Balance >= 0.0) return new BalancedState(this);
+            if (_balance >= 0.0) return new BalancedState(this);
             else return new OverdrawnState(this);
         }
 
         public void UpdateAccountBalance()
         {
-            Balance = DatabaseManager.GetInstance().GetAccountBalance(AccountNumber);
+            _balance = DatabaseManager.GetInstance().GetAccountBalance(_accountNumber);
         }
 
-        private double GetBalance()
+        public double GetBalance()
         {
-            DatabaseManager.GetInstance();
-            return DatabaseManager.GetInstance().GetAccountBalance(AccountNumber);
+            return DatabaseManager.GetInstance().GetAccountBalance(_accountNumber);
         }
-
-     /*   public void UpdateAmount(Transaction t)
-        {
-            State.UpdateAmount(t.GetAmount());
-            //DatabaseManager.GetInstance().AddTransactionToDatabase(t);
-            Balance =  GetBalance();     
-        }
-
-        public void UpdateAmount(int amount)
-        {
-            State.UpdateAmount(amount);
-            Balance = GetBalance();     
-        }
-        */
 
         public bool AreFundsAvailable(double amount)
         {
             double balanceWithOverdraft = GetBalance() + 100;
             if (balanceWithOverdraft >= amount) return true;
             else return false;         
+        }
+
+        public string GetAccountNumber()
+        {
+            return _accountNumber;
         }
    }
 }

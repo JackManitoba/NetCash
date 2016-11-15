@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using BankingFramework.DatabaseManagement;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -7,53 +8,32 @@ namespace BankingFramework.AccountManager
 {
     public class OverdrawnState : State
     {
-        private double InterestRate;
+        private double _interestRate;
 
-        public OverdrawnState(State State): this(State.Account)
-        {
-        }
+        public OverdrawnState(State State) : this(State.Account) { }
 
         public OverdrawnState(Account account)
         {
             Account = account;
-            Balance = account.Balance;
-            InterestRate = GetInterestRate();
+            Balance = account.GetBalance();
+            _interestRate = GetInterestRate();
         }
 
         public override void UpdateAmount(double amount)
         {
-            Balance += amount;
-            
-            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
-            {
-                string _sql = @"UPDATE [dbo].[Account] Set [Balance]=@b WHERE [AccountNumber] = @a ";
-
-                var cmd = new SqlCommand(_sql, connection);
-                cmd.Parameters
-                    .Add(new SqlParameter("@a", SqlDbType.NVarChar))
-                    .Value = Account.AccountNumber;
-                cmd.Parameters
-                    .Add(new SqlParameter("@b", SqlDbType.Money))
-                    .Value = Balance;
-
-                connection.Open();
-
-                cmd.ExecuteScalar();
-
-                cmd.Dispose();
-                connection.Dispose();
-            }
+            DatabaseManager.GetInstance().UpdateBalance(Account.GetAccountNumber(), amount);
             StateChangeCheck();
         }
 
-        private double GetInterestRate()
+        public double GetInterestRate()
         {
             return 0.1;
         }
 
         public override void PayInterest(double amount)
         {
-            Balance -= amount * InterestRate;      
+            double interest = amount * _interestRate;
+            DatabaseManager.GetInstance().UpdateBalance(Account.GetAccountNumber(), -interest);
         }
 
         public override void StateChangeCheck()

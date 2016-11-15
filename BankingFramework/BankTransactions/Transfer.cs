@@ -11,18 +11,11 @@ namespace BankingFramework.BankTransactions
         private  Account _incomingTransferAccount;
         private  Account _outgoingTransferAccount;
 
-        public string TargetAccountNumber { get; set; }
-
-        public double TransferAmount { get; set; }
-
-        public string CurrentAccountNumber { get; set; }
-
+        private double _transferAmount;
 
         public Transfer(string accountNumber, string targetAccountNumber, string description, double amount)
         {
-            CurrentAccountNumber = accountNumber;
-            TargetAccountNumber = targetAccountNumber;
-            TransferAmount = amount;
+            _transferAmount = amount;
 
             _incomingTransferAccount = new Account(targetAccountNumber);
             _outgoingTransferAccount = new Account(accountNumber);
@@ -33,24 +26,22 @@ namespace BankingFramework.BankTransactions
             return "Transfer";
         }
 
-        public int GetAmount()
+        public double GetAmount()
         {
-            return Convert.ToInt32(TransferAmount);
+            return _transferAmount;
         }
 
         public void PerformTransaction()
         {
-            //ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(_outgoingTransferAccount, "Transfer to "+_incomingTransferAccount.AccountNumber, Convert.ToInt32(TransferAmount)));
-            _incomingTransferAccount.IncreaseBalance(TransferAmount);
+            _incomingTransferAccount.IncreaseBalance(_transferAmount);
 
-           // ClientRequestDispatcher.TheInstance().DispatchClientRequestInterceptorTransactionAttempt(new TransactionInfo(_incomingTransferAccount, "Transfer from " + _outgoingTransferAccount.AccountNumber, Convert.ToInt32(TransferAmount)));
-            _outgoingTransferAccount.DecreaseBalance(TransferAmount);
-            DatabaseManager.GetInstance().AddTransferToDatabase(_outgoingTransferAccount.AccountNumber, _incomingTransferAccount.AccountNumber, GetType(), TransferAmount);
+            _outgoingTransferAccount.DecreaseBalance(_transferAmount);
+            DatabaseManager.GetInstance().AddTransferToDatabase(_outgoingTransferAccount.GetAccountNumber(), _incomingTransferAccount.GetAccountNumber(), GetType(), _transferAmount);
         }
 
         public bool AreFundsAvailable()
         {
-            return _outgoingTransferAccount.AreFundsAvailable(TransferAmount);
+            return _outgoingTransferAccount.AreFundsAvailable(_transferAmount);
         }
     }
 }

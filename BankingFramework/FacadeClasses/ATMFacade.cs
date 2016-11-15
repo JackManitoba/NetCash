@@ -2,6 +2,8 @@
 using BankingFramework.BankTransactions;
 using BankingFramework.InterceptorPackage.ContextObjects;
 using BankingFramework.InterceptorPackage.Dispatchers;
+using BankingFramework.Statements;
+using System.Collections.Generic;
 
 namespace BankingFramework.FacadeClasses
 {
@@ -9,10 +11,10 @@ namespace BankingFramework.FacadeClasses
     {
         private ATMAccount _atmAccount;
 
-        public ATMFacade(string cardnumber)
+        public ATMFacade(string cardNumber)
         {
-            _atmAccount = new ATMAccount(ATMAccount.GetAccountByCardNumber(cardnumber));
-            _atmAccount.CardNumber = cardnumber;
+            _atmAccount = new ATMAccount(ATMAccount.GetAccountByCardNumber(cardNumber));
+            _atmAccount.SetCardNumber(cardNumber);
         }
 
         public void UpdateAccountPinNumber(string newPin)
@@ -20,15 +22,9 @@ namespace BankingFramework.FacadeClasses
             _atmAccount.UpdatePin(newPin);
         }
 
-        public string GetAccountBalance()
-        {
-            return _atmAccount.Balance.ToString();
-        }
-
         public bool ValidateAccount(string text)
         {
             return _atmAccount.IsValid(text);
-
         }
 
         public void CancelCard(string currentCardNumber)
@@ -42,8 +38,7 @@ namespace BankingFramework.FacadeClasses
 
             if (withdrawal.AreFundsAvailable())
             {
-                withdrawal.PerformTransaction();
-                
+                withdrawal.PerformTransaction();         
             }
         }
 
@@ -62,12 +57,12 @@ namespace BankingFramework.FacadeClasses
         public string ReturnAccountBalance()
         {
             _atmAccount.UpdateAccountBalance();
-            return _atmAccount.Balance.ToString();
+            return _atmAccount.GetBalance().ToString();
         }
 
         public string GetAccountNumber()
         {
-            return _atmAccount.AccountNumber;
+            return _atmAccount.GetAccountNumber();
         }
 
         public static string GetAccountByCardNumber(string currentCardNumber)
@@ -78,6 +73,12 @@ namespace BankingFramework.FacadeClasses
         public bool IsCardCancelled()
         {
             return _atmAccount.IsCardCancelled();
+        }
+
+        public List<List<string>> GetStatement()
+        {
+            Statement statement = new Statement(_atmAccount.GetAccountNumber());
+            return statement.getListOfTransactions();
         }
     }
 }

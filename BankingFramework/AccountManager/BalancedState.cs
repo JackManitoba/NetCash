@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using BankingFramework.InterceptorPackage.Dispatchers;
 using BankingFramework.InterceptorPackage.ContextObjects;
+using BankingFramework.DatabaseManagement;
 
 namespace BankingFramework.AccountManager
 {
@@ -10,48 +11,24 @@ namespace BankingFramework.AccountManager
     {
         private double InterestRate;
 
-        public BalancedState(State state): this(state.Account)
-        {
-          
-        }
+        public BalancedState(State state): this(state.Account) {}
 
         public BalancedState(Account account)
         { 
             this.Account = account;
-            this.Balance = account.Balance;
+            this.Balance = account.GetBalance();
             this.InterestRate = GetInterestRate();
         }
 
         public override void UpdateAmount(double _amount)
         {
-           
-            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
-            {
-                string _sql = @"UPDATE [dbo].[Account] Set [Balance]=@b WHERE [AccountNumber] = @a ";
-
-                var cmd = new SqlCommand(_sql, connection);
-                cmd.Parameters
-                    .Add(new SqlParameter("@a", SqlDbType.NVarChar))
-                    .Value = Account.AccountNumber;
-                cmd.Parameters
-                    .Add(new SqlParameter("@b", SqlDbType.Money))
-                    .Value = this.Account.Balance + _amount;
-
-                connection.Open();
-
-                cmd.ExecuteScalar();
-
-                cmd.Dispose();
-                connection.Dispose();
-               
-            }
-
+            DatabaseManager.GetInstance().UpdateBalance(Account.GetAccountNumber(), _amount);
             StateChangeCheck();
         }
 
         private double GetInterestRate()
         {
-            return 2.00;
+            return 0.0;
         }
 
         public override void PayInterest(double amount)

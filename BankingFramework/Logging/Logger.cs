@@ -2,13 +2,12 @@
 using System;
 using System.IO;
 
-namespace BankingFramework.Utils
+namespace BankingFramework.Logging
 {
     public class Logger
     {   
         internal void LogDatabaseInteractions(string contextInfo)
         {
-            //file2.WriteLine(DateTime.Now.ToString("HH:mm:ss tt")+context.getObj());
             var path = (AppDomain.CurrentDomain.BaseDirectory);
            
             int position = path.IndexOf("NetCash");

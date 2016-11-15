@@ -7,6 +7,6 @@ namespace BankingFramework.InterceptorPackage.ContextObjects
         string GetVerboseDescription();
         string GetShortDescription();
 
-        void service();
+        void Service();
     }
 }

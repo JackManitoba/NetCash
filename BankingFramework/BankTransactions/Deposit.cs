@@ -7,9 +7,7 @@ namespace BankingFramework.BankTransactions
     public class Deposit : Transaction
     {
         private Account _depositAccount;
-
         private double _depositAmount;
-
         private string _description;
 
         public Deposit(Account account, string description, double amount)
@@ -19,9 +17,9 @@ namespace BankingFramework.BankTransactions
             _depositAccount = account;
         }
 
-        public int GetAmount()
+        public double GetAmount()
         {
-            return Convert.ToInt32(_depositAmount);
+            return _depositAmount;
         }
 
         public new string GetType()
@@ -32,7 +30,7 @@ namespace BankingFramework.BankTransactions
         public void PerformTransaction()
         {
             _depositAccount.IncreaseBalance(_depositAmount);
-            DatabaseManager.GetInstance().AddDepositToDatabase(_depositAccount.AccountNumber, _depositAmount);
+            DatabaseManager.GetInstance().AddDepositToDatabase(_depositAccount.GetAccountNumber(), _depositAmount);
         }
 
         public bool AreFundsAvailable()

@@ -1,55 +1,49 @@
-﻿using BankingFramework.Utils;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using System;
+﻿using System.Diagnostics;
 using BankingFramework.DatabaseManagement;
 
 namespace BankingFramework.AccountManager
 {
     public class ATMAccount : Account
     {
-        [Required]
-        [Display(Name = "PIN")]
-        public string Pin { get; set; }
-
-        [Required]
-        [Display(Name = "Card Number")]
-        public string CardNumber { get; set; }
+        private string _pin;
+        private string _cardNumber;
 
         public ATMAccount(string accountNumber) : base(accountNumber)
         {
-            Pin = GetPin();
-            Debug.WriteLine("Account pin: " + Pin);
+            _pin = GetPin();
         }
 
         private string GetPin()
         { 
-            return DatabaseManager.GetInstance().GetATMAccountPin(this.AccountNumber);
+            return DatabaseManager.GetInstance().GetATMAccountPin(GetAccountNumber());
         }
 
         public bool IsCardCancelled()
         {
-            return DatabaseManager.GetInstance().IsCardCancelled(this.CardNumber);
+            return DatabaseManager.GetInstance().IsCardCancelled(_cardNumber);
         }
 
         public bool IsValid(string s)
         {
             string currentPin = GetPin();
-            Debug.WriteLine(s + " ----- " + currentPin);
             if (s == currentPin) return true;
             else return false;
         }
 
          public void UpdatePin(string newPin)
         {
-            DatabaseManager.GetInstance().UpdateATMPinNumber(this.AccountNumber, newPin);
-            Pin = DatabaseManager.GetInstance().GetATMAccountPin(AccountNumber);
-    
+            DatabaseManager.GetInstance().UpdateATMPinNumber(GetAccountNumber(), newPin);
+            _pin = DatabaseManager.GetInstance().GetATMAccountPin(GetAccountNumber());
         }
 
-        public static string GetAccountByCardNumber(string _cardNumber)
+        public static string GetAccountByCardNumber(string cardNumber)
         {
-           return DatabaseManager.GetAccountByATMCardNumber(_cardNumber);
+           return DatabaseManager.GetAccountByATMCardNumber(cardNumber);
         }
+
+        public void SetCardNumber(string cardNumber)
+        {
+            _cardNumber = cardNumber;
+        } 
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
 
 namespace BankingFramework.CardManager
 {
@@ -24,7 +23,6 @@ namespace BankingFramework.CardManager
                 cmd.Dispose();
                 connection.Dispose();
             }
-            Debug.WriteLine("CARD NUMBER : " + cardNumber + " HAS JUST BEEN CANCELLED");
         }
     }
 }

@@ -1,15 +1,14 @@
-﻿using BankingFramework.Utils;
+﻿using BankingFramework.Logging;
 using System;
 
 
 namespace BankingFramework.InterceptorPackage.ContextObjects
 {
-    public class DatabaseWriteRequest : ContextObject
+   public class DataBaseReadContextObject : ContextObject
     {
-        string _source;
-        string _description;
+        private string _source, _description;
 
-        public DatabaseWriteRequest(string source, string description)
+        public DataBaseReadContextObject(string source, string description)
         {
             _source = source;
             _description = description;
@@ -17,12 +16,7 @@ namespace BankingFramework.InterceptorPackage.ContextObjects
 
         public string GetObj()
         {
-            return "DataBaseWriteRequest Object";
-        }
-
-        public string GetSource()
-        {
-            return _source;
+            return "DataBaseReadRequest Object";
         }
 
         public string GetShortDescription()
@@ -35,10 +29,10 @@ namespace BankingFramework.InterceptorPackage.ContextObjects
             return GetObj() + " " + _source + " " + _description + DateTime.Now;
         }
 
-        public void service()
+        public void Service()
         {
             Logger l = new Logger();
             l.LogDatabaseInteractions(this.GetVerboseDescription());
-        }
+        }  
     }
 }

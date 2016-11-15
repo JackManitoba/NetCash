@@ -6,18 +6,18 @@ using System.Diagnostics;
 
 namespace BankingFramework.InterceptorPackage.Dispatchers
 {
-   public  class ClientRequestDispatcher : Dispatcher
+   public  class LoggingInfoDispatcher : Dispatcher
     {
-        protected readonly object _syncRoot = new Object();
-        private static ClientRequestDispatcher _instanciatedObject;
+        private readonly object _syncRoot = new Object();
+        private static LoggingInfoDispatcher _instanciatedObject;
         private List<Interceptor> _interceptorList;
 
-        public ClientRequestDispatcher()
+        public LoggingInfoDispatcher()
         {
             _interceptorList = new List<Interceptor>();
         }
 
-        public void DispatchClientRequestInterceptorReadDatabaseRequest(DataBaseReadRequest context)
+        public void DispatchClientRequestInterceptorReadDatabaseRequest(DataBaseReadContextObject context)
         {
             List<Interceptor> interceptors;
 
@@ -29,14 +29,14 @@ namespace BankingFramework.InterceptorPackage.Dispatchers
 
             for (int i = 0; i < interceptors.Count; ++i)
             {
-                ClientRequestInterceptor ic = (ClientRequestInterceptor)interceptors[i];
+                LoggingInfoInterceptor ic = (LoggingInfoInterceptor)interceptors[i];
 
                 // Dispatch callback hook method.
-                ic.consumeService(context);
+                ic.ConsumeService(context);
             }
         }
 
-        public void DispatchClientRequestInterceptorWriteDatabaseRequest(DatabaseWriteRequest context)
+        public void DispatchClientRequestInterceptorWriteDatabaseRequest(DatabaseWriteContextObject context)
         {
             List<Interceptor> interceptors;
 
@@ -48,14 +48,14 @@ namespace BankingFramework.InterceptorPackage.Dispatchers
 
             for (int i = 0; i < interceptors.Count; ++i)
             {
-                ClientRequestInterceptor ic = (ClientRequestInterceptor)interceptors[i];
+                LoggingInfoInterceptor ic = (LoggingInfoInterceptor)interceptors[i];
 
                 // Dispatch callback hook method.
-                ic.consumeService(context);
+                ic.ConsumeService(context);
             }
         }
 
-        public void DispatchClientRequestInterceptorTransactionAttempt(TransactionInfo context)
+        public void DispatchClientRequestInterceptorTransactionAttempt(TransactionInfoContextObject context)
         {
             List<Interceptor> interceptors;
 
@@ -67,21 +67,21 @@ namespace BankingFramework.InterceptorPackage.Dispatchers
 
             for (int i = 0; i < interceptors.Count; ++i)
             {
-                ClientRequestInterceptor ic = (ClientRequestInterceptor)interceptors[i];
+                LoggingInfoInterceptor ic = (LoggingInfoInterceptor)interceptors[i];
 
                 // Dispatch callback hook method.
-                ic.consumeService(context);
+                ic.ConsumeService(context);
             }
         }
 
-        public static ClientRequestDispatcher TheInstance()
+        public static LoggingInfoDispatcher TheInstance()
         {
             if (_instanciatedObject == null)
             {
                 Debug.WriteLine("Creating new ClientRequestDispatcher");
 
                 //creating new Instanciated ClientRequestDispatcher
-                _instanciatedObject = new ClientRequestDispatcher();
+                _instanciatedObject = new LoggingInfoDispatcher();
                 return _instanciatedObject;
             }
             else

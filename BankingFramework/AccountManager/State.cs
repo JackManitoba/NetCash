@@ -4,11 +4,9 @@ namespace BankingFramework.AccountManager
 {
     public abstract class State
     {
-        public Account Account { get; set; }
-        public double Balance { get; set; }
-
+        public Account Account;
+        public double Balance;
         protected double Interest;
-
         protected DateTime LastInterestPaid;
         
         public abstract void PayInterest(double amount);

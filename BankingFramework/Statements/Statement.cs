@@ -9,12 +9,8 @@ namespace BankingFramework.Statements
 {
     public class Statement
     {
-        //Order of items in each list:
-        //DebitAccount, CreditAccount, Type, Amount, Date, DebitBalance, CreditBalance
-        //this is the same as the order in the database Table BankTransactions
         private List<List<string>> _listOfTransactions;
         private DatabaseManager _databaseManager;
-
 
         public Statement(string accountNumber)
         {

@@ -22,14 +22,13 @@ namespace BankingFramework.FacadeClasses
 
         public void PerformTransaction(string targetAccountNumber, double transferAmount)
         {   
-            Transaction transfer = new Transfer(_account.AccountNumber, targetAccountNumber, "TRANSFER", transferAmount);
+            Transaction transfer = new Transfer(_account.GetAccountNumber(), targetAccountNumber, "TRANSFER", transferAmount);
             transfer.PerformTransaction();
         }
 
         public List<List<string>> GetStatement()
         {
-            Statement statement = new Statement(_account.AccountNumber);
-
+            Statement statement = new Statement(_account.GetAccountNumber());
             return statement.getListOfTransactions();
         }
     }

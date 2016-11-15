@@ -4,6 +4,6 @@ namespace BankingFramework.InterceptorPackage.Interceptors
 {
     public interface Interceptor
     {
-        void consumeService(ContextObject e);
+        void ConsumeService(ContextObject e);
     }
 }
