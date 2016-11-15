@@ -21,18 +21,20 @@ namespace BankingFramework.AccountManager
         public void IncreaseBalance(double transferAmount)
         {
             State.UpdateAmount(transferAmount);
+            StateChangeCheck();
         }
 
         public void DecreaseBalance(double transferAmount)
         {
             State.UpdateAmount(-transferAmount);
             State.PayInterest(transferAmount);
+            StateChangeCheck();
         }
 
         public State GetState()
         {
-            if (_balance >= 0.0) return new BalancedState(this);
-            else return new OverdrawnState(this);
+            if (_balance >= 0.0) return new BalancedState(_accountNumber);
+            else return new OverdrawnState(_accountNumber);
         }
 
         public void UpdateAccountBalance()
@@ -56,5 +58,13 @@ namespace BankingFramework.AccountManager
         {
             return _accountNumber;
         }
-   }
+
+        public void StateChangeCheck()
+        {
+            if (_balance > 0.0)
+            {
+                State = new OverdrawnState(_accountNumber);
+            }
+        }
+    }
 }

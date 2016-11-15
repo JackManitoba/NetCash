@@ -10,19 +10,16 @@ namespace BankingFramework.AccountManager
     {
         private double _interestRate;
 
-        public OverdrawnState(State State) : this(State.Account) { }
-
-        public OverdrawnState(Account account)
+        public OverdrawnState(string accountNumber)
         {
-            Account = account;
-            Balance = account.GetBalance();
+            _accountNumber = accountNumber;
             _interestRate = GetInterestRate();
         }
 
         public override void UpdateAmount(double amount)
         {
-            DatabaseManager.GetInstance().UpdateBalance(Account.GetAccountNumber(), amount);
-            StateChangeCheck();
+            DatabaseManager.GetInstance().UpdateBalance(_accountNumber, amount);
+
         }
 
         public double GetInterestRate()
@@ -33,15 +30,7 @@ namespace BankingFramework.AccountManager
         public override void PayInterest(double amount)
         {
             double interest = amount * _interestRate;
-            DatabaseManager.GetInstance().UpdateBalance(Account.GetAccountNumber(), -interest);
-        }
-
-        public override void StateChangeCheck()
-        {
-            if (Balance > 0.0)
-            {
-                Account.State = new OverdrawnState(this);
-            }
+            DatabaseManager.GetInstance().UpdateBalance(_accountNumber, -interest);
         }
     }
 }
